@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 // Public Route //
 Route::post('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
 
-// Protected Route 
+// Protected Route
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
 });
