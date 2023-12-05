@@ -24,6 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'link',
+        'image',
+        'remember_token'
     ];
 
     /**
@@ -55,5 +59,5 @@ class User extends Authenticatable
         ]);
         return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
-   
+
 }
