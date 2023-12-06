@@ -27,6 +27,8 @@ class User extends Authenticatable
         'phone',
         'link',
         'image',
+        'otp',
+        'is_verified',
         'remember_token'
     ];
 

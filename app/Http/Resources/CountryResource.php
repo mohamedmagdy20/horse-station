@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class CountryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,8 @@ class UserResource extends JsonResource
     {
         return [
             'name'=>$this->name,
-            'email'=>$this->email,
-            'phone'=>$this->phone,
-            'image'=>$this->image != null ? asset('uploads/users/'.$this->image) : asset('default.png'),
-            'link'=>$this->link,
-            'token'=>$this->token
+            'image'=>asset('countries/'.$this->logo),
+            'sign'=>$this->sign
         ];
     }
 }

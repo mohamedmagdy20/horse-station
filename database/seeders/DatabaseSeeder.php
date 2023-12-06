@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
             'phone'=>'201066018340',
             'password'=>Hash::make(123456)
         ]);
+
+        
     }
 }
