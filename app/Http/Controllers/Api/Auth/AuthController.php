@@ -10,6 +10,8 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Utils\SMS;
+use Exception;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,21 +73,45 @@ class AuthController extends Controller
             $data =  $request->all();
             $data['password'] = Hash::make($request->password);
             $data['remember_token'] = Str::random(64);
+            $data['otp']  = $this->generateOtp();
              // add user to database if it doesnot exist
             $user = User::create($data);
-            return response()->json([
-                'status'         => 200,
-                'message'        => $request->name . ' ' .'added succesfully',
-                'remember_token' => $user->remember_token
-            ],200);
+            // Send Sms Otp 
+            try{
+                $message =  'Your Otp is'.$user->otp;
+                $sms = SMS::sendSms($user->phone,$message); 
+                return response()->json([
+                    'status'  => 200,
+                    'message' => 'SMS Sent',
+                    'data'   => NULL
+                ],200);
+            }catch(Exception $e )
+            {
+                return response()->json([
+                    'status'      => 500,
+                    'message'     => $e->getMessage(),
+                    'access_token'=> null
+                 ],500);  
+
+            } 
         }
         // if user Already exsit
         else{
-            return response()->json([
-                 'status'  => 404,
-                 'message' => "This User Already exsit",
-                 'data'    => NULL
-            ],404);
+            $user = $this->model->where('phone',$request->phone)->first();
+            if($user->is_verified == false)
+            {
+                return response()->json([
+                    'status'  => 400,
+                    'message' => "Account Already exist but Not verified",
+                    'data'    => $user->phone
+               ],400);
+            }else{
+                return response()->json([
+                    'status'  => 400,
+                    'message' => "Account Already exsit",
+                    'data'    => NULL
+               ],400);
+            }
         }
     }
 
@@ -99,6 +125,73 @@ class AuthController extends Controller
             'status'=>200,
             'message'=>'Successfully Logout'
         ], 200);
+    }
+
+    public function verify(Request $request)
+    {
+        $user = $this->model->where('otp',$request->otp)->first();
+        if($user)
+        {
+            $user->update([
+                'is_verified'=>true,
+                'otp'=>null
+            ]);
+            $user['token'] = $user->createToken('user Token')->plainTextToken;
+            return response()->json([
+                'status'  => 200,
+                'message' => 'Account Verified',
+                'data'   => new UserResource($user)
+            ],200);  
+        }else{
+            return response()->json([
+                'status'  => 400,
+                'message' => 'Invaild OTP',
+                'data'   => NULL
+            ],400);    
+        }
+    }
+
+
+    public function resend(Request $request)
+    {
+        $otp = $this->generateOtp();
+        $user = User::where('phone',$request->phone)->first();
+        if($user)
+        {
+            $user->update([
+                'otp'=>$otp,
+            ]);
+            try{
+                $message =  'Your Otp is'.$user->otp;
+                $sms = SMS::sendSms($user->phone,$message); 
+                return response()->json([
+                    'status'  => 200,
+                    'message' => 'SMS Sent',
+                    'data'   => NULL
+                ],200);
+            }catch(Exception $e )
+            {
+                
+                return response()->json([
+                    'status'      => 500,
+                    'message'     => $e->getMessage(),
+                    'data'=> null
+                 ],500);  
+                
+            }
+           
+        }else{
+            return response()->json([
+                'status'  => 404,
+                'message' => 'User Not Found',
+                'data'   => NULL
+            ],404);    
+        }
+}
+    private function generateOtp()
+    {
+        $otp = rand(10000,99999);
+        return $otp;
     }
 
 }

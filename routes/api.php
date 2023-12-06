@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\CountryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 // Public Route //
 Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
+Route::post('verify',[AuthController::class,'verify']);
+Route::post('resend',[AuthController::class,'resend']);
+
+Route::get('countries',[CountryController::class,'index']);
+
+
 
 // Protected Route
 Route::group(['middleware'=>'auth:sanctum'],function(){

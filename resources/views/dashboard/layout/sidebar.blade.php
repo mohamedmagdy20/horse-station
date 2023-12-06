@@ -27,6 +27,20 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{route('admin.country.index')}}" class="waves-effect">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Countries</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('admin.category.index')}}" class="waves-effect">
+                        <i class="ri-creative-commons-line"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
