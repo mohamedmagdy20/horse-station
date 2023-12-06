@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::post('verify',[AuthController::class,'verify']);
 Route::post('resend',[AuthController::class,'resend']);
 
 Route::get('countries',[CountryController::class,'index']);
+Route::get('main-category',[CategoryController::class,'getMainCategory']);
 
 
 
