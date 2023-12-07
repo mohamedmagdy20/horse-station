@@ -76,10 +76,10 @@ class AuthController extends Controller
             $data['otp']  = $this->generateOtp();
              // add user to database if it doesnot exist
             $user = User::create($data);
-            // Send Sms Otp 
+            // Send Sms Otp
             try{
                 $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message); 
+                $sms = SMS::sendSms($user->phone,$message);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
@@ -91,9 +91,9 @@ class AuthController extends Controller
                     'status'      => 500,
                     'message'     => $e->getMessage(),
                     'access_token'=> null
-                 ],500);  
+                 ],500);
 
-            } 
+            }
         }
         // if user Already exsit
         else{
@@ -141,13 +141,13 @@ class AuthController extends Controller
                 'status'  => 200,
                 'message' => 'Account Verified',
                 'data'   => new UserResource($user)
-            ],200);  
+            ],200);
         }else{
             return response()->json([
                 'status'  => 400,
                 'message' => 'Invaild OTP',
                 'data'   => NULL
-            ],400);    
+            ],400);
         }
     }
 
@@ -163,7 +163,7 @@ class AuthController extends Controller
             ]);
             try{
                 $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message); 
+                $sms = SMS::sendSms($user->phone,$message);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
@@ -171,23 +171,62 @@ class AuthController extends Controller
                 ],200);
             }catch(Exception $e )
             {
-                
+
                 return response()->json([
                     'status'      => 500,
                     'message'     => $e->getMessage(),
                     'data'=> null
-                 ],500);  
-                
+                 ],500);
+
             }
-           
+
         }else{
             return response()->json([
                 'status'  => 404,
                 'message' => 'User Not Found',
                 'data'   => NULL
-            ],404);    
+            ],404);
         }
 }
+    public function EditProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'     => 'string',
+            'name'      => 'required|string',
+            'phone'     => 'required|string',
+            'link'      => 'required|string',
+            'password'  => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return response()->json($errors);
+        }
+        $user = auth()->user()->id;
+        $Code = User::find($user);
+    if ($Code) {
+        $Code->update([
+            'email'     => $request->email,
+            'name'      => $request->name,
+            'phone'     => $request->phone,
+            'link'      => $request->city,
+            'password'  => Hash::make($request->password),
+        ]);
+        return response()->json([
+            'status'  => 200,
+            "message" => 'Profile Updated Successfully',
+            'data'    => new UserResource($Code)
+            // UserResource::collection($CODE)
+        ]);
+    }
+    else{
+        return response()->json([
+            'ERROR'  => 404,
+            "message" => 'THIS ID NOT FOUND',
+            'data' => null
+        ]);
+    }
+    }
+
     private function generateOtp()
     {
         $otp = rand(10000,99999);
