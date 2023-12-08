@@ -226,7 +226,6 @@ class AuthController extends Controller
         ]);
     }
     }
-
     private function generateOtp()
     {
         $otp = rand(10000,99999);
