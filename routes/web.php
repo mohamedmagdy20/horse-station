@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Admin\AdminController;
+use App\Http\Controllers\Dashboard\AdvertismentController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\HomeController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Dashboard\PlanController;
 
 use App\Http\Controllers\Dashboard\ProductController;
 
+use App\Http\Controllers\Dashboard\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,6 +73,20 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('delete/{id}','delete')->name('admin.product.delete');
         Route::post('update/{id}','update')->name('admin.product.update');
         Route::post('store','store')->name('admin.product.store');
+    });
+
+    
+    Route::group(['prefix'=>'users','controller'=>UserController::class],function(){
+        Route::get('/','index')->name('admin.user.index');
+        Route::get('edit/{id}','edit')->name('admin.user.edit');
+        Route::post('update/{id}','update')->name('admin.user.update');
+        Route::get('toggle-data','toggleData')->name('admin.user.toggle');
+    });
+
+    Route::group(['prefix'=>'advertisment','controller'=>AdvertismentController::class],function(){
+        Route::get('/','index')->name('admin.advertisment.index');
+        Route::get('show/{id}','show')->name('admin.advertisment.show');
+
     });
     
 
