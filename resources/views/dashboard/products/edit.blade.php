@@ -83,6 +83,7 @@
 
 
                 
+                
                 <div class="col-md-6 mb-4">
                     <label>Deliver Days</label> 
                     <input type="number" required name="deliver_time" value="{{$data->deliver_time}}" class="form-control" id="">
