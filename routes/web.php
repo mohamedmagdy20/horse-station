@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,16 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('delete/{id}','delete')->name('admin.category.delete');
         Route::post('update/{id}','update')->name('admin.category.update');
         Route::post('store','store')->name('admin.category.store');
+    });
+    
+
+    Route::group(['prefix'=>'products','controller'=>ProductController::class],function(){
+        Route::get('/','index')->name('admin.product.index');
+        Route::get('create','create')->name('admin.product.create');
+        Route::get('edit/{id}','edit')->name('admin.product.edit');
+        Route::get('delete/{id}','delete')->name('admin.product.delete');
+        Route::post('update/{id}','update')->name('admin.product.update');
+        Route::post('store','store')->name('admin.product.store');
     });
     
 });
