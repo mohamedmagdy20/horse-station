@@ -16,9 +16,9 @@ return new class extends Migration
             $table->text('images')->nullable();
             $table->text('videos')->nullable();
             $table->string('location')->nullable();
+            $table->boolean('status')->default(0);
             $table->bigInteger('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');            
-          
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
