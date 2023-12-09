@@ -41,6 +41,7 @@
                     </a>
                 </li>
 
+
                 <li>
                     <a href="{{route('admin.plan.index')}}" class="waves-effect">
                         <i class="ri-creative-commons-line"></i>
@@ -52,6 +53,13 @@
                     <a href="{{route('admin.admin.index')}}" class="waves-effect">
                         <i class="ri-creative-commons-line"></i>
                         <span>Admins</span>
+
+                
+                <li>
+                    <a href="{{route('admin.product.index')}}" class="waves-effect">
+                        <i class="ri-creative-commons-line"></i>
+                        <span>Products</span>
+
                     </a>
                 </li>
 
