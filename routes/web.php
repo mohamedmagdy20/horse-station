@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\PlanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,13 +34,28 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::group(['prefix'=>'category','controller'=>CategoryController::class],function(){
         Route::get('/','index')->name('admin.category.index');
         Route::get('create','create')->name('admin.category.create');
-
         Route::get('edit/{id}','edit')->name('admin.category.edit');
         Route::get('delete/{id}','delete')->name('admin.category.delete');
         Route::post('update/{id}','update')->name('admin.category.update');
         Route::post('store','store')->name('admin.category.store');
     });
-    
+    Route::group(['prefix'=>'plan','controller'=>PlanController::class],function(){
+        Route::get('/','index')->name('admin.plan.index');
+        Route::get('create','create')->name('admin.plan.create');
+        Route::get('edit/{id}','edit')->name('admin.plan.edit');
+        Route::get('delete/{id}','delete')->name('admin.plan.delete');
+        Route::post('update/{id}','update')->name('admin.plan.update');
+        Route::post('store','store')->name('admin.plan.store');
+    });
+    Route::group(['prefix'=>'admin','controller'=>AdminController::class],function(){
+        Route::get('/','index')->name('admin.admin.index');
+        Route::get('create','create')->name('admin.admin.create');
+        Route::get('edit/{id}','edit')->name('admin.admin.edit');
+        Route::get('delete/{id}','delete')->name('admin.admin.delete');
+        Route::post('update/{id}','update')->name('admin.admin.update');
+        Route::post('store','store')->name('admin.admin.store');
+    });
+
 });
 Route::get('/', function () {
     return view('welcome');

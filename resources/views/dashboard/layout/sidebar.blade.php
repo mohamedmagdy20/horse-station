@@ -41,6 +41,20 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{route('admin.plan.index')}}" class="waves-effect">
+                        <i class="ri-creative-commons-line"></i>
+                        <span>Plans</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('admin.admin.index')}}" class="waves-effect">
+                        <i class="ri-creative-commons-line"></i>
+                        <span>Admins</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <!-- Sidebar -->

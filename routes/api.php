@@ -21,14 +21,12 @@ Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
 Route::post('verify',[AuthController::class,'verify']);
 Route::post('resend',[AuthController::class,'resend']);
-
 Route::get('countries',[CountryController::class,'index']);
-
-
-
 // Protected Route
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
+    Route::post('edit-profile',[AuthController::class,'EditProfile']);
+
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
