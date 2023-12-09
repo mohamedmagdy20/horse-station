@@ -44,22 +44,37 @@
 
                 <li>
                     <a href="{{route('admin.plan.index')}}" class="waves-effect">
-                        <i class="ri-creative-commons-line"></i>
+                        <i class="ri-building-3-line"></i>
                         <span>Plans</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{route('admin.admin.index')}}" class="waves-effect">
-                        <i class="ri-creative-commons-line"></i>
+                        <i class="ri-account-circle-line"></i>
                         <span>Admins</span>
-                     </a>
+                    </a>
                 </li>
+
+                <li>
+                    <a href="{{route('admin.user.index')}}" class="waves-effect">
+                        <i class="ri-account-circle-line"></i>
+                        <span>Users</span>
+                    </a>
+                     
+                </li>
+                
                 <li>
                     <a href="{{route('admin.product.index')}}" class="waves-effect">
-                        <i class="ri-creative-commons-line"></i>
+                        <i class="ri-product-hunt-line"></i>
                         <span>Products</span>
+                    </a>
+                </li>
 
+                <li>
+                    <a href="{{route('admin.advertisment.index')}}" class="waves-effect">
+                        <i class="ri-advertisement-line"></i>
+                        <span>Advertisments</span>
                     </a>
                 </li>
                 <li>
@@ -68,7 +83,6 @@
                         <span>Camps</span>
                     </a>
                 </li>
-
             </ul>
         </div>
         <!-- Sidebar -->
