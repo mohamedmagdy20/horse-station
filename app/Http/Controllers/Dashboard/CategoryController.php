@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
 use App\Http\Traits\FilesTrait;
 use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class CategoryController extends Controller
 {
@@ -95,4 +97,18 @@ class CategoryController extends Controller
          $data->delete();    
          return redirect()->back()->with('success','Deleted');
      }
+
+
+    //  Api Methods 
+
+    public function getMainCategory(Request $request)
+    {
+        App::setLocale($request->header('locale'));
+        $data = $this->model->whereNull('parent_id')->get();
+        return response()->json([
+            'data'=>CategoryResource::collection($data),
+            'status'=>200,
+            'message'=>'Success'
+        ]);
+    }
 }
