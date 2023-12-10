@@ -61,7 +61,9 @@
                         <i class="ri-account-circle-line"></i>
                         <span>Users</span>
                     </a>
+                     
                 </li>
+                
                 <li>
                     <a href="{{route('admin.product.index')}}" class="waves-effect">
                         <i class="ri-product-hunt-line"></i>
@@ -75,7 +77,12 @@
                         <span>Advertisments</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="{{route('admin.camp.index')}}" class="waves-effect">
+                        <i class="ri-creative-commons-line"></i>
+                        <span>Camps</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->
