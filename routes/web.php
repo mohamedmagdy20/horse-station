@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\AdvertismentController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PlanController;
 use App\Http\Controllers\Dashboard\ProductController;
 
@@ -34,6 +35,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('edit/{id}','edit')->name('admin.country.edit');
         Route::get('delete/{id}','delete')->name('admin.country.delete');
         Route::post('update/{id}','update')->name('admin.country.update');
+        Route::get('update-currency','updateCurrency')->name('admin.country.update-currency');
+
     });
 
     Route::group(['prefix'=>'category','controller'=>CategoryController::class],function(){
@@ -76,12 +79,14 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('edit/{id}','edit')->name('admin.user.edit');
         Route::post('update/{id}','update')->name('admin.user.update');
         Route::get('toggle-data','toggleData')->name('admin.user.toggle');
+        Route::get('show/{id}','show')->name('admin.user.show');
+
     });
 
     Route::group(['prefix'=>'advertisment','controller'=>AdvertismentController::class],function(){
         Route::get('/','index')->name('admin.advertisment.index');
         Route::get('show/{id}','show')->name('admin.advertisment.show');
-
+        Route::get('toggle-data','toggleActive')->name('admin.advertisment.toggle');
     });
     
 
@@ -89,6 +94,13 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('/','index')->name('admin.camp.index');
         Route::post('update-status','update')->name('admin.camp.update');
     });
+
+    
+    Route::group(['prefix'=>'order','controller'=>OrderController::class],function(){
+        Route::get('/','index')->name('admin.order.index');
+        Route::get('show/{id}','show')->name('admin.order.show');
+    });
+    
 });
 Route::get('/', function () {
     return view('welcome');

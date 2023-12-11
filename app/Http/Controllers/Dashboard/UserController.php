@@ -26,6 +26,12 @@ class UserController extends Controller
         return view('dashboard.users.index',['data'=>$data]);
     }
 
+    public function show($id)
+    {
+        $data = $this->model->withTrashed()->findOrFail($id);
+        return view('dashboard.users.show',['data'=>$data]);
+    }
+
     public function edit($id)
     {
         $data  =$this->model->withTrashed()->findOrFail($id);

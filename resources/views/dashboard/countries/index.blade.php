@@ -32,6 +32,7 @@
                             <th>Name in English</th>
                             <th>Name in Arabic</th>
                             <th>Sign</th>
+                            <th>Price in KWD</th>
                            <th>Action</th>
                         </tr>
                     </thead>
@@ -45,6 +46,8 @@
                             <td>{{$item['name:en']}}</td>
                             <td>{{$item['name:ar']}}</td>
                             <td>{{$item->sign}}</td>
+                            <td><input type="number" value="{{$item->currency}}" class="form-control" onchange="updateCurrency( event , {{$item->id}})" ></td>
+
                              <td>
                                 <a href="{{route('admin.country.edit',$item->id)}}" class="btn btn-primary"><i class="fa fa-pen"></i></a>
                                 <a href="{{route('admin.country.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>
@@ -66,4 +69,27 @@
 <script>
     $('#datatable-buttons').DataTable();
 </script>
+<script>
+    function updateCurrency(e, id)
+    {
+        currency = e.target.value
+        // console.log(currency);
+    
+        $.ajax({
+            type: 'GET',
+            url: "{{route('admin.country.update-currency')}}",
+            data: {id:id , currency:currency},
+            dataType: 'JSON',
+            success: function (results) {
+                toastr.success('Done', 'success');
+            },
+            error:function(result){
+                console.log(result);
+                toastr.error('Error Accure', 'Error');  
+
+            }
+        });
+    }
+</script>
+
 @endsection

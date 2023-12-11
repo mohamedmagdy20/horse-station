@@ -38,6 +38,7 @@
                             <th>Advertisment Type</th>
                             <th>Plan</th>
                             <th>Phone</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -64,9 +65,11 @@
                             </td>
                             <td>{{$item->plan->name}}</td>
                             <td>{{$item->phone}}</td>
+                            <td>
+                                <input type="checkbox" id="switch1" switch="none" onchange="toggleData({{$item->id}})" {{$item->is_active == true ? 'checked' : ''}}  />
+                                <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                            </td>
                          <td>
-                            <a class="btn btn-danger text-bold">X</a>        
-                            <a class="btn btn-success"><i class="fa fa-check"></i></a>  
                             <a href="{{route('admin.advertisment.show',$item->id)}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
                          </td>
                         </tr>
@@ -85,5 +88,23 @@
 @section('scripts')
 <script>
     $('#datatable-buttons').DataTable();
+</script>
+<script>
+    function toggleData(id)
+    {
+        $.ajax({
+            type: 'GET',
+            url: "{{route('admin.advertisment.toggle')}}",
+            data: {id:id},
+            dataType: 'JSON',
+            success: function (results) {
+                toastr.success('Done', 'success');
+            },
+            error:function(result){
+                console.log(result);
+                toastr.error('Error Accure', 'Error');  
+            }
+        });
+    }
 </script>
 @endsection

@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\App;
 
 class CategoryController extends Controller
 {
-    //
-     //
      use FilesTrait;
      public $model;
      public function __construct(Category $model)

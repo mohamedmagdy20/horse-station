@@ -28,5 +28,23 @@ class AdvertismentController extends Controller
         return view('dashboard.advertisments.show',['data'=>$data]);
     }
 
+    public function toggleActive(Request $request)
+    {
+        $data = $this->model->withTrashed()->find($request->id);
+        if($data->is_active == false)
+        {
+            $data->is_active = true;
+            $data->save();
 
+            // Send Notification For Abrove //
+
+        }else{
+            $data->is_active = false;
+            $data->save();
+        }
+        return response()->json([
+            'status'=>true,
+            'message'=>'Success'
+        ]);
+    }
 }

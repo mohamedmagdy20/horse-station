@@ -36,4 +36,9 @@ class Product extends Model implements TranslatableContract
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function order()
+    {
+        return $this->belongsToMany(Order::class,'order_items');
+    }
 }

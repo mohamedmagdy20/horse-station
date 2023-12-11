@@ -64,4 +64,14 @@ class CountryController extends Controller
         $data->delete();    
         return redirect()->back()->with('success','Deleted');
     }
+
+
+    public function updateCurrency(Request $request)
+    {
+        $data = $this->model->find($request->id);
+        $data->update([
+            'currency'=>$request->currency
+        ]);
+        return response(['status'=>200,'message'=>'Successfully Updated']);
+    }
 }

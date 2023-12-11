@@ -22,6 +22,8 @@ class Advertisment extends Model implements TranslatableContract
         'price',
         'location',
         'category_id',
+        'is_active',
+        'user_id',
         'plan_id',
         'age',
         'phone',
@@ -43,5 +45,10 @@ class Advertisment extends Model implements TranslatableContract
     public function plan()
     {
         return $this->belongsTo(Plan::class , 'plan_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class , 'user_id');
     }
 }

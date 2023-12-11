@@ -33,6 +33,22 @@ class User extends Authenticatable
         'remember_token'
     ];
 
+    public function address()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function advertisment()
+    {
+        return $this->hasMany(Advertisment::class);
+    }
+
+
+    public function order()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

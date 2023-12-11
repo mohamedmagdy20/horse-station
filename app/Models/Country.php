@@ -16,7 +16,8 @@ class Country extends Model implements TranslatableContract
 
     protected $fillable = [
         'logo',
-        'sign'
+        'sign',
+        'currency'
     ];
 
 }

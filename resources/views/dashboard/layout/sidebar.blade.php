@@ -71,6 +71,14 @@
                     </a>
                 </li>
 
+
+                
+                <li>
+                    <a href="{{route('admin.order.index')}}" class="waves-effect">
+                        <i class="ri-money-dollar-box-line"></i>
+                        <span>Orders</span>
+                    </a>
+                </li>
                 <li>
                     <a href="{{route('admin.advertisment.index')}}" class="waves-effect">
                         <i class="ri-advertisement-line"></i>

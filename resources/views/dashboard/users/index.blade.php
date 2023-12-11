@@ -63,6 +63,7 @@
                             </td>
                              <td>
                                 <a href="{{route('admin.user.edit',$item->id)}}" class="btn btn-info"><i class="fa fa-pen"></i></a>
+                                <a href="{{route('admin.user.show',$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                             </td>
                         </tr>
                     @endforeach
