@@ -51,4 +51,34 @@ class Advertisment extends Model implements TranslatableContract
     {
         return $this->belongsTo(User::class , 'user_id');
     }
+
+     public function getPriceInCurrency($currencySign , $price)
+     {
+         $currency = Country::where('sign', $currencySign)->first();
+         if (!$currency) {
+             throw new \Exception("Currency not supported");
+         }
+         $convertedPrice = $price / $currency->currency;
+         return $convertedPrice;
+     }
+
+     public function scopeFilter($query, $params)
+     {
+         
+         if(isset($params['category_id']))
+         {
+             $query->where('category_id',$params['category_id']);
+         }
+ 
+         if(isset($params['type']))
+         {
+             $query->where('type',$params['type']);
+         }
+ 
+         if(isset($params['ads_type']))
+         {
+             $query->where('type',$params['ads_type']);
+         }
+     }
+ 
 }

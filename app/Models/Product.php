@@ -41,4 +41,17 @@ class Product extends Model implements TranslatableContract
     {
         return $this->belongsToMany(Order::class,'order_items');
     }
+
+
+    public function getPriceInCurrency($currencySign , $price)
+    {
+        $currency = Country::where('sign', $currencySign)->first();
+        if (!$currency) {
+            throw new \Exception("Currency not supported");
+        }
+        $convertedPrice = $price / $currency->currency;
+        return $convertedPrice;
+    }
+
+   
 }

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class CampResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class CategoryResource extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'image'=>$this->images == null ? asset('uploads/camps/'.$this->images[0]) : asset('default.png'),
             'name'=>$this->name,
-            'image'=>asset('uploads/categories/'.$this->image),       
+            'category'=>optional($this->category)->name
         ];
     }
 }

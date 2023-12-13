@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\AdvertismentController;
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +25,16 @@ Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
 Route::post('verify',[AuthController::class,'verify']);
 Route::post('resend',[AuthController::class,'resend']);
+
+
 Route::get('countries',[CountryController::class,'index']);
 Route::get('main-category',[CategoryController::class,'getMainCategory']);
+Route::get('featured-product',[ProductController::class,'featuredProduct']);
+Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
+Route::get('advertisments',[AdvertismentController::class,'index']);
+Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
+Route::get('product/{id}',[ProductController::class,'show']);
+Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 
 
 // Protected Route

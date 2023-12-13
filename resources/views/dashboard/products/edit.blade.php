@@ -8,13 +8,13 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-            <h4 class="mb-sm-0">Add Products</h4>
+            <h4 class="mb-sm-0">Edit Products</h4>
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="{{ route('admin') }}">DashBoard</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('admin.product.index') }}">Products</a>
                     </li>
-                    <li class="breadcrumb-item active">Add Products</li>
+                    <li class="breadcrumb-item active">Edit Products</li>
                 </ol>
             </div>
 
@@ -25,9 +25,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <form class="card-body " id="myForm" method="post" action="{{ route('admin.product.store') }}" enctype="multipart/form-data">
+            <form class="card-body " id="myForm" method="post" action="{{ route('admin.product.update',$data->id) }}" enctype="multipart/form-data">
                 @csrf
-                <h4 class="card-title">Add Products</h4>
+                <h4 class="card-title">Edit Products</h4>
                 <div class="row mb-3">
 
                 @foreach(config('translatable.locales') as $locale)
@@ -72,7 +72,7 @@
                 @foreach(config('translatable.locales') as $locale)
                 <div class="col-md-6 mb-4">
                         <label>Description in {{$locale}} : <span class="text-danger">*</span> </label> 
-                        <input type="text" required name="{{$locale}}[decription]" value="{{$data['decription:'.$locale]}}" autocomplete="on" class="input-tags_{{$locale}}" id="">
+                        <input type="text" required name="{{$locale}}[description]" value="{{$data['description:'.$locale]}}" autocomplete="on" class="input-tags_{{$locale}}" id="">
                 </div>
                 @endforeach
 
@@ -96,7 +96,7 @@
                         <div class="upload__box">
                             <div class="upload__btn-box">
                                 <label for="">Image <span class="text-danger">*</span></label>
-                                <input type="file" multiple="" required name="images[]" value="old('images')" data-max_length="20" id="files" class="upload__inputfile form-control">
+                                <input type="file" multiple=""  name="images[]" value="old('images')" data-max_length="20" id="files" class="upload__inputfile form-control">
                             </div>
                             <div class="content-image mb-4 mt-4">
                                 <label for="">Old Images</label>
@@ -130,7 +130,7 @@
                         @foreach ($data->colors as $color )
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <input type="text" name="colors[]" class="form-control colorpicker-togglepaletteonly" id="" value="#color">
+                                <input type="text" name="colors[]" class="form-control colorpicker-togglepaletteonly" id="" value="{{$color}}">
                             </div>
                         </div>
                         @endforeach   
@@ -193,17 +193,13 @@
         }
 
         $('#container_inputs').html(html);
-        $(".colorpicker-togglepaletteonly").spectrum({
-            color: "#333"
-        });
+        $(".colorpicker-togglepaletteonly").spectrum();
 
     }
    </script>
 
 <script>
-    $(".colorpicker-togglepaletteonly").spectrum({
-    color: "#333"
-});
+    $(".colorpicker-togglepaletteonly").spectrum();
 </script>
 
 
