@@ -85,10 +85,8 @@
                 <table id="datatable-buttons" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Description in English</th>
-                            <th>Description in Arabic</th>
-                            <th>Name in English</th>
-                            <th>Name in Arabic</th>
+                            <th>Description</th>
+                            <th>Name</th>
                             <th>Image</th>
                             <th>Video</th>
                             <th>Location</th>
@@ -98,19 +96,16 @@
                     <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{$item['description:en']}}</td>
-                            <td>{{$item['description:ar']}}</td>
-                            <td>{{$item['name:en']}}</td>
-                            <td>{{$item['name:ar']}}</td>
+                            <td>{{$item['description']}}</td>
+                            <td>{{$item['name']}}</td>
                             <td><img src="{{asset('uploads/camps/'.$item->images)}}" class="img-thumbnail" width="150px" height="100px" alt=""></td>
                             <td><img src="{{asset('uploads/camps/'.$item->videos)}}" class="img-thumbnail" width="150px" height="100px" alt=""></td>
                             <td>{{$item['location']}}</td>
-                             <td >
-                                <label class="switch">
-                                    <input type="checkbox" class="toggle-switch" data-id="{{ $item->id }}" {{ $item->status ? 'checked' : '' }}>
-                                    <span class="slider round"></span>
-                                </label>
+                            <td>
+                                <input type="checkbox" id="switch-{{$item->id}}" switch="none" onchange="toggleData({{$item->id}})" {{$item->is_active == true ? 'checked' : ''}}  />
+                                <label for="switch-{{$item->id}}" data-on-label="On" data-off-label="Off"></label>
                             </td>
+                            
                         </tr>
                     @endforeach
 
@@ -153,6 +148,25 @@
             });
         });
     </script>
+
+<script>
+    function toggleData(id)
+    {
+        $.ajax({
+            type: 'GET',
+            url: "{{route('admin.camp.toggle')}}",
+            data: {id:id},
+            dataType: 'JSON',
+            success: function (results) {
+                toastr.success('Done', 'success');
+            },
+            error:function(result){
+                console.log(result);
+                toastr.error('Error Accure', 'Error');  
+            }
+        });
+    }
+</script>
 @endsection
 
 @endsection

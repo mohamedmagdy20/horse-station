@@ -32,14 +32,14 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = $this->category->all();
+        $categories = $this->category->where('parent_id',1)->get();
         return view('dashboard.products.create',['categories'=>$categories]);
     }
 
     public function edit($id)
     {
         $data = $this->model->findOrFail($id);
-        $category  = $this->category->all();
+        $category  = $this->category->where('parent_id',1)->get();
         return view('dashboard.products.edit',['data'=>$data , 'categories'=>$category]);
     }
 

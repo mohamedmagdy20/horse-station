@@ -58,8 +58,8 @@
                                 @endif
                             </td>
                             <td>
-                                <input type="checkbox" id="switch1" switch="none" onchange="toggleData({{$item->id}})" {{$item->deleted_at == null ? 'checked' : ''}}  />
-                                <label for="switch1" data-on-label="On" data-off-label="Off"></label>
+                                <input type="checkbox" id="switch-{{$item->id}}" switch="none" onchange="toggleData({{$item->id}})" {{$item->deleted_at == null ? 'checked' : ''}}  />
+                                <label for="switch-{{$item->id}}" data-on-label="On" data-off-label="Off"></label>
                             </td>
                              <td>
                                 <a href="{{route('admin.user.edit',$item->id)}}" class="btn btn-info"><i class="fa fa-pen"></i></a>

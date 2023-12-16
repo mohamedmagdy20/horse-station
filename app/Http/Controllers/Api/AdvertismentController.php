@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\AdvertismentRequest;
 use App\Http\Resources\AdvertismentDetailsResource;
 use App\Http\Resources\AdvertismentResource;
+use App\Http\Traits\FilesTrait;
 use App\Models\Advertisment;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class AdvertismentController extends Controller
 {
-    //
+    use FilesTrait;
     protected $model;
     public function __construct(Advertisment  $model)
     {
@@ -60,6 +63,53 @@ class AdvertismentController extends Controller
             'message'=>'Success'
         ]);
    
+    }
+
+
+    public function store(AdvertismentRequest $request){
+        $data = $request->validated();
+        try{
+            if($request->hasFile('images'))
+            {
+                $dataImage = [];
+                foreach($request->images as $image)
+                {
+                    $dataImage [] = $this->saveFile($image , config('filepath.ADVERTISMENT_PATH'));
+                }
+                $data['images'] = $dataImage;
+            }
+    
+            if($request->hasFile('videos'))
+            {
+                $dataVideo = [];
+                foreach($request->videos as $video)
+                {
+                    $dataImage [] = $this->saveFile($video , config('filepath.VIDEOS_PATH'));
+                }
+                $data['videos'] = $dataVideo;
+            }
+    
+            $data['user_id'] = auth()->user()->id;
+            $ads = $this->model->create($data);
+            
+            // Payment Check Out //
+
+            
+            return response()->json([
+                'data'=> new AdvertismentDetailsResource($ads),
+                'status'=>200,
+                'message'=>'Success'
+            ]);
+            
+        }catch(Exception $e)
+        {
+            return response()->json([
+                'data'=> NUll,
+                'status'=>400,
+                'message'=>$e->getMessage()
+            ]);
+        }
+        
     }
 }
 

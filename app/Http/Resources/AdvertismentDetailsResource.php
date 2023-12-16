@@ -41,7 +41,7 @@ class AdvertismentDetailsResource extends JsonResource
             'videos'=>$dataVideos,
             'price'=>$this->price,
             'age'=>$this->age,
-            'location'=>$this->location,
+            'location'=>$this->country->name,
             'description'=>$this->description
         ];
     }

@@ -14,6 +14,33 @@ class CampDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $images = $this->images;
+        $dataImages = []; 
+        if($images != null)
+        {
+            foreach($images as $image)
+            {
+                $dataImages [] = asset('uploads/camps/'.$image);
+            }    
+        }
+
+        $videos = $this->videos;
+        $dataVideos = []; 
+        if($videos != null)
+        {
+            foreach($videos as $item)
+            {
+                $dataVideos [] = asset('uploads/videos/'.$item);
+            }    
+        }
+        return [
+            'name'=>$this->name,
+            'description'=>$this->description,
+            'location'=>optional($this->country)->name,
+            'images'=>$dataImages,
+            'videos'=>$dataVideos,
+            'category'=>optional($this->category)->name,
+            'price'=>$this->price
+        ];
     }
 }

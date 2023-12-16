@@ -44,6 +44,16 @@ class CategoryController extends Controller
         ]);
     }
 
+    public function getCategoriesById(Request $request ,$id)
+    {
+        App::setLocale($request->header('locale'));
+        $data = $this->model->where('parent_id',$id)->get();
+        return response()->json([
+            'data'=> CategoryResource::collection($data),
+            'status'=>200,
+            'message'=>'Success'
+        ]);
+    }
     public function getSubCategory(Request $request , $id)
     {   
         App::setLocale($request->header('locale'));

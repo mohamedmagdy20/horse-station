@@ -50,7 +50,9 @@
                             <td>{{optional($item->parent)->name}}</td>
                              <td>
                                 <a href="{{route('admin.category.edit',$item->id)}}" class="btn btn-primary"><i class="fa fa-pen"></i></a>
-                                <a href="{{route('admin.category.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>
+                              @if ($item->parent_id != null)
+                              <a href="{{route('admin.category.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>                                  
+                              @endif
                             </td>
                         </tr>
                     @endforeach

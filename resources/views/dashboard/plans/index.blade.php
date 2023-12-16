@@ -37,6 +37,8 @@
                             <th>Name in Arabic</th>
                             <th>Price</th>
                             <th>Time</th>
+                            <th>Type</th>
+
                            <th>Action</th>
                         </tr>
                     </thead>
@@ -49,6 +51,16 @@
                             <td>{{$item['name:ar']}}</td>
                             <td>{{$item['price']}}</td>
                             <td>{{$item['time']}}</td>
+                            <td>
+
+                                @if ($item->type == 'normal')
+                                <span class="bg-success badge me-2">Normal</span>
+                                @elseif ($item->type == 'fixed')
+                                    <span class="bg-info badge me-2">Fixed</span>
+                                @elseif($item->type == 'special')
+                                    <span class="bg-warning badge me-2">Special</span>
+                                @endif
+                            </td>
                              <td>
                                 <a href="{{route('admin.plan.edit',$item->id)}}" class="btn btn-primary"><i class="fa fa-pen"></i></a>
                                 <a href="{{route('admin.plan.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>

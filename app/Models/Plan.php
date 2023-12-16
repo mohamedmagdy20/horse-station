@@ -13,6 +13,7 @@ class Plan extends Model
     protected $translationForeignKey = 'plan_id';
     protected $fillable = [
         'price',
-        'time'
+        'time',
+        'type'
     ];
 }

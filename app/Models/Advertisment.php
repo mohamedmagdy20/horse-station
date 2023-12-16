@@ -4,19 +4,16 @@ namespace App\Models;
 
 use App\Enums\AdvertismentStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Advertisment extends Model implements TranslatableContract
+class Advertisment extends Model 
 {
-    use HasFactory , Translatable , SoftDeletes;
-
-    public $translatedAttributes = ['name','description'];
-    protected $translationForeignKey = 'advertisment_id';
+    use HasFactory , SoftDeletes;
 
     protected $fillable = [
+        'name',
+        'description',
         'images',
         'videos',
         'price',
@@ -28,6 +25,7 @@ class Advertisment extends Model implements TranslatableContract
         'age',
         'phone',
         'type',
+        'country_id',
         'ads_type'
     ];
 
@@ -50,6 +48,11 @@ class Advertisment extends Model implements TranslatableContract
     public function user()
     {
         return $this->belongsTo(User::class , 'user_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class , 'country_id');
     }
 
      public function getPriceInCurrency($currencySign , $price)
