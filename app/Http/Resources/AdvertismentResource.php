@@ -18,7 +18,7 @@ class AdvertismentResource extends JsonResource
             'id'=>$this->id,
             'category'=>optional($this->category)->name,
             'name'=>$this->name,
-            'location'=>$this->location,
+            'location'=>$this->country->name,
             'price'=>$this->price,
             'age'=>$this->age,
             'type'=>$this->type,

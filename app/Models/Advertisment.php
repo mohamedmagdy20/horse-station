@@ -40,6 +40,11 @@ class Advertisment extends Model
         return $this->belongsTo(Category::class,'category_id');
     }
 
+    public function favourite()
+    {
+        return $this->hasMany(AdsFavourite::class,'advertisment_id');
+    }
+
     public function plan()
     {
         return $this->belongsTo(Plan::class , 'plan_id');

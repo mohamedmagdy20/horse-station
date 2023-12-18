@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AdvertismentRequest;
+use App\Http\Resources\AdsFavResourse;
 use App\Http\Resources\AdvertismentDetailsResource;
 use App\Http\Resources\AdvertismentResource;
 use App\Http\Traits\FilesTrait;
+use App\Models\AdsFavourite;
 use App\Models\Advertisment;
 use Exception;
 use Illuminate\Http\Request;
@@ -16,9 +18,12 @@ class AdvertismentController extends Controller
 {
     use FilesTrait;
     protected $model;
-    public function __construct(Advertisment  $model)
+    protected $adsFav;
+
+    public function __construct(Advertisment  $model , AdsFavourite $adsFav)
     {
         $this->model = $model;
+        $this->adsFav = $adsFav;
     }
 
     public function index(Request $request)
@@ -107,9 +112,45 @@ class AdvertismentController extends Controller
                 'data'=> NUll,
                 'status'=>400,
                 'message'=>$e->getMessage()
-            ]);
+            ],400);
         }
         
     }
+
+    public function getFavAds()
+    {
+        $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);   
+        return response()->json([
+            'data'=> AdsFavResourse::collection($data),
+            'status'=>400,
+            'message'=>'Success'
+        ],200);
+    }
+
+    public function adsFav(Request $request)
+    {
+        $this->adsFav->firstOrCreate([
+            'advertisment_id'=>$request->advertisment_id,
+            'user_id'=>auth()->user()->id
+        ]);
+        return response()->json([
+            'data'=> NUll,
+            'status'=>200,
+            'message'=>'Advertisment Added to Favourite'
+        ]);
+    }
+
+
+    public function deleteFav($id)
+    {
+        $this->adsFav->findOrFail($id)->delete;
+        return response()->json([
+            'data'=> NUll,
+            'status'=>200,
+            'message'=>'Advertisment Removed From Favourite'
+        ]);
+    }
+
+
 }
 
