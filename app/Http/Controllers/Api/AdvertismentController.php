@@ -122,7 +122,7 @@ class AdvertismentController extends Controller
         $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);   
         return response()->json([
             'data'=> AdsFavResourse::collection($data),
-            'status'=>400,
+            'status'=>200,
             'message'=>'Success'
         ],200);
     }
