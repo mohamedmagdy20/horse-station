@@ -92,7 +92,15 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('/','index')->name('admin.camp.index');
-        Route::post('update-status','update')->name('admin.camp.update');
+        Route::get('create','create')->name('admin.camp.create');
+        Route::get('show/{id}','show')->name('admin.camp.show');
+        Route::get('edit/{id}','edit')->name('admin.camp.edit');
+       
+        Route::get('delete/{id}','delete')->name('admin.camp.delete');
+
+        Route::post('store','store')->name('admin.camp.store');
+        Route::post('update/{id}','update')->name('admin.camp.update');
+        Route::post('update-status','updateStatus')->name('admin.camp.update.status');
         Route::get('toggle-data','toggleActive')->name('admin.camp.toggle');
 
     });

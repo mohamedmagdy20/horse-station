@@ -18,10 +18,7 @@ class AdvertismentResource extends JsonResource
             'id'=>$this->id,
             'category'=>optional($this->category)->name,
             'name'=>$this->name,
-            'location'=>$this->country->name,
             'price'=>$this->price,
-            'age'=>$this->age,
-            'type'=>$this->type,
             'image'=>$this->images != null ? asset('uploads/advertisments/'.$this->images[0]) : asset('default.png'),
         ];
     }

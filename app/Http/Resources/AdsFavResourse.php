@@ -15,7 +15,7 @@ class AdsFavResourse extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->advertisment_id,
+            'id'=>$this->id,
             'category'=>optional($this->advertisment->category)->name,
             'name'=>$this->advertisment->name,
             'location'=>$this->advertisment->country->name,

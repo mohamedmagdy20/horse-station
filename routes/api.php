@@ -45,11 +45,20 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
 
+
     Route::group(['prefix'=>'favourite','controller'=>AdvertismentController::class],function(){
         Route::get('/','getFavAds');
         Route::post('create','adsFav');
         Route::delete('delete/{id}','deleteFav');
     });
+
+    
+    Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
+        Route::get('get-levels','getLevelByCamp');
+        Route::get('get-sports','getSportByCamp');
+        Route::post('register','store');
+    });
+
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

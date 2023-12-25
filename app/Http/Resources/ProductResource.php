@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'price'=> number_format($this->price, 2),
+            'category'=>optional($this->category)->name,
             'image'=> $this->images != null ?  asset('uploads/products/'.$this->images[0]) : asset('default.png'),
 
         ];
