@@ -20,7 +20,8 @@ class CartResource extends JsonResource
             'price'=> number_format($this->product->price, 2),
             'deliver_time'=>$this->product->deliver_time,
             'image'=> $this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
-            'stock'=>$this->qantity
+            'stock'=>$this->qantity,
+            'total'=>number_format($this->product->price * $this->qantity, 2),
         ];
     }
 }

@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Traits\FilesTrait;
+use App\Models\Advertisment;
+use App\Models\Camp;
 use App\Models\Category;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -108,5 +111,19 @@ class CategoryController extends Controller
             'status'=>200,
             'message'=>'Success'
         ]);
+    }
+
+
+    public function search(Request $request)
+    {
+        App::setLocale($request->header('locale'));
+        $query = $request->input('q');
+
+        $camps = Camp::whereTranslationLike('name',$query)->get();
+        $products = Product::whereTranslationLike('name',$query)->get();
+        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get();
+
+        $allResults = $products->merge($advertisments)->merge($camps);
+        return $allResults;
     }
 }

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ForgetPasswordRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -187,7 +188,7 @@ class AuthController extends Controller
                 'data'   => NULL
             ],404);
         }
-}
+    }
     public function EditProfile(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -225,6 +226,22 @@ class AuthController extends Controller
             'data' => null
         ]);
     }
+    }
+
+
+    public function forgetPassword(ForgetPasswordRequest $request)
+    {
+        $data = $request->validated();
+        $user = $this->model->find($request->id);
+        $user->update([
+            'password'=>Hash::make($data['password']),
+        ]);
+        return response()->json([
+            'message'=>'Password Changed',
+            'status'=>200,
+            'data'=>NULL
+        ]);
+
     }
     private function generateOtp()
     {

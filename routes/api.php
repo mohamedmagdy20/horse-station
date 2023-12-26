@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AdvertismentController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CampController;
@@ -40,12 +41,14 @@ Route::get('product/{id}',[ProductController::class,'show']);
 Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 Route::get('camp/{id}',[CampController::class,'show']);
 
+Route::get('search',[CategoryController::class,'search']);
+
 // Protected Route
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
-
+    Route::post('change-password',[AuthController::class,'forgetPassword']);
 
     Route::group(['prefix'=>'favourite','controller'=>AdvertismentController::class],function(){
         Route::get('/','getFavAds');
@@ -64,8 +67,13 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::get('/','index');
         Route::post('store','store');
         Route::get('increment','addQuantity');
-        Route::get('decrement','addQuantity');         
+        Route::get('decrement','decQuantity');         
     });
+
+    Route::group(['prefix'=>'address','controller'=>AddressController::class],function(){
+        Route::get('/','index');
+        Route::post('store','store');
+      });
 
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -27,9 +27,7 @@ class CartController extends Controller
                 $product->product->price = $product->getPriceInCurrency($sign,  $product->product->price);
                 return $product;
                 })),
-            'subtotal'=>$this->sum('total'),
             'deliver'=> 5,
-            'total'=>($this->sum('total') +  5),
             'message'=>'Success'
         ]);
     }
@@ -37,7 +35,8 @@ class CartController extends Controller
     public function store(CartRequest $request)
     {
         $data = $request->validated();
-        $this->model->firstOrCreate($data + ['user_id'=>auth()->user()->id]);
+        $data['user_id'] = auth()->user()->id;
+        $this->model->firstOrCreate($data);
         return response()->json(
             ['status'=>201
             ,'message'=>'Created Successfully',

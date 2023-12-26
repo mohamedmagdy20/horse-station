@@ -10,6 +10,7 @@ class CartItem extends Model
     use HasFactory;
     protected $fillable =[
         'product_id',
+        'user_id',
         'qantity',
         'total'
     ];
@@ -22,6 +23,11 @@ class CartItem extends Model
         }
         $convertedPrice = $price / $currency->currency;
         return $convertedPrice;
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class,'product_id');
     }
 
 }
