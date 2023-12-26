@@ -17,8 +17,9 @@ class SearchResource extends JsonResource
         return [
             'name'=>$this->name,
             'category'=>$this->category->name,
-            'price'=>$this->price,
-            'image'=>$this->type == 'camp' ? asset('uploads/camps/'.$this->images[0]) :  asset('uploads/products/'.$this->images[0])
+            'price'=>number_format($this->price, 2),
+            'type'=>$this->type,
+            'image'=>$this->type == 'product' ? asset('uploads/products/'.$this->images[0]) :  asset('uploads/products/'.$this->images[0])
         ];
     }
 }

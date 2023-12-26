@@ -119,22 +119,21 @@ class CategoryController extends Controller
     {
         App::setLocale($request->header('locale'));
         $query = $request->input('q');
-
-        $camps = Camp::whereTranslationLike('name',$query)->get()->map(function ($item) {
-            $item->type = 'camp';
-            return $item;
-        });
-        $products = Product::whereTranslationLike('name',$query)->get()->map(function ($item) {
+        $sign = $request->sign;
+        $products = Product::whereTranslationLike('name',"%{$query}%")->get()->map(function ($item) use ($sign) {
             $item->type = 'product';
+            $item->price = $item->getPriceInCurrency($sign , $item->price);
             return $item;
         });
 
-        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get()->map(function ($item) {
+        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get()->map(function ($item) use ($sign) {
             $item->type = 'advertisment';
+            $item->price = $item->getPriceInCurrency($sign , $item->price);
+           
             return $item;
         });
 
-        $allResults = $products->merge($advertisments)->merge($camps);
+        $allResults = $products->merge($advertisments);
         return response()->json([
             'data'=>SearchResource::collection($allResults),
             'status'=>200,

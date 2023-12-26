@@ -34,7 +34,17 @@ class AddressController extends Controller
         return response()->json([
             'message'=>'Created',
             'data'=> NULL,
-            'status'=>201
+            'status'=>200
+        ],200);
+    }
+
+    public function delete($id){
+        $data  =$this->model->find($id)->delete();
+        return response()->json([
+            'message'=>'Deleted',
+            'data'=> NULL,
+            'status'=>200
         ]);
     }
+    
 }

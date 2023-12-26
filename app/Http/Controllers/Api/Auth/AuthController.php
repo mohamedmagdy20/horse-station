@@ -76,14 +76,16 @@ class AuthController extends Controller
             $data['remember_token'] = Str::random(64);
             $data['otp']  = $this->generateOtp();
              // add user to database if it doesnot exist
-            $user = User::create($data);
+            // $user = User::create($data);
             // Send Sms Otp
             try{
-                $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message);
+                $message =  'Your Otp is '.$data['otp'];
+                $sms = SMS::sendSms($data['phone'],$message);
+                $user = User::create($data);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
+                    'OTP'=>$user->otp,
                     'data'   => NULL
                 ],200);
             }catch(Exception $e )
@@ -93,7 +95,6 @@ class AuthController extends Controller
                     'message'     => $e->getMessage(),
                     'access_token'=> null
                  ],500);
-
             }
         }
         // if user Already exsit

@@ -38,7 +38,7 @@ class CartController extends Controller
         $data['user_id'] = auth()->user()->id;
         $this->model->firstOrCreate($data);
         return response()->json(
-            ['status'=>201
+            ['status'=>200
             ,'message'=>'Created Successfully',
             'data'=>NULL        
         ]);

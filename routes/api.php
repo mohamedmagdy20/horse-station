@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::get('categories/{id}',[ApiCategoryController::class,'getCategoriesById'])
 Route::get('product/{id}',[ProductController::class,'show']);
 Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 Route::get('camp/{id}',[CampController::class,'show']);
+Route::post('change-password',[AuthController::class,'forgetPassword']);
 
 Route::get('search',[CategoryController::class,'search']);
 
@@ -48,7 +50,6 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
-    Route::post('change-password',[AuthController::class,'forgetPassword']);
 
     Route::group(['prefix'=>'favourite','controller'=>AdvertismentController::class],function(){
         Route::get('/','getFavAds');
@@ -73,7 +74,10 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::group(['prefix'=>'address','controller'=>AddressController::class],function(){
         Route::get('/','index');
         Route::post('store','store');
+        Route::delete('delete','delete');
       });
+
+    Route::get('profile/advertisment',[ProfileController::class,'advertisment']);
 
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
