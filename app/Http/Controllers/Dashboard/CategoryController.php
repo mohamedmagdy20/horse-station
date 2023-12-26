@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\Api\SearchResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Traits\FilesTrait;
 use App\Models\Advertisment;
@@ -119,11 +120,25 @@ class CategoryController extends Controller
         App::setLocale($request->header('locale'));
         $query = $request->input('q');
 
-        $camps = Camp::whereTranslationLike('name',$query)->get();
-        $products = Product::whereTranslationLike('name',$query)->get();
-        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get();
+        $camps = Camp::whereTranslationLike('name',$query)->get()->map(function ($item) {
+            $item->type = 'camp';
+            return $item;
+        });
+        $products = Product::whereTranslationLike('name',$query)->get()->map(function ($item) {
+            $item->type = 'product';
+            return $item;
+        });
+
+        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get()->map(function ($item) {
+            $item->type = 'advertisment';
+            return $item;
+        });
 
         $allResults = $products->merge($advertisments)->merge($camps);
-        return $allResults;
+        return response()->json([
+            'data'=>SearchResource::collection($allResults),
+            'status'=>200,
+            'message'=>'Success'
+        ]);
     }
 }
