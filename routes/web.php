@@ -92,6 +92,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('/','index')->name('admin.camp.index');
+        Route::get('regsiteration','registration')->name('admin.camp.registration');
+
         Route::get('create','create')->name('admin.camp.create');
         Route::get('show/{id}','show')->name('admin.camp.show');
         Route::get('edit/{id}','edit')->name('admin.camp.edit');

@@ -85,11 +85,16 @@
                         <span>Advertisments</span>
                     </a>
                 </li>
+                
                 <li>
-                    <a href="{{route('admin.camp.index')}}" class="waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="ri-creative-commons-line"></i>
                         <span>Camps</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{route('admin.camp.index')}}">All Camps</a></li>
+                        <li><a href="{{route('admin.camp.registration')}}">Registration</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>

@@ -20,8 +20,12 @@ class Product extends Model implements TranslatableContract
         'deliver_time',
         'price',
         'colors',
+        'stock',
+        'security_stock',
         'category_id',
-        'size'
+        'size',
+        'stock',
+        'security_stock'
     ];
 
     protected $casts = [
@@ -40,6 +44,11 @@ class Product extends Model implements TranslatableContract
     public function order()
     {
         return $this->belongsToMany(Order::class,'order_items');
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class,'cart_items');
     }
 
 

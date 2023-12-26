@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Models\Country;
+use App\Models\RegisterCamp;
 use Illuminate\Http\Request;
 use App\Http\Traits\FilesTrait;
 use App\Http\Controllers\Controller;
@@ -28,6 +29,11 @@ class CampController extends Controller
         return view('dashboard.camps.index',['data'=>$data]);
     }
 
+    public function registration()
+    {
+        $data  = RegisterCamp::withSum('campLevel','total')->withSum('campSport','total')->latest()->get();
+        return view('dashboard.camps.registration',['data'=>$data]);
+    }
     public function create()
     {
         $categories = Category::where('type','camp')->get();

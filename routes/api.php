@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdvertismentController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CampController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\ProductController;
@@ -57,6 +58,13 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::get('get-levels','getLevelByCamp');
         Route::get('get-sports','getSportByCamp');
         Route::post('register','store');
+    });
+
+    Route::group(['prefix'=>'cart','controller'=>CartController::class],function(){
+        Route::get('/','index');
+        Route::post('store','store');
+        Route::get('increment','addQuantity');
+        Route::get('decrement','addQuantity');         
     });
 
 });

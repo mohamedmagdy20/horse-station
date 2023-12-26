@@ -88,6 +88,16 @@
                     <input type="number" required name="deliver_time" value="{{old('deliver_time')}}" class="form-control" id="">
                 </div>
 
+                <div class="col-md-6 mb-4">
+                    <label>Stock</label> 
+                    <input type="number" required name="stock" value="{{old('stock')}}" class="form-control" id="">
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label>Security Stock</label> 
+                    <input type="number" required name="security_stock" value="{{old('security_stock')}}" class="form-control" id="">
+                </div>
+
                 
 
                 <div class="col-md-12 mb-4">
