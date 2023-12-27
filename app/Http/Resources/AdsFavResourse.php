@@ -16,6 +16,8 @@ class AdsFavResourse extends JsonResource
     {
         return [
             'id'=>$this->id,
+            'advertisment_id'=>$this->advertisment_id,
+
             'category'=>optional($this->advertisment->category)->name,
             'name'=>$this->advertisment->name,
             'location'=>$this->advertisment->country->name,

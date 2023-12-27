@@ -34,6 +34,7 @@ class CampDetailsResource extends JsonResource
             }    
         }
         return [
+            'id'=>$this->id,
             'name'=>$this->name,
             'description'=>$this->description,
             'location'=>optional($this->country)->name,

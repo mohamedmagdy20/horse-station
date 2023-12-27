@@ -29,6 +29,8 @@ Route::post('admin/login',[AdminController::class,'login'])->middleware('guest:a
 Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::get('/',[HomeController::class,'index'])->name('admin');
     Route::get('logout',[AdminController::class,'logout'])->name('admin.logout');
+    Route::get('get-ads_type',[HomeController::class,'advertismentType'])->name('admin.get-ads_type');
+    Route::get('get-ads_status',[HomeController::class,'advertismentStatus'])->name('admin.get-ads_status');
 
     Route::group(['prefix'=>'country','controller'=>CountryController::class],function(){
         Route::get('/','index')->name('admin.country.index');

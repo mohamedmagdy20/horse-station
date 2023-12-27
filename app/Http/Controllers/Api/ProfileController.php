@@ -7,6 +7,7 @@ use App\Http\Resources\AdvertismentResource;
 use App\Models\Advertisment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,7 @@ class ProfileController extends Controller
 
     public function advertisment(Request $request)
     {
+        App::setLocale($request->header('locale'));
         $activeAds = $this->advertisment->where('is_active',true)->notExpire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
         $pendingAds = $this->advertisment->where('is_active',false)->notExpire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
         $expire = $this->advertisment->expire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
