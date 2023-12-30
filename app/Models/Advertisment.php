@@ -61,15 +61,15 @@ class Advertisment extends Model
         return $this->belongsTo(Country::class , 'country_id');
     }
 
-     public function getPriceInCurrency($currencySign , $price)
-     {
-         $currency = Country::where('sign', $currencySign)->first();
-         if (!$currency) {
-             throw new \Exception("Currency not supported");
-         }
-         $convertedPrice = $price / $currency->currency;
-         return $convertedPrice;
-     }
+    public function getPriceInCurrency($currencySign , $price)
+    {
+        $currency = Country::where('sign', $currencySign)->first();
+        if (!$currency) {
+            $currency = Country::first();
+        }
+        $convertedPrice = $price / $currency->currency;
+        return $convertedPrice;
+    }
 
      public function scopeExpire($query)
      {

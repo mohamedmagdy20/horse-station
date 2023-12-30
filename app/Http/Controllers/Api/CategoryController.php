@@ -35,7 +35,13 @@ class CategoryController extends Controller
 
     public function mainCategory(Request $request)
     {
-        App::setLocale($request->header('locale'));
+      
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data  = $this->model->whereNull('parent_id')->latest()->simplePaginate(7);
         return response()->json([
             'data'=> CategoryResource::collection($data),
@@ -46,7 +52,13 @@ class CategoryController extends Controller
 
     public function getCategoriesById(Request $request ,$id)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->where('parent_id',$id)->get();
         return response()->json([
             'data'=> CategoryResource::collection($data),
@@ -56,7 +68,13 @@ class CategoryController extends Controller
     }
     public function getSubCategory(Request $request , $id)
     {   
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $categories =  $this->model->where('parent_id',$id)->latest()->simplePaginate(7);
         $advertisments =  $this->advertisment->where('category_id',$id)->where('is_active',true)->latest()->simplePaginate(7);
         $camps =  $this->camp->where('category_id',$id)->latest()->simplePaginate(7);     

@@ -56,7 +56,7 @@ class Product extends Model implements TranslatableContract
     {
         $currency = Country::where('sign', $currencySign)->first();
         if (!$currency) {
-            throw new \Exception("Currency not supported");
+            $currency = Country::first();
         }
         $convertedPrice = $price / $currency->currency;
         return $convertedPrice;

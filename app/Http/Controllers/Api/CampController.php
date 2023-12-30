@@ -26,8 +26,13 @@ class CampController extends Controller
 
     public function show(Request $request ,$id)
     {
-        App::setLocale($request->header('locale'));
 
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->find($id);
         $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
         return response()->json([

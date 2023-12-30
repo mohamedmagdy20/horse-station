@@ -18,7 +18,13 @@ class CartController extends Controller
     }
     public function index(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $sign  = $request->sign;
         $data = $this->model->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7);
         return response()->json([

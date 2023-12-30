@@ -22,7 +22,13 @@ class ProductController extends Controller
     }
     public function featuredProduct(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data  = $this->model->take(5)->latest()->simplePaginate(7);
         $sign = $request->sign;
         return response()->json([
@@ -37,8 +43,13 @@ class ProductController extends Controller
 
     public function show(Request $request,$id)
     {
-        App::setLocale($request->header('locale'));
 
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->findOrFail($id);
         $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
         return response()->json([
@@ -52,7 +63,13 @@ class ProductController extends Controller
 
     public function favourite(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data  = $this->favModel->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7);
         return response()->json([
             'data'=> ProductFavouriteResource::collection($data),

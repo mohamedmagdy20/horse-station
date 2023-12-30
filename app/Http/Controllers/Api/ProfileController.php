@@ -22,7 +22,13 @@ class ProfileController extends Controller
 
     public function advertisment(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $activeAds = $this->advertisment->where('is_active',true)->notExpire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
         $pendingAds = $this->advertisment->where('is_active',false)->notExpire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
         $expire = $this->advertisment->expire()->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);

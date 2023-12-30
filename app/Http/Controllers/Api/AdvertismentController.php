@@ -28,7 +28,12 @@ class AdvertismentController extends Controller
 
     public function index(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data  = $this->model->filter($request->all())->where('is_active',true)->latest()->simplePaginate(7);
         $sign = $request->sign;
         return response()->json([
@@ -43,7 +48,13 @@ class AdvertismentController extends Controller
 
     public function featuredAds(Request $request)
     {
-        App::setLocale($request->header('locale'));
+       
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data  = $this->model->where('ads_type','fixed')->where('is_active',true)->take(5)->latest()->get();
         $sign = $request->sign;
         return response()->json([
@@ -58,8 +69,13 @@ class AdvertismentController extends Controller
 
     public function show(Request $request ,$id)
     {
-        App::setLocale($request->header('locale'));
 
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->find($id);
         $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
         return response()->json([

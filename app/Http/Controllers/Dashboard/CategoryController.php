@@ -105,7 +105,13 @@ class CategoryController extends Controller
 
     public function getMainCategory(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->whereNull('parent_id')->get();
         return response()->json([
             'data'=>CategoryResource::collection($data),
@@ -117,7 +123,13 @@ class CategoryController extends Controller
 
     public function search(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $query = $request->input('q');
         $sign = $request->sign;
         $products = Product::whereTranslationLike('name',"%{$query}%")->get()->map(function ($item) use ($sign) {

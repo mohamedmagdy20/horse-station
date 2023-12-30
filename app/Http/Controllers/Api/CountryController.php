@@ -19,7 +19,13 @@ class CountryController extends Controller
 
     public function index(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->get();
         return response()->json(
             [
