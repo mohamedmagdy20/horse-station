@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\AdsFavourite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertismentDetailsResource extends JsonResource
 {
@@ -15,7 +16,13 @@ class AdvertismentDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $favouriteId = AdsFavourite::where('user_id',auth()->user()->id)->where('advertisment_id',$this->id)->first();
+        if(Auth::check())
+        {
+            $favouriteId = AdsFavourite::where('user_id',auth()->user()->id)->where('advertisment_id',$this->id)->first();
+            
+        }else{
+            $favouriteId = null;
+        }
 
         $images = $this->images;
         $dataImages = []; 
