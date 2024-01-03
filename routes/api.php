@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\CountryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::post('resend',[AuthController::class,'resend']);
 
 
 Route::get('countries',[CountryController::class,'index']);
+Route::get('banners',[BannerController::class,'getAll']);
 Route::get('main-category',[CategoryController::class,'getMainCategory']);
 Route::get('featured-product',[ProductController::class,'featuredProduct']);
 Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
@@ -54,15 +56,15 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
 
     Route::group(['prefix'=>'favourite/advertisments','controller'=>AdvertismentController::class],function(){
-        Route::get('/','getFavAds');
+        // Route::get('/','getFavAds');
         Route::post('create','adsFav');
         Route::delete('delete/{id}','deleteFav');
     });
 
-    Route::group(['prefix'=>'favourite/product','controller'=>ProductController::class],function(){
+    Route::group(['prefix'=>'favourite','controller'=>ProductController::class],function(){
         Route::get('/','favourite');
-        Route::post('create','addFav');
-        Route::delete('delete/{id}','deleteFav');
+        Route::post('/product/create','addFav');
+        Route::delete('/product/delete/{id}','deleteFav');
     });
 
     

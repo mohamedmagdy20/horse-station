@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CampController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\AdvertismentController;
@@ -48,6 +49,15 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('delete/{id}','delete')->name('admin.category.delete');
         Route::post('update/{id}','update')->name('admin.category.update');
         Route::post('store','store')->name('admin.category.store');
+    });
+
+    Route::group(['prefix'=>'banner','controller'=>BannerController::class],function(){
+        Route::get('/','index')->name('admin.banner.index');
+        Route::get('create','create')->name('admin.banner.create');
+        Route::get('edit/{id}','edit')->name('admin.banner.edit');
+        Route::get('delete/{id}','delete')->name('admin.banner.delete');
+        Route::post('update/{id}','update')->name('admin.banner.update');
+        Route::post('store','store')->name('admin.banner.store');
     });
 
     Route::group(['prefix'=>'plan','controller'=>PlanController::class],function(){

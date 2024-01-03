@@ -44,7 +44,8 @@ class ProductDetailsResource extends JsonResource
             'size'=>$this->size,
             'colors'=>$this->colors,
             'price'=>$this->price,
-            'description'=>$this->description != null ?  explode(',' , $this->description) : null
+            'description'=>$this->description != null ?  explode(',' , $this->description) : null,
+            'type'=>'product'
         ];
     }
 }

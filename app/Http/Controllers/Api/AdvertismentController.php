@@ -133,15 +133,15 @@ class AdvertismentController extends Controller
         
     }
 
-    public function getFavAds()
-    {
-        $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);   
-        return response()->json([
-            'data'=> AdsFavResourse::collection($data),
-            'status'=>200,
-            'message'=>'Success'
-        ],200);
-    }
+    // public function getFavAds()
+    // {
+    //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);   
+    //     return response()->json([
+    //         'data'=> AdsFavResourse::collection($data),
+    //         'status'=>200,
+    //         'message'=>'Success'
+    //     ],200);
+    // }
 
     public function adsFav(Request $request)
     {

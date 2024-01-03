@@ -7,6 +7,7 @@ return [
     'PRODUCT_PATH'=>'uploads/products',
     'ADVERTISMENT_PATH'=>'uploads/advertisments',
     'CAMP_PATH'=>'uploads/camps',
+    'BANNER_PATH'=>'uploads/banners',
 
     'VIDEOS_PATH'=>'uploads/videos',
 

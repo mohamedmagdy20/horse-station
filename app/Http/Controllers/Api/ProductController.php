@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\SearchResource;
 use App\Http\Resources\ProductDetailsResource;
 use App\Http\Resources\ProductFavouriteResource;
 use App\Http\Resources\ProductResource;
+use App\Models\AdsFavourite;
 use App\Models\Product;
 use App\Models\ProductFavourite;
 use Illuminate\Http\Request;
@@ -70,9 +72,20 @@ class ProductController extends Controller
         }else{
             App::setLocale('ar');
         }
-        $data  = $this->favModel->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7);
+        $sign = $request->sign;
+        $products = $this->favModel->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
+            $item->type = 'product';
+            $item->price = $item->getPriceInCurrency($sign , $item->price);
+            return $item;
+        });
+        $ads = AdsFavourite::where('user_id',auth()->user()->id)->with('advertisment')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
+            $item->type = 'advertisment';
+            $item->price = $item->getPriceInCurrency($sign , $item->price); 
+            return $item;
+        });
+        $data = $products->merge($ads);
         return response()->json([
-            'data'=> ProductFavouriteResource::collection($data),
+            'data'=> SearchResource::collection($data),
             'status'=>200,
             'message'=>'Success'
         ]);

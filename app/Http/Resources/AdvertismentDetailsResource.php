@@ -42,7 +42,8 @@ class AdvertismentDetailsResource extends JsonResource
             'price'=>$this->price,
             'age'=>$this->age,
             'location'=>$this->country->name,
-            'description'=>$this->description
+            'description'=>$this->description,
+            'type'=>'advertisment'
         ];
     }
 }

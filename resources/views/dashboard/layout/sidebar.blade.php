@@ -96,6 +96,13 @@
                         <li><a href="{{route('admin.camp.registration')}}">Registration</a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href="{{route('admin.banner.index')}}" class="waves-effect">
+                        <i class="ri-money-dollar-box-line"></i>
+                        <span>Banners</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

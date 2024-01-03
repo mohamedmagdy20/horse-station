@@ -20,7 +20,7 @@ class SearchResource extends JsonResource
             'category'=>$this->category->name,
             'price'=>number_format($this->price, 2),
             'type'=>$this->type,
-            'image'=>$this->type == 'product' ? asset('uploads/products/'.$this->images[0]) :  asset('uploads/products/'.$this->images[0])
+            'image'=>$this->type == 'product' ? asset('uploads/products/'.$this->images[0]) :  asset('uploads/advertisments/'.$this->images[0])
         ];
     }
 }
