@@ -75,7 +75,7 @@ class CategoryController extends Controller
         }else{
             App::setLocale('ar');
         }
-        $data = $this->model->where('type',$request->type)->get();
+        $data = $this->model->filter($request->all())->get();
         return response()->json([
             'data'=> CategoryResource::collection($data),
             'status'=>200,

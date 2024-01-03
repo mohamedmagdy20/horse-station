@@ -24,4 +24,16 @@ class Category extends Model implements TranslatableContract
         return $this->belongsTo(Category::class,'parent_id');
     }
 
+    public function scopeFilter($query, $params)
+    {
+        
+       
+
+        if(isset($params['type']))
+        {
+            $query->where('type',$params['type']);
+        }
+        return $query;
+    }
+
 }
