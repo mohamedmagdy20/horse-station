@@ -23,7 +23,7 @@ class BannerRequest extends FormRequest
     {
         return [
             //
-            'images'=>'nullable|mimes:png,jpg,jpeg'
+            'images'=>'nullable'
         ];
     }
 }

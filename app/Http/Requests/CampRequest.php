@@ -43,7 +43,7 @@ class CampRequest extends FormRequest
             'en.description'=>[
                 'required',
                ],
-            'images'=>'nullable|mimes:jpeg,png,jpg',
+            'images'=>'nullable',
             'videos'=>'nullable',
             'category_id'=>'required',
             'country_id'=>'required',
