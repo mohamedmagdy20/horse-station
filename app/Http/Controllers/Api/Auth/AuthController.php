@@ -166,12 +166,13 @@ class AuthController extends Controller
                 'otp'=>$otp,
             ]);
             try{
-                $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message);
+                // $message =  'Your Otp is'.$user->otp;
+                // $sms = SMS::sendSms($user->phone,$message);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
-                    'data'   => NULL
+                    'data'   => NULL,
+                    'OTP'=>$user->otp
                 ],200);
             }catch(Exception $e )
             {
@@ -246,6 +247,13 @@ class AuthController extends Controller
         ]);
 
     }
+
+    // public function sendOtp(Request $request)
+    // {
+    //     $phone  = $request->phone;
+    //     $otp = $this->generateOtp();
+
+    // }
     private function generateOtp()
     {
         $otp = rand(10000,99999);

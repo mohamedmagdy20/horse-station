@@ -38,9 +38,10 @@ class ProductRequest extends FormRequest
                 Rule::unique('product_translations', 'name')->ignore($this->route('id'), 'product_id')
             ],
             'category_id'=>'required',
-            'images'=>'nullable',
+            'images'=>'nullable|mimes:jpeg,png,jpg',
             'videos'=>'nullable',
             'deliver_time'=>'nullable',
+            'size'=>'nullable',
             'price'=>'required',
             'colors'=>'nullable',
             'ar.description'=>[

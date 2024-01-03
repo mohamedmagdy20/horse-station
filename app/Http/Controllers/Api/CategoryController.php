@@ -66,6 +66,22 @@ class CategoryController extends Controller
             'message'=>'Success'
         ]);
     }
+
+    public function getCategoryByType(Request $request)
+    {
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
+        $data = $this->model->where('type',$request->type)->get();
+        return response()->json([
+            'data'=> CategoryResource::collection($data),
+            'status'=>200,
+            'message'=>'Success'
+        ]);
+    }
     public function getSubCategory(Request $request , $id)
     {   
         
