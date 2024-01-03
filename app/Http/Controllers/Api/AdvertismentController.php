@@ -55,7 +55,7 @@ class AdvertismentController extends Controller
         }else{
             App::setLocale('ar');
         }
-        $data  = $this->model->where('ads_type','fixed')->where('is_active',true)->take(5)->latest()->get();
+        $data  = $this->model->where('ads_type','special')->where('is_active',true)->take(5)->latest()->get();
         $sign = $request->sign;
         return response()->json([
             'data'=> AdvertismentResource::collection($data->map(function ($ads) use ($sign) {

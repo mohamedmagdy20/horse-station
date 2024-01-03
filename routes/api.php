@@ -37,7 +37,9 @@ Route::get('featured-product',[ProductController::class,'featuredProduct']);
 Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
 Route::get('advertisments',[AdvertismentController::class,'index']);
 Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
-Route::get('categories/{id}',[ApiCategoryController::class,'getCategoriesById']);
+// Route::get('categories/{id}',[ApiCategoryController::class,'getCategoriesById']);
+Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
+
 Route::get('product/{id}',[ProductController::class,'show']);
 Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 Route::get('camp/{id}',[CampController::class,'show']);
