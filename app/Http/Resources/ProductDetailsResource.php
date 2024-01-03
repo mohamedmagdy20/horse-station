@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ProductFavourite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +16,8 @@ class ProductDetailsResource extends JsonResource
   
     public function toArray(Request $request): array
     {
+        $favouriteId = ProductFavourite::where('user_id',auth()->user()->id)->where('product_id',$this->id)->first();
+
         $images = $this->images;
         $dataImages = []; 
         if($images != null)
@@ -45,6 +48,7 @@ class ProductDetailsResource extends JsonResource
             'colors'=>$this->colors,
             'price'=>$this->price,
             'description'=>$this->description != null ?  explode(',' , $this->description) : null,
+            'favourite_id'=>$favouriteId == null ? null : $favouriteId,
             'type'=>'product'
         ];
     }

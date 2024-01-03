@@ -17,8 +17,8 @@ class FavouriteResource extends JsonResource
         if($this->type == 'advertisment')
         {
             return [
-                'id'=>$this->id,
-                'item_id'=>  $this->advertisment->id, 
+                'id'=>$this->advertisment->id,
+                'item_id'=>  $this->id, 
                 'name'=>$this->advertisment->name,
                 'category'=>$this->advertisment->category->name,
                 'price'=>number_format($this->price, 2),
@@ -28,8 +28,8 @@ class FavouriteResource extends JsonResource
         }else
         {
             return [
-                'id'=>$this->id,
-                'item_id'=>  $this->product->id, 
+                'id'=>$this->product->id,
+                'item_id'=>  $this->id, 
                 'name'=>$this->product->name,
                 'category'=>$this->product->category->name,
                 'price'=>number_format($this->price, 2),

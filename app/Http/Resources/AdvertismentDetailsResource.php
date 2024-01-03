@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\AdsFavourite;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,8 @@ class AdvertismentDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $favouriteId = AdsFavourite::where('user_id',auth()->user()->id)->where('advertisment_id',$this->id)->first();
+
         $images = $this->images;
         $dataImages = []; 
         if($images != null)
@@ -43,6 +46,7 @@ class AdvertismentDetailsResource extends JsonResource
             'age'=>$this->age,
             'location'=>$this->country->name,
             'description'=>$this->description,
+            'favourite_id'=>$favouriteId == null ? null : $favouriteId,
             'type'=>'advertisment'
         ];
     }
