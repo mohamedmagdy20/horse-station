@@ -143,29 +143,29 @@ class AdvertismentController extends Controller
     //     ],200);
     // }
 
-    public function adsFav(Request $request)
-    {
-        $this->adsFav->firstOrCreate([
-            'advertisment_id'=>$request->advertisment_id,
-            'user_id'=>auth()->user()->id
-        ]);
-        return response()->json([
-            'data'=> NUll,
-            'status'=>200,
-            'message'=>'Advertisment Added to Favourite'
-        ]);
-    }
+    // public function adsFav(Request $request)
+    // {
+    //     $this->adsFav->firstOrCreate([
+    //         'advertisment_id'=>$request->advertisment_id,
+    //         'user_id'=>auth()->user()->id
+    //     ]);
+    //     return response()->json([
+    //         'data'=> NUll,
+    //         'status'=>200,
+    //         'message'=>'Advertisment Added to Favourite'
+    //     ]);
+    // }
 
 
-    public function deleteFav($id)
-    {
-        $this->adsFav->findOrFail($id)->delete;
-        return response()->json([
-            'data'=> NUll,
-            'status'=>200,
-            'message'=>'Advertisment Removed From Favourite'
-        ]);
-    }
+    // public function deleteFav($id)
+    // {
+    //     $this->adsFav->findOrFail($id)->delete;
+    //     return response()->json([
+    //         'data'=> NUll,
+    //         'status'=>200,
+    //         'message'=>'Advertisment Removed From Favourite'
+    //     ]);
+    // }
 
 
 }

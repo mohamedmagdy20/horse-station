@@ -34,7 +34,7 @@ class FavouriteResource extends JsonResource
                 'category'=>$this->product->category->name,
                 'price'=>number_format($this->price, 2),
                 'type'=>$this->type,
-                'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->products->images[0]) : asset('default.png')        
+                'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png')        
             ];
         }
         

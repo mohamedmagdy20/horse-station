@@ -94,24 +94,39 @@ class ProductController extends Controller
 
     public function addFav(Request $request)
     {
-        $this->favModel->firstOrCreate([
-            'product_id'=>$request->product_id,
-            'user_id'=>auth()->user()->id
-        ]);
+        if($request->type == 'product')
+        {
+            $this->favModel->firstOrCreate([
+                'product_id'=>$request->item_id,
+                'user_id'=>auth()->user()->id
+            ]);
+        }else if($request->type == 'advertisment')
+        {
+            AdsFavourite::create([
+                'advertisment_id'=>$request->item_id,
+                'user_id'=>auth()->user()->id
+            ]);
+        }
         return response()->json([
             'data'=> NUll,
             'status'=>200,
-            'message'=>'Product Added to Favourite'
+            'message'=>'Item Added to Favourite'
         ]);
     }
 
-    public function deleteFav($id)
+    public function deleteFav(Request $request, $id)
     {
-        $this->favModel->findOrFail($id)->delete;
+        if($request->type == 'product')
+        {
+            $this->favModel->findOrFail($id)->delete();
+        }else if($request->type == 'advertisment')
+        {
+            AdsFavourite::findOrFail($id)->delete();
+        }
         return response()->json([
             'data'=> NUll,
             'status'=>200,
-            'message'=>'Product Removed From Favourite'
+            'message'=>'Item Removed From Favourite'
         ]);
     }
 

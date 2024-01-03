@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AddressRequest;
+use App\Http\Requests\Api\EditAddressRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
@@ -36,6 +37,18 @@ class AddressController extends Controller
             'data'=> NULL,
             'status'=>200
         ],200);
+    }
+
+    public function update(EditAddressRequest $request)
+    {
+        $data = $request->validated();
+        $address = $this->model->findOrFail($data['id']);
+        $address->update($data);
+        return response()->json([
+            'message'=>'Updated',
+            'data'=> NULL,
+            'status'=>200
+        ]);
     }
 
     public function delete($id){
