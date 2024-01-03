@@ -39,7 +39,7 @@
                     <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td><img src="{{asset('banners/'.$item->image)}}" alt=""></td>
+                            <td><img src="{{asset('uploads/banners/'.$item->image)}}" alt=""></td>
                             <td>
                                 <a href="{{route('admin.banner.edit',$item->id)}}" class="btn btn-primary"><i class="fa fa-pen"></i></a>
                                 <a href="{{route('admin.banner.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>

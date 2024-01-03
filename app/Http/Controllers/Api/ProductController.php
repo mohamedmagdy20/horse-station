@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\SearchResource;
+use App\Http\Resources\FavouriteResource;
 use App\Http\Resources\ProductDetailsResource;
 use App\Http\Resources\ProductFavouriteResource;
 use App\Http\Resources\ProductResource;
@@ -75,17 +76,17 @@ class ProductController extends Controller
         $sign = $request->sign;
         $products = $this->favModel->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
             $item->type = 'product';
-            $item->price = $item->getPriceInCurrency($sign , $item->price);
+            $item->price = $item->product->getPriceInCurrency($sign , $item->product->price);
             return $item;
         });
         $ads = AdsFavourite::where('user_id',auth()->user()->id)->with('advertisment')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
             $item->type = 'advertisment';
-            $item->price = $item->getPriceInCurrency($sign , $item->price); 
+            $item->price = $item->advertisment->getPriceInCurrency($sign , $item->advertisment->price); 
             return $item;
         });
         $data = $products->merge($ads);
         return response()->json([
-            'data'=> SearchResource::collection($data),
+            'data'=> FavouriteResource::collection($data),
             'status'=>200,
             'message'=>'Success'
         ]);
