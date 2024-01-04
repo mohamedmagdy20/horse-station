@@ -82,28 +82,37 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">camps List</h4>
+                <div class="text-center mb-3">
+                    <a href="{{ route('admin.camp.create') }}" class="btn btn-primary">Add Camp <i
+                            class="fa fa-plus"></i></a>
+                </div>
                 <table id="datatable-buttons" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Description</th>
-                            <th>Name</th>
-                            <th>Image</th>
-                            <th>Video</th>
+                            <th>Name in Arabic</th>
+                            <th>Name in English</th>
                             <th>Location</th>
+                            <th>Category</th>
+                            <th>Status</th>
                             <th>Action</th>
+
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{$item['description']}}</td>
-                            <td>{{$item['name']}}</td>
-                            <td><img src="{{asset('uploads/camps/'.$item->images)}}" class="img-thumbnail" width="150px" height="100px" alt=""></td>
-                            <td><img src="{{asset('uploads/camps/'.$item->videos)}}" class="img-thumbnail" width="150px" height="100px" alt=""></td>
-                            <td>{{$item['location']}}</td>
+                            <td>{{$item['name:en']}}</td>
+                            <td>{{$item['name:ar']}}</td>
+                            <td>{{$item->country->name}}</td>
+                            <td>{{$item->category->name}}</td>
                             <td>
                                 <input type="checkbox" id="switch-{{$item->id}}" switch="none" onchange="toggleData({{$item->id}})" {{$item->is_active == true ? 'checked' : ''}}  />
                                 <label for="switch-{{$item->id}}" data-on-label="On" data-off-label="Off"></label>
+                            </td>
+                            <td>
+                                <a href="{{route('admin.camp.show',$item->id)}}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                <a href="{{route('admin.camp.edit',$item->id)}}" class="btn btn-primary "><i class="fa fa-pen"s></i></a>
+                                <a href="{{route('admin.camp.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>
                             </td>
                             
                         </tr>
@@ -132,7 +141,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '{{ route('admin.camp.update') }}',
+                    url: '{{ route('admin.camp.toggle') }}',
                     data: {
                         id: id,
                         status: status,
@@ -142,6 +151,7 @@
                         console.log('Status updated successfully');
                     },
                     error: function (error) {
+                        console.log(error);
                         console.error('Error updating status');
                     },
                 });

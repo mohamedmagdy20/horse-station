@@ -29,7 +29,7 @@
                 <table id="datatable-buttons" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Title </th>
+                            <th>Name </th>
                             <th>Price</th>
                             <th>Location</th>
                             <th>Category</th>
@@ -46,7 +46,7 @@
                     @foreach ($data as $item)
                         <tr>
 
-                           
+                    {{$item}}
                             <td>{{$item['name']}}</td>
                             <td>{{$item->price}}</td>
                             <td>{{$item->location}}</td>
@@ -100,7 +100,7 @@
             },
             error:function(result){
                 console.log(result);
-                toastr.error('Error Accure', 'Error');  
+                toastr.error('Error Accure', 'Error');
             }
         });
     }

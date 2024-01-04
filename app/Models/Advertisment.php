@@ -20,6 +20,7 @@ class Advertisment extends Model
         'location',
         'category_id',
         'is_active',
+        'is_expire',
         'user_id',
         'plan_id',
         'age',
@@ -40,6 +41,11 @@ class Advertisment extends Model
         return $this->belongsTo(Category::class,'category_id');
     }
 
+    public function favourite()
+    {
+        return $this->hasMany(AdsFavourite::class,'advertisment_id');
+    }
+
     public function plan()
     {
         return $this->belongsTo(Plan::class , 'plan_id');
@@ -55,14 +61,25 @@ class Advertisment extends Model
         return $this->belongsTo(Country::class , 'country_id');
     }
 
-     public function getPriceInCurrency($currencySign , $price)
+    public function getPriceInCurrency($currencySign , $price)
+    {
+        $currency = Country::where('sign', $currencySign)->first();
+        if (!$currency) {
+            $currency = Country::first();
+        }
+        $convertedPrice = $price / $currency->currency;
+        return $convertedPrice;
+    }
+
+     public function scopeExpire($query)
      {
-         $currency = Country::where('sign', $currencySign)->first();
-         if (!$currency) {
-             throw new \Exception("Currency not supported");
-         }
-         $convertedPrice = $price / $currency->currency;
-         return $convertedPrice;
+        $query->where('is_expire',true);
+     }
+
+     
+     public function scopeNotExpire($query)
+     {
+        $query->where('is_expire',false);
      }
 
      public function scopeFilter($query, $params)
@@ -82,6 +99,8 @@ class Advertisment extends Model
          {
              $query->where('type',$params['ads_type']);
          }
+
+         return $query;
      }
  
 }

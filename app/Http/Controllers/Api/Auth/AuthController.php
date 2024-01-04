@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ForgetPasswordRequest;
+use App\Http\Requests\Api\RegisterRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -51,20 +53,21 @@ class AuthController extends Controller
     /**
     * Api Registration
     */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
         // Data Validition
-        $validator = Validator::make($request->all(), [
-            'name'         => 'required|string|max:100',
-            'email'        => 'email|unique:users,email|max:100',
-            'password'     => 'required|confirmed|string|max:50|min:5',
-            'phone'        => 'required|string|max:100',
-            'link'         => 'string'
-        ]);
-        if ($validator->fails()) {
-            $errors = $validator->errors();
-            return response()->json($errors);
-        }
+        // $validator = Validator::make($request->all(), [
+        //     'name'         => 'required|string|max:100',
+        //     'email'        => 'email|unique:users,email|max:100',
+        //     'password'     => 'required|confirmed|string|max:50|min:5',
+        //     'phone'        => 'required|string|max:100',
+        //     // 'link'         => 
+        // ]);
+        // if ($validator->fails()) {
+        //     $errors = $validator->errors();
+        //     return response()->json($errors);
+        // }
+        $data = $request->validated();
         // check if User Exist
         $is_user = Auth::attempt(['phone' => $request->phone, 'password' => $request->password]);
         if(! $is_user)
@@ -75,14 +78,16 @@ class AuthController extends Controller
             $data['remember_token'] = Str::random(64);
             $data['otp']  = $this->generateOtp();
              // add user to database if it doesnot exist
-            $user = User::create($data);
+            // $user = User::create($data);
             // Send Sms Otp
             try{
-                $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message);
+                // $message =  'Your Otp is '.$data['otp'];
+                // $sms = SMS::sendSms($data['phone'],$message);
+                $user = User::create($data);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
+                    'OTP'=>$user->otp,
                     'data'   => NULL
                 ],200);
             }catch(Exception $e )
@@ -92,7 +97,6 @@ class AuthController extends Controller
                     'message'     => $e->getMessage(),
                     'access_token'=> null
                  ],500);
-
             }
         }
         // if user Already exsit
@@ -158,12 +162,13 @@ class AuthController extends Controller
                 'otp'=>$otp,
             ]);
             try{
-                $message =  'Your Otp is'.$user->otp;
-                $sms = SMS::sendSms($user->phone,$message);
+                // $message =  'Your Otp is'.$user->otp;
+                // $sms = SMS::sendSms($user->phone,$message);
                 return response()->json([
                     'status'  => 200,
                     'message' => 'SMS Sent',
-                    'data'   => NULL
+                    'data'   => NULL,
+                    'OTP'=>$user->otp
                 ],200);
             }catch(Exception $e )
             {
@@ -190,8 +195,8 @@ class AuthController extends Controller
             'email'     => 'string',
             'name'      => 'required|string',
             'phone'     => 'required|string',
-            'link'      => 'required|string',
-            'password'  => 'required|string',
+            // 'link'      => 'required|string',
+            // 'password'  => 'required|string',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -199,6 +204,7 @@ class AuthController extends Controller
         }
         $user = auth()->user()->id;
         $Code = User::find($user);
+<<<<<<< HEAD
         if ($Code) {
             $Code->update([
                 'email'     => $request->email,
@@ -222,6 +228,54 @@ class AuthController extends Controller
             ]);
         }
     }
+=======
+    if ($Code) {
+        $data = $request->all();
+
+        if($data['password'])
+        {
+            $data['password'] =  Hash::make($request->password);
+        }
+        $Code->update($data);
+        return response()->json([
+            'status'  => 200,
+            "message" => 'Profile Updated Successfully',
+            'data'    => new UserResource($Code)
+            // UserResource::collection($CODE)
+        ]);
+    }
+    else{
+        return response()->json([
+            'ERROR'  => 404,
+            "message" => 'THIS ID NOT FOUND',
+            'data' => null
+        ],404);
+    }
+    }
+
+
+    public function forgetPassword(ForgetPasswordRequest $request)
+    {
+        $data = $request->validated();
+        $user = $this->model->find($request->id);
+        $user->update([
+            'password'=>Hash::make($data['password']),
+        ]);
+        return response()->json([
+            'message'=>'Password Changed',
+            'status'=>200,
+            'data'=>NULL
+        ]);
+
+    }
+
+    // public function sendOtp(Request $request)
+    // {
+    //     $phone  = $request->phone;
+    //     $otp = $this->generateOtp();
+
+    // }
+>>>>>>> 420bb7c51a06d8688a5d54387d61124349679c06
     private function generateOtp()
     {
         $otp = rand(10000,99999);

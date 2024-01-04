@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\Api\SearchResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Traits\FilesTrait;
+use App\Models\Advertisment;
+use App\Models\Camp;
 use App\Models\Category;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -101,10 +105,49 @@ class CategoryController extends Controller
 
     public function getMainCategory(Request $request)
     {
-        App::setLocale($request->header('locale'));
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
         $data = $this->model->whereNull('parent_id')->get();
         return response()->json([
             'data'=>CategoryResource::collection($data),
+            'status'=>200,
+            'message'=>'Success'
+        ]);
+    }
+
+
+    public function search(Request $request)
+    {
+        
+        if($request->header('locale'))
+        {
+            App::setLocale($request->header('locale'));
+        }else{
+            App::setLocale('ar');
+        }
+        $query = $request->input('q');
+        $sign = $request->sign;
+        $products = Product::whereTranslationLike('name',"%{$query}%")->get()->map(function ($item) use ($sign) {
+            $item->type = 'product';
+            $item->price = $item->getPriceInCurrency($sign , $item->price);
+            return $item;
+        });
+
+        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get()->map(function ($item) use ($sign) {
+            $item->type = 'advertisment';
+            $item->price = $item->getPriceInCurrency($sign , $item->price);
+           
+            return $item;
+        });
+
+        $allResults = $products->merge($advertisments);
+        return response()->json([
+            'data'=>SearchResource::collection($allResults),
             'status'=>200,
             'message'=>'Success'
         ]);

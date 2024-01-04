@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CampController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\AdvertismentController;
@@ -29,6 +30,8 @@ Route::post('admin/login',[AdminController::class,'login'])->middleware('guest:a
 Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::get('/',[HomeController::class,'index'])->name('admin');
     Route::get('logout',[AdminController::class,'logout'])->name('admin.logout');
+    Route::get('get-ads_type',[HomeController::class,'advertismentType'])->name('admin.get-ads_type');
+    Route::get('get-ads_status',[HomeController::class,'advertismentStatus'])->name('admin.get-ads_status');
 
     Route::group(['prefix'=>'country','controller'=>CountryController::class],function(){
         Route::get('/','index')->name('admin.country.index');
@@ -46,6 +49,15 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('delete/{id}','delete')->name('admin.category.delete');
         Route::post('update/{id}','update')->name('admin.category.update');
         Route::post('store','store')->name('admin.category.store');
+    });
+
+    Route::group(['prefix'=>'banner','controller'=>BannerController::class],function(){
+        Route::get('/','index')->name('admin.banner.index');
+        Route::get('create','create')->name('admin.banner.create');
+        Route::get('edit/{id}','edit')->name('admin.banner.edit');
+        Route::get('delete/{id}','delete')->name('admin.banner.delete');
+        Route::post('update/{id}','update')->name('admin.banner.update');
+        Route::post('store','store')->name('admin.banner.store');
     });
 
     Route::group(['prefix'=>'plan','controller'=>PlanController::class],function(){
@@ -92,7 +104,17 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('/','index')->name('admin.camp.index');
-        Route::post('update-status','update')->name('admin.camp.update');
+        Route::get('regsiteration','registration')->name('admin.camp.registration');
+
+        Route::get('create','create')->name('admin.camp.create');
+        Route::get('show/{id}','show')->name('admin.camp.show');
+        Route::get('edit/{id}','edit')->name('admin.camp.edit');
+       
+        Route::get('delete/{id}','delete')->name('admin.camp.delete');
+
+        Route::post('store','store')->name('admin.camp.store');
+        Route::post('update/{id}','update')->name('admin.camp.update');
+        Route::post('update-status','updateStatus')->name('admin.camp.update.status');
         Route::get('toggle-data','toggleActive')->name('admin.camp.toggle');
 
     });

@@ -24,8 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'image'=>'image',
+            'image'=>'image|mimes:jpeg,png,jpg',
             'parent_id'=>'nullable',
             'has_child'=>'nullable',
             'ar.name'=>[

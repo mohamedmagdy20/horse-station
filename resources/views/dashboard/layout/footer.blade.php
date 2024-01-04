@@ -5,7 +5,7 @@
             <div class="col-sm-6">
                 <script>
                     document.write(new Date().getFullYear())
-                </script> © Hourse Station Dashboard.
+                </script> © Horse Station Dashboard.
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">

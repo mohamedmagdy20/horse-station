@@ -30,98 +30,93 @@
                 <h4 class="card-title">Show Advertisment</h4>
                 <div class="row mb-3">
 
-                @foreach(config('translatable.locales') as $locale)
-                    <div class="col-md-6 mb-4">
-                            <label>Name in {{$locale}} : <span class="text-danger">*</span> </label> 
-                            <input type="text" disabled class="form-control" name="{{$locale}}[name]" required value="{{$data['name:'.$locale]}}" id="">
+                    <div class="col-md-12 mb-4">
+                            <label>Name : <span class="text-danger">*</span> </label>
+                            <input type="text" disabled class="form-control" name="name" required value="{{$data->name}}" id="">
                     </div>
 
-                    @error($locale.'[name]')
+                    @error('name')
                     <span class="text-danger"> {{ $message }} </span>
                     @enderror
 
-                @endforeach
 
                 <div class="col-md-12 mb-4">
-                    <label>Price : <span class="text-danger">*</span> </label> 
+                    <label>Price : <span class="text-danger">*</span> </label>
                     <input type="text" class="form-control" name="price" disabled value="{{$data->price}}" id="">
-                    
+
                     @error('price')
                     <span class="text-danger"> {{ $message }} </span>
                     @enderror
                 </div>
 
-                
-        
+
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Categories <span class="text-danger"></span></label>
                         <input type="text" class="form-control" disabled value="{{$data->category->name}}" name="" id="">
                 </div>
 
-                 
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Type <span class="text-danger"></span></label>
                         <input type="text" class="form-control" disabled value="{{$data->type}}" name="" id="">
                 </div>
 
-                
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Advertisment Type <span class="text-danger"></span></label>
                         <input type="text" class="form-control" disabled value="{{$data->ads_type}}" name="" id="">
                 </div>
-                
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Plan <span class="text-danger"></span></label>
                         <input type="text" class="form-control" disabled value="{{$data->plan->name}}" name="" id="">
                      </div>
-                    
+
                     @error('category_id')
                     <span class="text-danger"> {{ $message }} </span>
                     @enderror
-                </div>    
+                </div>
                 <div class="row">
-                    @foreach(config('translatable.locales') as $locale)
-                    <div class="col-md-6 mb-4">
-                            <label>Description in {{$locale}} : <span class="text-danger">*</span> </label> 
-                            <textarea name="" class="form-control" id="" cols="30" rows="10">{{$data['decription:'.$locale]}}</textarea>
+                    {{-- @foreach(config('translatable.locales') as $locale) --}}
+                    <div class="col-md-12 mb-4">
+                            <label>Description : <span class="text-danger">*</span> </label>
+                            <textarea name="description" class="form-control" id="" cols="30" rows="10">{{$data->description}}</textarea>
                     </div>
-                @endforeach
+                {{-- @endforeach --}}
 
                 </div>
-               
+
                 <div class="col-md-6 mb-4">
-                    <label>Location : <span class="text-danger">*</span> </label> 
+                    <label>Location : <span class="text-danger">*</span> </label>
                     <input type="text" class="form-control" disabled value="{{$data->location}}" name="" id="">
                 </div>
 
                 @if ($data->type == 'horse')
                 <div class="col-md-6 mb-4">
-                    <label> Age : <span class="text-danger">*</span> </label> 
+                    <label> Age : <span class="text-danger">*</span> </label>
                     <input type="text" class="form-control" disabled value="{{$data->age}}" name="" id="">
                 </div>
-    
-                @endif
-                @if ($data->images != null)
-                <div class="col-md-12 mb-4">
-                    <div class="from-group">
-                        
-                            <div class="content-image mb-4 mt-4">
-                                <label for="">Images</label>
-                                @foreach ($data->images as $image )
-                                <img src="{{asset('uploads/Advertisment/'.$image)}}" width="150px" height="150px" alt="">
-                               @endforeach
-                       
-                            </div>
-                           
 
-                    </div>
-                </div>        
                 @endif
-              
+                @if (!empty($data->images))
+                <div class="col-md-12 mb-4">
+                    <div class="form-group">
+                        <div class="content-image mb-4 mt-4">
+                            <label for="">Images</label>
+                            @foreach ($data->images as $image)
+                                <img src="{{ asset('uploads/Advertisment/'.$image) }}" width="150px" height="150px" alt="">
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Videos <span class="text-danger"></span></label>
@@ -129,8 +124,8 @@
                     </div>
                 </div>
 
-                
-               
+
+
 
                 <!-- end row -->
                 </div>

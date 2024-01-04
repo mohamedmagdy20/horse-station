@@ -33,13 +33,25 @@
 
                 @endforeach
 
-                <div class="col-md-12 mb-4">
+                <div class="col-md-6 mb-4">
                     <div class="form-group">
                         <label for="">Parent <span class="text-danger"></span></label>
                         <select name="parent_id" class="form-control" id="">
                             <option value="" >Select Category</option>
                             @foreach ($categories as $cat )
                                 <option value="{{$cat->id}}" {{$data->parent_id == $cat->id ? 'selected' : ''}}>{{$cat->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>    
+
+                <div class="col-md-6 mb-4">
+                    <div class="form-group">
+                        <label for="">Type <span class="text-danger"></span></label>
+                        <select name="type" class="form-control" id="">
+                            <option value="" >Select Type</option>
+                            @foreach (config('category.type') as $type )
+                                <option value="{{$type}}" {{$data->type == $type ? 'selected' : ''}}>{{$type}}</option>                            
                             @endforeach
                         </select>
                     </div>

@@ -15,12 +15,25 @@ class Category extends Model implements TranslatableContract
     protected $fillable = [
         'image',
         'parent_id',
-        'has_child'
+        'has_child',
+        'type'
     ];
 
     public function parent()
     {
         return $this->belongsTo(Category::class,'parent_id');
+    }
+
+    public function scopeFilter($query, $params)
+    {
+        
+       
+
+        if(isset($params['type']))
+        {
+            $query->where('type',$params['type']);
+        }
+        return $query;
     }
 
 }

@@ -41,6 +41,7 @@ class ProductRequest extends FormRequest
             'images'=>'nullable',
             'videos'=>'nullable',
             'deliver_time'=>'nullable',
+            'size'=>'nullable',
             'price'=>'required',
             'colors'=>'nullable',
             'ar.description'=>[
