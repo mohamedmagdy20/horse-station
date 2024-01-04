@@ -46,7 +46,6 @@
                     @foreach ($data as $item)
                         <tr>
 
-                    {{$item}}
                             <td>{{$item['name']}}</td>
                             <td>{{$item->price}}</td>
                             <td>{{$item->location}}</td>
