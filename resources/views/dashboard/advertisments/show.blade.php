@@ -108,8 +108,9 @@
                     <div class="form-group">
                         <div class="content-image mb-4 mt-4">
                             <label for="">Images</label>
+
                             @foreach ($data->images as $image)
-                                <img src="{{ asset('uploads/Advertisment/'.$image) }}" width="150px" height="150px" alt="">
+                                <img src="{{ asset('uploads/advertisments/'.$image) }}" width="150px" height="150px" alt="">
                             @endforeach
                         </div>
                     </div>
