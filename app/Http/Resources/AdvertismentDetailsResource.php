@@ -16,10 +16,18 @@ class AdvertismentDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if(Auth::check())
+        
+        // Attempt to authenticate user only if a token is provided
+        if ($bearerToken = $request->bearerToken()) {
+            // This will attempt to authenticate using the token but won't fail if     the token is invalid
+            $user = Auth::guard('sanctum')->setRequest($request)->user();
+        } else {
+            $user = null;
+        }
+        if($user)
         {
-            $favouriteId = AdsFavourite::where('user_id',auth()->user()->id)->where('advertisment_id',$this->id)->first();
-            
+            $favouriteId = AdsFavourite::where('user_id',$user->id)->where('advertisment_id',$this->id)->first();          
+            $favouriteId = $favouriteId->id;
         }else{
             $favouriteId = null;
         }
@@ -53,7 +61,7 @@ class AdvertismentDetailsResource extends JsonResource
             'age'=>$this->age,
             'location'=>$this->country->name,
             'description'=>$this->description,
-            'favourite_id'=>$favouriteId == null ? null : $favouriteId,
+            'favourite_id'=>$favouriteId ,
             'type'=>'advertisment'
         ];
     }

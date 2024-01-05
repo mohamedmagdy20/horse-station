@@ -21,7 +21,7 @@ class ProductDetailsResource extends JsonResource
         if(Auth::check())
         {
             $favouriteId = ProductFavourite::where('user_id',auth()->user()->id)->where('product_id',$this->id)->first();
-            
+            $favouriteId = $favouriteId->id;  
         }else{
             $favouriteId = null;
         }
@@ -55,7 +55,7 @@ class ProductDetailsResource extends JsonResource
             'colors'=>$this->colors,
             'price'=>$this->price,
             'description'=>$this->description != null ?  explode(',' , $this->description) : null,
-            'favourite_id'=>$favouriteId == null ? null : $favouriteId,
+            'favourite_id'=>$favouriteId,
             'type'=>'product'
         ];
     }
