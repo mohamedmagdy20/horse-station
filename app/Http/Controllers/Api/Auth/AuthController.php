@@ -118,7 +118,6 @@ class AuthController extends Controller
             }
         }
     }
-
     public function logout(Request $request)
     {
         $accessToken = $request->bearerToken();
@@ -130,7 +129,6 @@ class AuthController extends Controller
             'message'=>'Successfully Logout'
         ], 200);
     }
-
     public function verify(Request $request)
     {
         $user = $this->model->where('otp',$request->otp)->first();
@@ -154,8 +152,6 @@ class AuthController extends Controller
             ],400);
         }
     }
-
-
     public function resend(Request $request)
     {
         $otp = $this->generateOtp();
@@ -208,6 +204,31 @@ class AuthController extends Controller
         }
         $user = auth()->user()->id;
         $Code = User::find($user);
+<<<<<<< HEAD
+        if ($Code) {
+            $Code->update([
+                'email'     => $request->email,
+                'name'      => $request->name,
+                'phone'     => $request->phone,
+                'link'      => $request->city,
+                'password'  => Hash::make($request->password),
+            ]);
+            return response()->json([
+                'status'  => 200,
+                "message" => 'Profile Updated Successfully',
+                'data'    => new UserResource($Code)
+                // UserResource::collection($CODE)
+            ]);
+        }
+        else{
+            return response()->json([
+                'ERROR'  => 404,
+                "message" => 'THIS ID NOT FOUND',
+                'data' => null
+            ]);
+        }
+    }
+=======
     if ($Code) {
         $data = $request->all();
 
@@ -254,6 +275,7 @@ class AuthController extends Controller
     //     $otp = $this->generateOtp();
 
     // }
+>>>>>>> 420bb7c51a06d8688a5d54387d61124349679c06
     private function generateOtp()
     {
         $otp = rand(10000,99999);

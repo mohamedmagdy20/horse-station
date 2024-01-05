@@ -35,7 +35,7 @@ class AdvertismentController extends Controller
             App::setLocale('ar');
         }
         $data  = $this->model->filter($request->all())->where('is_active',true)->latest()->simplePaginate(7);
-        $sign = $request->sign;
+        $sign  = $request->sign;
         return response()->json([
             'data'=> AdvertismentResource::collection($data->map(function ($ads) use ($sign) {
                 $ads->price = $ads->getPriceInCurrency($sign , $ads->price);
@@ -45,7 +45,6 @@ class AdvertismentController extends Controller
             'message'=>'Success'
         ]);
     }
-
     public function featuredAds(Request $request)
     {
        
@@ -66,7 +65,6 @@ class AdvertismentController extends Controller
             'message'=>'Success'
         ]);
     }
-
     public function show(Request $request ,$id)
     {
 
@@ -83,10 +81,7 @@ class AdvertismentController extends Controller
             'status'=>200,
             'message'=>'Success'
         ]);
-   
     }
-
-
     public function store(AdvertismentRequest $request){
         $data = $request->validated();
         try{
@@ -99,7 +94,7 @@ class AdvertismentController extends Controller
                 }
                 $data['images'] = $dataImage;
             }
-    
+
             if($request->hasFile('videos'))
             {
                 $dataVideo = [];
@@ -109,19 +104,19 @@ class AdvertismentController extends Controller
                 }
                 $data['videos'] = $dataVideo;
             }
-    
+
             $data['user_id'] = auth()->user()->id;
             $ads = $this->model->create($data);
-            
+
             // Payment Check Out //
 
-            
+
             return response()->json([
                 'data'=> new AdvertismentDetailsResource($ads),
                 'status'=>200,
                 'message'=>'Success'
             ]);
-            
+
         }catch(Exception $e)
         {
             return response()->json([
@@ -130,7 +125,7 @@ class AdvertismentController extends Controller
                 'message'=>$e->getMessage()
             ],400);
         }
-        
+
     }
 
     // public function getFavAds()
