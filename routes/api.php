@@ -54,7 +54,9 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
-
+    Route::post('advertisment/setsold',[AdvertismentController::class,'setAsSold']);
+    Route::post('advertisment/setunsold',[AdvertismentController::class,'setAsUnSold']);
+    
     // Route::group(['prefix'=>'favourite/advertisments','controller'=>AdvertismentController::class],function(){
     //     // Route::get('/','getFavAds');
     //     Route::post('create','adsFav');

@@ -162,6 +162,32 @@ class AdvertismentController extends Controller
     //     ]);
     // }
 
+    public function setAsSold(Request $request)
+    {
+        $data = $this->model->find($request->id);
+        $data->update([
+            'is_sold'=>true
+        ]);
+        return response()->json([
+            'data'=>NULL,
+            'status'=>200,
+            'message'=>'Success',
+        ]);
+    }
+
+    public function setAsUnSold(Request $request)
+    {
+        $data = $this->model->find($request->id);
+        $data->update([
+            'is_sold'=>false
+        ]);
+        return response()->json([
+            'data'=>NULL,
+            'status'=>200,
+            'message'=>'Success',
+        ]);
+    }
+
 
 }
 

@@ -19,6 +19,7 @@ class Advertisment extends Model
         'price',
         'location',
         'category_id',
+        'is_sold',
         'is_active',
         'is_expire',
         'user_id',
