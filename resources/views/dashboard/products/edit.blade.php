@@ -140,9 +140,8 @@
     
                             @foreach ($data->videos as $image)
                             <video width="320" height="240" autoplay muted>
-                                <source src="movie.mp4" type="{{asset('uploads/videos/'.$image)}}">
-                                {{-- <source src="movie.ogg" type="video/ogg"> --}}
-                              </video>
+                                <source src="{{asset('uploads/vidoes/'.$image)}}" type="video/mp4">
+                            </video>
                             @endforeach
                         </div>
                     </div>
