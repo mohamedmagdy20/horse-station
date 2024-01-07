@@ -132,6 +132,23 @@
                     </div>
                 </div>
 
+                @if (!empty($data->videos))
+                <div class="col-md-12 mb-4">
+                    <div class="form-group">
+                        <div class="content-image mb-4 mt-4">
+                            <label for="">Video</label>
+    
+                            @foreach ($data->videos as $image)
+                            <video width="320" height="240" autoplay muted>
+                                <source src="movie.mp4" type="{{asset('uploads/videos/'.$image)}}">
+                                {{-- <source src="movie.ogg" type="video/ogg"> --}}
+                              </video>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
                 <div class="col-md-12 mb-4">
                     <label for="">Number of Colors If Need </label>
                     <input type="number" id="color_number" onchange="contianer()" class="form-control" name="" id="">

@@ -118,12 +118,30 @@
             @endif
 
 
-                <div class="col-md-12 mb-4">
+            @if (!empty($data->videos))
+            <div class="col-md-12 mb-4">
+                <div class="form-group">
+                    <div class="content-image mb-4 mt-4">
+                        <label for="">Video</label>
+
+                        @foreach ($data->videos as $image)
+                        <video width="320" height="240" autoplay muted>
+                            <source src="movie.mp4" type="{{asset('uploads/videos/'.$image)}}">
+                            {{-- <source src="movie.ogg" type="video/ogg"> --}}
+                          </video>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
+
+
+                {{-- <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Videos <span class="text-danger"></span></label>
                         <input type="file" name="videos[]" value="{{old('videos')}}"  multiple class="form-control" id="">
                     </div>
-                </div>
+                </div> --}}
 
 
 
