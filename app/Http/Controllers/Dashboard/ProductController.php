@@ -65,7 +65,7 @@ class ProductController extends Controller
             {
                 foreach($request->file('videos') as $video)
                 {
-                    $dataVideos [] = $this->saveFile($video , config('filepath.VIDEO_PATH'));
+                    $dataVideos [] = $this->saveFile($video , config('filepath.VIDEOS_PATH'));
                 }
                 $data['videos'] = $dataVideos;
             }
@@ -100,7 +100,7 @@ class ProductController extends Controller
             {
                 foreach($request->file('videos') as $video)
                 {
-                    $dataVideos [] = $this->saveFile($video , config('filepath.VIDEO_PATH'));
+                    $dataVideos [] = $this->saveFile($video , config('filepath.VIDEOS_PATH'));
                 }
                 $data['videos'] = $dataVideos;
             }

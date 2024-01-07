@@ -26,8 +26,13 @@ class AdvertismentDetailsResource extends JsonResource
         }
         if($user)
         {
-            $favouriteId = AdsFavourite::where('user_id',$user->id)->where('advertisment_id',$this->id)->first();          
-            $favouriteId = $favouriteId->id;
+            $favouriteId = AdsFavourite::where('user_id',$user->id)->where('advertisment_id',$this->id)->first();
+            if($favouriteId)
+            {
+                $favouriteId = $favouriteId->id;
+            }else{
+                $favouriteId = null;
+            }
         }else{
             $favouriteId = null;
         }

@@ -132,20 +132,26 @@ class CategoryController extends Controller
         }
         $query = $request->input('q');
         $sign = $request->sign;
-        $products = Product::whereTranslationLike('name',"%{$query}%")->get()->map(function ($item) use ($sign) {
+       // Assuming you want 10 items per page
+       $perPage = 10;
+
+        // Retrieve and map products
+        $productsQuery = Product::whereTranslationLike('name',"%{$query}%");
+        $products = $productsQuery->paginate($perPage)->map(function ($item) use     ($sign) {
             $item->type = 'product';
             $item->price = $item->getPriceInCurrency($sign , $item->price);
             return $item;
         });
-
-        $advertisments = Advertisment::where('name', 'LIKE', "%{$query}%")->get()->map(function ($item) use ($sign) {
+    
+        // Retrieve and map advertisements
+        $advertisementsQuery = Advertisment::where('name', 'LIKE', "%{$query}%")->where('is_active',true);
+        $advertisements = $advertisementsQuery->paginate($perPage)->map(function     ($item) use ($sign) {
             $item->type = 'advertisment';
             $item->price = $item->getPriceInCurrency($sign , $item->price);
-           
             return $item;
         });
 
-        $allResults = $products->merge($advertisments);
+        $allResults = $products->merge($advertisements);
         return response()->json([
             'data'=>SearchResource::collection($allResults),
             'status'=>200,

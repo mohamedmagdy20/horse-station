@@ -28,14 +28,13 @@ class AdvertismentRequest extends FormRequest
             'type'=>'required',
             'description'=>'nullable',
             'country_id'=>'required',
-            'price'=>'required|numeric',
+            'price'=>'required',
             'phone'=>'required',
             'category_id'=>'required',
             'age'=>'nullable',
             'images'=>'nullable',
             'videos'=>'nullable',
             'ads_type'=>'required',
-            'plan_id'=>'required'
         ];
     }
 

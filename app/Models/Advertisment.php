@@ -69,7 +69,7 @@ class Advertisment extends Model
             $currency = Country::first();
         }
         $convertedPrice = $price / $currency->currency;
-        return $convertedPrice;
+        return number_format($convertedPrice, 2);
     }
 
      public function scopeExpire($query)

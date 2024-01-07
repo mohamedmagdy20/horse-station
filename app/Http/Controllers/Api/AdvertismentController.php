@@ -54,7 +54,7 @@ class AdvertismentController extends Controller
         }else{
             App::setLocale('ar');
         }
-        $data  = $this->model->where('ads_type','special')->where('is_active',true)->take(5)->latest()->get();
+        $data  = $this->model->where('ads_type','special')->where('is_active',true)->notExpire()->take(5)->latest()->get();
         $sign = $request->sign;
         return response()->json([
             'data'=> AdvertismentResource::collection($data->map(function ($ads) use ($sign) {
@@ -95,14 +95,22 @@ class AdvertismentController extends Controller
                 $data['images'] = $dataImage;
             }
 
-            if($request->hasFile('videos'))
+            if($request->hasFile('videos') && $data['videos'] != null)
             {
+                
                 $dataVideo = [];
                 foreach($request->videos as $video)
                 {
-                    $dataImage [] = $this->saveFile($video , config('filepath.VIDEOS_PATH'));
+                    $dataVideo [] = $this->saveFile($video , config('filepath.VIDEOS_PATH'));
                 }
                 $data['videos'] = $dataVideo;
+            }
+            
+            if($data['ads_type'] == 'normal')
+            {
+                $data['plan_id'] = 1;
+            }else{
+                $data['plan_id'] = 2;
             }
 
             $data['user_id'] = auth()->user()->id;
@@ -119,6 +127,7 @@ class AdvertismentController extends Controller
 
         }catch(Exception $e)
         {
+            // return $e;
             return response()->json([
                 'data'=> NUll,
                 'status'=>400,
