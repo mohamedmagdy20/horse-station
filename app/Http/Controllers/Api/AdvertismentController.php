@@ -47,7 +47,7 @@ class AdvertismentController extends Controller
     }
     public function featuredAds(Request $request)
     {
-       
+
         if($request->header('locale'))
         {
             App::setLocale($request->header('locale'));
@@ -75,12 +75,18 @@ class AdvertismentController extends Controller
             App::setLocale('ar');
         }
         $data = $this->model->find($id);
-        $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
-        return response()->json([
-            'data'=> new AdvertismentDetailsResource($data),
-            'status'=>200,
-            'message'=>'Success'
-        ]);
+        if ($data) {
+            $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
+            return response()->json([
+                'data'=> new AdvertismentDetailsResource($data),
+                'status'=>200,
+                'message'=>'Success'
+            ]);
+        }
+        else
+        {
+         return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
+        }
     }
     public function store(AdvertismentRequest $request){
         $data = $request->validated();
@@ -97,7 +103,7 @@ class AdvertismentController extends Controller
 
             if($request->hasFile('videos') && $data['videos'] != null)
             {
-                
+
                 $dataVideo = [];
                 foreach($request->videos as $video)
                 {
@@ -105,7 +111,7 @@ class AdvertismentController extends Controller
                 }
                 $data['videos'] = $dataVideo;
             }
-            
+
             if($data['ads_type'] == 'normal')
             {
                 $data['plan_id'] = 1;
@@ -139,7 +145,7 @@ class AdvertismentController extends Controller
 
     // public function getFavAds()
     // {
-    //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);   
+    //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
     //     return response()->json([
     //         'data'=> AdsFavResourse::collection($data),
     //         'status'=>200,
