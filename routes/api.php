@@ -54,9 +54,10 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
+    Route::post('edit-advertisement/{advertisement}', [AdvertismentController::class, 'update']);
     Route::post('advertisment/setsold',[AdvertismentController::class,'setAsSold']);
     Route::post('advertisment/setunsold',[AdvertismentController::class,'setAsUnSold']);
-    
+
     // Route::group(['prefix'=>'favourite/advertisments','controller'=>AdvertismentController::class],function(){
     //     // Route::get('/','getFavAds');
     //     Route::post('create','adsFav');
@@ -69,7 +70,7 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::delete('/delete/{id}','deleteFav');
     });
 
-    
+
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('get-levels','getLevelByCamp');
         Route::get('get-sports','getSportByCamp');
@@ -80,7 +81,7 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::get('/','index');
         Route::post('store','store');
         Route::get('increment','addQuantity');
-        Route::get('decrement','decQuantity');         
+        Route::get('decrement','decQuantity');
     });
 
     Route::group(['prefix'=>'address','controller'=>AddressController::class],function(){

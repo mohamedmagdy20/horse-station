@@ -143,6 +143,30 @@ class AdvertismentController extends Controller
 
     }
 
+public function update(AdvertismentRequest $request, $advertisement)
+{
+    $data = $request->validated();
+    try {
+        $ads = $this->model->findOrFail($advertisement);
+        if ($ads)
+        {
+            $ads->update($data);
+            return response()->json([
+                'data' => new AdvertismentDetailsResource($ads),
+                'status' => 200,
+                'message' => 'Advertisement updated successfully'
+            ]);
+        }
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'data' => null,
+            'status' => 400,
+            'message' => $e->getMessage()
+        ], 400);
+    }
+}
+
     // public function getFavAds()
     // {
     //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
