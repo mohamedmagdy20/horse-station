@@ -34,6 +34,7 @@ class CampController extends Controller
             App::setLocale('ar');
         }
         $data = $this->model->find($id);
+        if ($data) {
         $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
         return response()->json([
             'data'=> new CampDetailsResource($data),
@@ -41,13 +42,18 @@ class CampController extends Controller
             'message'=>'Success'
         ]);
     }
+    else
+    {
+     return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
+    }
+    }
 
     public function store(CampRegisterRequest $request)
     {
-        $data = $request->validated(); 
+        $data = $request->validated();
         try{
             $data['user_id'] = auth()->user()->id;
-            RegisterCamp::create($data);    
+            RegisterCamp::create($data);
             return response()->json([
                 'data'=> NULL,
                 'status'=>200,
@@ -61,7 +67,7 @@ class CampController extends Controller
                 'message'=>$e->getMessage()
             ], 500);
         }
-      
+
 
     }
 
