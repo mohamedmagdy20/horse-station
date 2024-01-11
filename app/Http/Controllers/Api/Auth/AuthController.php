@@ -202,34 +202,39 @@ class AuthController extends Controller
             'link'      => 'string',
             'password'  => 'string',
         ]);
+
         if ($validator->fails()) {
             $errors = $validator->errors();
             return response()->json($errors);
         }
+
         $user = auth()->user()->id;
         $Code = User::find($user);
-    if ($Code) {
-        $data = $request->all();
-        if($data['password'])
-        {
-            $data['password'] =  Hash::make($request->password);
+
+        if ($Code) {
+            $data = $request->all();
+
+            // Check if 'password' key exists in the $data array
+            if (array_key_exists('password', $data) && $data['password']) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            $Code->update($data);
+
+            return response()->json([
+                'status'  => 200,
+                "message" => 'Profile Updated Successfully',
+                'data'    => new UserResource($Code)
+            ]);
+        } else {
+            return response()->json([
+                'ERROR'   => 404,
+                "message" => 'THIS ID NOT FOUND',
+                'data'    => null
+            ], 404);
         }
-        $Code->update($data);
-        return response()->json([
-            'status'  => 200,
-            "message" => 'Profile Updated Successfully',
-            'data'    => new UserResource($Code)
-            // UserResource::collection($CODE)
-        ]);
     }
-    else{
-        return response()->json([
-            'ERROR'  => 404,
-            "message" => 'THIS ID NOT FOUND',
-            'data' => null
-        ],404);
-    }
-    }
+
 
 
     public function forgetPassword(ForgetPasswordRequest $request)
