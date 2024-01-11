@@ -29,6 +29,14 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class,'order_items');
     }
-
+    public function getPriceInCurrency($currencySign , $price)
+    {
+        $currency = Country::where('sign', $currencySign)->first();
+        if (!$currency) {
+            $currency = Country::first();
+        }
+        $convertedPrice = $price / $currency->currency;
+        return $convertedPrice;
+    }
 
 }

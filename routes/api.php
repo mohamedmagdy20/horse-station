@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CampController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Dashboard\BannerController;
@@ -45,6 +46,7 @@ Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
 Route::get('product/{id}',[ProductController::class,'show']);
 Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 Route::get('camp/{id}',[CampController::class,'show']);
+Route::get('order/{id}',[OrderController::class,'show']);
 Route::post('change-password',[AuthController::class,'forgetPassword']);
 
 Route::get('search',[CategoryController::class,'search']);
