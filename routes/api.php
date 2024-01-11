@@ -91,7 +91,7 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
         Route::post('store','store');
         Route::post('edit','update');
 
-        Route::delete('delete','delete');
+        Route::delete('delete/{id}','delete');
       });
 
     Route::get('profile/advertisment',[ProfileController::class,'advertisment']);
