@@ -23,7 +23,6 @@ class FavouriteResource extends JsonResource
                 'category'=>$this->advertisment->category->name,
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'favourite_id'=>$this->favourite_id,
                 'image'=>$this->advertisment->images != null ?  asset('uploads/advertisments/'.$this->advertisment->images[0]) : asset('default.png')
             ];
         }else
@@ -35,7 +34,6 @@ class FavouriteResource extends JsonResource
                 'category'=>$this->product->category->name,
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'favourite_id'=>$this->favourite_id,
                 'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png')
             ];
         }

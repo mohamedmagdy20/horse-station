@@ -17,11 +17,13 @@ class ProductController extends Controller
 {
     protected $model;
     protected $favModel;
+    protected $fav;
 
-    public function __construct(Product  $model  , ProductFavourite $favModel)
+    public function __construct(Product  $model  , ProductFavourite $favModel , AdsFavourite $fav)
     {
         $this->model = $model;
         $this->favModel = $favModel;
+        $this->fav = $fav;
     }
     public function featuredProduct(Request $request)
     {
@@ -96,19 +98,19 @@ class ProductController extends Controller
     {
         if($request->type == 'product')
         {
-            $this->favModel->firstOrCreate([
+            $dd =  $this->favModel->firstOrCreate([
                 'product_id'=>$request->item_id,
                 'user_id'=>auth()->user()->id
             ]);
         }else if($request->type == 'advertisment')
         {
-          AdsFavourite::create([
+          $dd = $this->fav->firstOrCreate([
                 'advertisment_id'=>$request->item_id,
                 'user_id'=>auth()->user()->id
             ]);
         }
         return response()->json([
-            'data'=> $request->id,
+            'data'=> $dd,
             'status'=>200,
             'message'=>'Item Added to Favourite'
         ]);
