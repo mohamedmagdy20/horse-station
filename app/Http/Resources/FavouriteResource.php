@@ -18,25 +18,27 @@ class FavouriteResource extends JsonResource
         {
             return [
                 'id'=>$this->advertisment->id,
-                'item_id'=>  $this->id, 
+                'item_id'=>  $this->id,
                 'name'=>$this->advertisment->name,
                 'category'=>$this->advertisment->category->name,
                 'price'=>$this->price,
                 'type'=>$this->type,
+                'favourite_id'=>$this->favourite_id,
                 'image'=>$this->advertisment->images != null ?  asset('uploads/advertisments/'.$this->advertisment->images[0]) : asset('default.png')
             ];
         }else
         {
             return [
                 'id'=>$this->product->id,
-                'item_id'=>  $this->id, 
+                'item_id'=>  $this->id,
                 'name'=>$this->product->name,
                 'category'=>$this->product->category->name,
                 'price'=>$this->price,
                 'type'=>$this->type,
-                'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png')        
+                'favourite_id'=>$this->favourite_id,
+                'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png')
             ];
         }
-        
+
     }
 }

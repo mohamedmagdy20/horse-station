@@ -16,7 +16,7 @@ class AdvertismentDetailsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        
+
         // Attempt to authenticate user only if a token is provided
         if ($bearerToken = $request->bearerToken()) {
             // This will attempt to authenticate using the token but won't fail if     the token is invalid
@@ -38,23 +38,23 @@ class AdvertismentDetailsResource extends JsonResource
         }
 
         $images = $this->images;
-        $dataImages = []; 
+        $dataImages = [];
         if($images != null)
         {
             foreach($images as $image)
             {
                 $dataImages [] = asset('uploads/advertisments/'.$image);
-            }    
+            }
         }
 
         $videos = $this->videos;
-        $dataVideos = []; 
+        $dataVideos = [];
         if($videos != null)
         {
             foreach($videos as $item)
             {
                 $dataVideos [] = asset('uploads/videos/'.$item);
-            }    
+            }
         }
         return [
             'id'=>$this->id,
@@ -67,7 +67,13 @@ class AdvertismentDetailsResource extends JsonResource
             'location'=>$this->country->name,
             'description'=>$this->description,
             'favourite_id'=>$favouriteId ,
-            'type'=>'advertisment'
+            'type'=>'advertisment',
+            'phone'=>$this->phone,
+            'category_id'=>$this->category_id,
+            'country_id'=>$this->country_id,
+            'ads_type'=>$this->ads_type,
+
+
         ];
     }
 }

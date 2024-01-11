@@ -25,7 +25,7 @@ class ProductController extends Controller
     }
     public function featuredProduct(Request $request)
     {
-        
+
         if($request->header('locale'))
         {
             App::setLocale($request->header('locale'));
@@ -66,7 +66,7 @@ class ProductController extends Controller
 
     public function favourite(Request $request)
     {
-        
+
         if($request->header('locale'))
         {
             App::setLocale($request->header('locale'));
@@ -81,7 +81,7 @@ class ProductController extends Controller
         });
         $ads = AdsFavourite::where('user_id',auth()->user()->id)->with('advertisment')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
             $item->type = 'advertisment';
-            $item->price = $item->advertisment->getPriceInCurrency($sign , $item->advertisment->price); 
+            $item->price = $item->advertisment->getPriceInCurrency($sign , $item->advertisment->price);
             return $item;
         });
         $data = $products->merge($ads);
@@ -102,13 +102,13 @@ class ProductController extends Controller
             ]);
         }else if($request->type == 'advertisment')
         {
-            AdsFavourite::create([
+          AdsFavourite::create([
                 'advertisment_id'=>$request->item_id,
                 'user_id'=>auth()->user()->id
             ]);
         }
         return response()->json([
-            'data'=> NUll,
+            'data'=> $request->id,
             'status'=>200,
             'message'=>'Item Added to Favourite'
         ]);
