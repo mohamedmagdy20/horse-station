@@ -61,7 +61,7 @@ class AuthController extends Controller
         //     'email'        => 'email|unique:users,email|max:100',
         //     'password'     => 'required|confirmed|string|max:50|min:5',
         //     'phone'        => 'required|string|max:100',
-        //     // 'link'         => 
+        //     // 'link'         =>
         // ]);
         // if ($validator->fails()) {
         //     $errors = $validator->errors();
@@ -199,8 +199,8 @@ class AuthController extends Controller
             'email'     => 'string',
             'name'      => 'required|string',
             'phone'     => 'required|string',
-            // 'link'      => 'required|string',
-            // 'password'  => 'required|string',
+            'link'      => 'string',
+            'password'  => 'string',
         ]);
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -210,7 +210,6 @@ class AuthController extends Controller
         $Code = User::find($user);
     if ($Code) {
         $data = $request->all();
-
         if($data['password'])
         {
             $data['password'] =  Hash::make($request->password);

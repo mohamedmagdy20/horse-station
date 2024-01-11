@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'phone'=>$this->phone,
             'image'=>$this->image != null ? asset('uploads/users/'.$this->image) : asset('default.png'),
             'link'=>$this->link,
+            'password'=>$this->password,
             'token'=>$this->token
         ];
     }
