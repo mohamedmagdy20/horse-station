@@ -25,8 +25,9 @@ class ProductDetailsResource extends JsonResource
         }
         if($user)
         {
-            $favouriteId = ProductFavourite::where('user_id',auth()->user()->id)->where('product_id',$this->id)->first();
-            $favouriteId = $favouriteId->id;
+            $favouriteId = ProductFavourite::where('user_id',$user->id)->where('product_id',$this->id)->first();
+
+            $favouriteId = $favouriteId ? $favouriteId->id : null;
         }else{
             $favouriteId = null;
         }
