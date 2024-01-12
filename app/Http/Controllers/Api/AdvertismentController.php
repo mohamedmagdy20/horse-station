@@ -100,10 +100,8 @@ class AdvertismentController extends Controller
                 }
                 $data['images'] = $dataImage;
             }
-
             if($request->hasFile('videos') && $data['videos'] != null)
             {
-
                 $dataVideo = [];
                 foreach($request->videos as $video)
                 {
@@ -111,96 +109,89 @@ class AdvertismentController extends Controller
                 }
                 $data['videos'] = $dataVideo;
             }
-
             if($data['ads_type'] == 'normal')
             {
                 $data['plan_id'] = 1;
             }else{
                 $data['plan_id'] = 2;
             }
-
             $data['user_id'] = auth()->user()->id;
             $ads = $this->model->create($data);
-
-            // Payment Check Out //
-
-
             return response()->json([
                 'data'=> new AdvertismentDetailsResource($ads),
                 'status'=>200,
                 'message'=>'Success'
             ]);
-
         }catch(Exception $e)
         {
-            // return $e;
             return response()->json([
                 'data'=> NUll,
                 'status'=>400,
                 'message'=>$e->getMessage()
             ],400);
         }
-
     }
-
-public function update(AdvertismentRequest $request, $advertisement)
-{
-    $data = $request->validated();
-    try {
-        $ads = $this->model->findOrFail($advertisement);
-        if ($ads)
+    public function update(AdvertismentRequest $request, $advertisement)
         {
-            $ads->update($data);
-            return response()->json([
-                'data' => new AdvertismentDetailsResource($ads),
-                'status' => 200,
-                'message' => 'Advertisement updated successfully'
-            ]);
+            try {
+                $ads = $this->model->findOrFail($advertisement);
+                if ($ads) {
+                    $data = $request->validated();
+                    $ads->update([
+                        'name' => $data['name'],
+                        'price' => $data['price'],
+                    ]);
+                    if ($request->hasFile('images')) {
+                        $dataImage = [];
+                        foreach ($request->images as $image) {
+                            $dataImage[] = $this->saveFile($image, config('filepath.ADVERTISMENT_PATH'));
+                        }
+                        $ads->update(['images' => $dataImage]);
+                    }
+                    if ($request->hasFile('videos')) {
+                        $dataVideo = [];
+                        foreach ($request->videos as $video) {
+                            $dataVideo[] = $this->saveFile($video, config('filepath.VIDEOS_PATH'));
+                        }
+                        $ads->update(['videos' => $dataVideo]);
+                    }
+                    return response()->json([
+                        'data' => new AdvertismentDetailsResource($ads),
+                        'status' => 200,
+                        'message' => 'Advertisement updated successfully'
+                    ]);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'data' => null,
+                    'status' => 400,
+                    'message' => $e->getMessage()
+                ], 400);
+            }
         }
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'data' => null,
-            'status' => 400,
-            'message' => $e->getMessage()
-        ], 400);
-    }
-}
-
-    // public function getFavAds()
+    // public function update(AdvertismentRequest $request, $advertisement)
     // {
-    //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
-    //     return response()->json([
-    //         'data'=> AdsFavResourse::collection($data),
-    //         'status'=>200,
-    //         'message'=>'Success'
-    //     ],200);
+    //         $data = $request->validated();
+    //         try {
+    //             $ads = $this->model->findOrFail($advertisement);
+    //             if ($ads)
+    //             {
+    //                 $ads->update($data);
+    //                 return response()->json([
+    //                     'data' => new AdvertismentDetailsResource($ads),
+    //                     'status' => 200,
+    //                     'message' => 'Advertisement updated successfully'
+    //                 ]);
+    //             }
+    //         } catch (\Exception $e) {
+    //             return response()->json([
+    //                 'data' => null,
+    //                 'status' => 400,
+    //                 'message' => $e->getMessage()
+    //             ], 400);
+    //         }
     // }
-
-    // public function adsFav(Request $request)
-    // {
-    //     $this->adsFav->firstOrCreate([
-    //         'advertisment_id'=>$request->advertisment_id,
-    //         'user_id'=>auth()->user()->id
-    //     ]);
-    //     return response()->json([
-    //         'data'=> NUll,
-    //         'status'=>200,
-    //         'message'=>'Advertisment Added to Favourite'
-    //     ]);
-    // }
-
-
-    // public function deleteFav($id)
-    // {
-    //     $this->adsFav->findOrFail($id)->delete;
-    //     return response()->json([
-    //         'data'=> NUll,
-    //         'status'=>200,
-    //         'message'=>'Advertisment Removed From Favourite'
-    //     ]);
-    // }
-
     public function setAsSold(Request $request)
     {
         $data = $this->model->find($request->id);
@@ -226,6 +217,38 @@ public function update(AdvertismentRequest $request, $advertisement)
             'message'=>'Success',
         ]);
     }
+    // public function getFavAds()
+    // {
+    //     $data = $this->adsFav->with('advertisment')->where('user_id',auth()->user()->id)->latest()->simplePaginate(7);
+    //     return response()->json([
+    //         'data'=> AdsFavResourse::collection($data),
+    //         'status'=>200,
+    //         'message'=>'Success'
+    //     ],200);
+    // }
+    // public function adsFav(Request $request)
+    // {
+    //     $this->adsFav->firstOrCreate([
+    //         'advertisment_id'=>$request->advertisment_id,
+    //         'user_id'=>auth()->user()->id
+    //     ]);
+    //     return response()->json([
+    //         'data'=> NUll,
+    //         'status'=>200,
+    //         'message'=>'Advertisment Added to Favourite'
+    //     ]);
+    // }
+    // public function deleteFav($id)
+    // {
+    //     $this->adsFav->findOrFail($id)->delete;
+    //     return response()->json([
+    //         'data'=> NUll,
+    //         'status'=>200,
+    //         'message'=>'Advertisment Removed From Favourite'
+    //     ]);
+    // }
+
+
 
 
 }
