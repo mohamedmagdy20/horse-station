@@ -64,7 +64,7 @@ class AdvertismentDetailsResource extends JsonResource
             'category_id' => $this->category_id,
             'country_id' => $this->country_id,
             'ads_type' => $this->ads_type,
-            'instagram_link' => $instagramLink, // Include the Instagram link in the response
+            'instgram' => $instagramLink, // Include the Instagram link in the response
         ];
     }
 
