@@ -14,35 +14,40 @@ class ProductDetailsResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-  
+
     public function toArray(Request $request): array
     {
-
-        if(Auth::check())
+        if ($bearerToken = $request->bearerToken()) {
+            // This will attempt to authenticate using the token but won't fail if the token is invalid
+            $user = Auth::guard('sanctum')->setRequest($request)->user();
+        } else {
+            $user = null;
+        }
+        if($user)
         {
             $favouriteId = ProductFavourite::where('user_id',auth()->user()->id)->where('product_id',$this->id)->first();
-            $favouriteId = $favouriteId->id;  
+            $favouriteId = $favouriteId->id;
         }else{
             $favouriteId = null;
         }
         $images = $this->images;
-        $dataImages = []; 
+        $dataImages = [];
         if($images != null)
         {
             foreach($images as $image)
             {
                 $dataImages [] = asset('uploads/products/'.$image);
-            }    
+            }
         }
 
         $videos = $this->videos;
-        $dataVideos = []; 
+        $dataVideos = [];
         if($videos != null)
         {
             foreach($videos as $item)
             {
                 $dataVideos [] = asset('uploads/videos/'.$item);
-            }    
+            }
         }
         return [
             'id'=>$this->id,
