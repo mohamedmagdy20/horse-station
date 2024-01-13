@@ -45,7 +45,7 @@ class AdvertismentDetailsResource extends JsonResource
         {
             foreach($videos as $item)
             {
-                $dataVideos [] = asset('uploads/advertisments/'.$item);
+                $dataVideos [] = asset('uploads/videos/'.$item);
             }
         }
         // if (!empty($this->images)) {
