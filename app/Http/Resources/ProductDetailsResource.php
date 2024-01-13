@@ -26,7 +26,6 @@ class ProductDetailsResource extends JsonResource
         if($user)
         {
             $favouriteId = ProductFavourite::where('user_id',$user->id)->where('product_id',$this->id)->first();
-
             $favouriteId = $favouriteId ? $favouriteId->id : null;
         }else{
             $favouriteId = null;
@@ -40,7 +39,6 @@ class ProductDetailsResource extends JsonResource
                 $dataImages [] = asset('uploads/products/'.$image);
             }
         }
-
         $videos = $this->videos;
         $dataVideos = [];
         if($videos != null)

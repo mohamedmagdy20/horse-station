@@ -22,31 +22,42 @@ class AdvertismentDetailsResource extends JsonResource
         } else {
             $user = null;
         }
-
         if ($user) {
             $favouriteId = AdsFavourite::where('user_id', $user->id)->where('advertisment_id', $this->id)->first();
             $favouriteId = $favouriteId ? $favouriteId->id : null;
-
-            // Get the Instagram link from the user table
             $instagramLink = $user->link;
         } else {
             $favouriteId = null;
             $instagramLink = null;
         }
-
         $images = $this->images;
-        $videos = $this->videos;
-        $dataImages = null;
-
-        if (!empty($this->images)) {
-            $dataImages = is_array($this->images)
-                ? array_map(fn($image) => asset('uploads/advertisments/' . $image), $this->images)
-                : [asset('uploads/advertisments/' . $this->images)];
+        $dataImages = [];
+        if($images != null)
+        {
+            foreach($images as $image)
+            {
+                $dataImages [] = asset('uploads/advertisments/'.$image);
+            }
         }
-
-        $dataVideos = is_array($this->videos)
-            ? implode(',', array_map(fn($video) => asset('uploads/advertisments/' . $video), $this->videos))
-            : $this->videos;
+        $videos = $this->videos;
+        $dataVideos = [];
+        if($videos != null)
+        {
+            foreach($videos as $item)
+            {
+                $dataVideos [] = asset('uploads/advertisments/'.$item);
+            }
+        }
+        // if (!empty($this->images)) {
+        //     $dataImages = is_array($this->images)
+        //         ? array_map(fn($image) => asset('uploads/advertisments/' . $image), $this->images)
+        //         : [asset('uploads/advertisments/' . $this->images)];
+        // }
+        // $videos = $this->videos;
+        // $dataVideos = [];
+        // $dataVideos = is_array($this->videos)
+        //     ? implode(',', array_map(fn($video) => asset('uploads/advertisments/' . $video), $this->videos))
+        //     : $this->videos;
 
         return [
             'id' => $this->id,
