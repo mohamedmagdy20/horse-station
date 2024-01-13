@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Advertisment extends Model 
+class Advertisment extends Model
 {
     use HasFactory , SoftDeletes;
 
@@ -77,7 +77,7 @@ class Advertisment extends Model
         $query->where('is_expire',true);
      }
 
-     
+
      public function scopeNotExpire($query)
      {
         $query->where('is_expire',false);
@@ -85,17 +85,17 @@ class Advertisment extends Model
 
      public function scopeFilter($query, $params)
      {
-         
+
          if(isset($params['category_id']))
          {
              $query->where('category_id',$params['category_id']);
          }
- 
+
          if(isset($params['type']))
          {
              $query->where('type',$params['type']);
          }
- 
+
          if(isset($params['ads_type']))
          {
              $query->where('type',$params['ads_type']);
@@ -103,5 +103,5 @@ class Advertisment extends Model
 
          return $query;
      }
- 
+
 }

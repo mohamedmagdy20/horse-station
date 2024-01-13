@@ -17,7 +17,6 @@ class AdvertismentDetailsResource extends JsonResource
     public function toArray(Request $request): array
     {
         if ($bearerToken = $request->bearerToken()) {
-            // This will attempt to authenticate using the token but won't fail if the token is invalid
             $user = Auth::guard('sanctum')->setRequest($request)->user();
         } else {
             $user = null;
@@ -48,17 +47,6 @@ class AdvertismentDetailsResource extends JsonResource
                 $dataVideos [] = asset('uploads/videos/'.$item);
             }
         }
-        // if (!empty($this->images)) {
-        //     $dataImages = is_array($this->images)
-        //         ? array_map(fn($image) => asset('uploads/advertisments/' . $image), $this->images)
-        //         : [asset('uploads/advertisments/' . $this->images)];
-        // }
-        // $videos = $this->videos;
-        // $dataVideos = [];
-        // $dataVideos = is_array($this->videos)
-        //     ? implode(',', array_map(fn($video) => asset('uploads/advertisments/' . $video), $this->videos))
-        //     : $this->videos;
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -75,8 +63,17 @@ class AdvertismentDetailsResource extends JsonResource
             'category_id' => $this->category_id,
             'country_id' => $this->country_id,
             'ads_type' => $this->ads_type,
-            'instgram' => $instagramLink, // Include the Instagram link in the response
+            'instgram' => $instagramLink,
         ];
     }
-
 }
+        // if (!empty($this->images)) {
+        //     $dataImages = is_array($this->images)
+        //         ? array_map(fn($image) => asset('uploads/advertisments/' . $image), $this->images)
+        //         : [asset('uploads/advertisments/' . $this->images)];
+        // }
+        // $videos = $this->videos;
+        // $dataVideos = [];
+        // $dataVideos = is_array($this->videos)
+        //     ? implode(',', array_map(fn($video) => asset('uploads/advertisments/' . $video), $this->videos))
+        //     : $this->videos;
