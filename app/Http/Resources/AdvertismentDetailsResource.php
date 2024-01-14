@@ -61,7 +61,7 @@ class AdvertismentDetailsResource extends JsonResource
             'type' => 'advertisment',
             'phone' => $this->phone,
             'category_id' => $this->category_id,
-            //'plan_id' => $this->plan_id,
+            'plan_id' => $this->plan_id,
             'country_id' => $this->country_id,
             'ads_type' => $this->ads_type,
             'instgram' => $instagramLink,

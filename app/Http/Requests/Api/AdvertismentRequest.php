@@ -30,6 +30,7 @@ class AdvertismentRequest extends FormRequest
             'country_id'=>'required',
             'price'=>'required',
             'phone'=>'required',
+            'plan_id'=>'nullable',
             'category_id'=>'required',
             'age'=>'nullable',
             'images'=>'nullable',
