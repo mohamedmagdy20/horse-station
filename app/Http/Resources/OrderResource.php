@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -15,7 +16,14 @@ class OrderResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        if ($bearerToken = $request->bearerToken()) {
+            $user = Auth::guard('sanctum')->setRequest($request)->user();
+        } else {
+            $user = null;
+        }
+        if ($user) {
+
+         return [
             'id'=>$this->id,
             'order_number'    =>$this->order_number ,
             'order_status'    =>$this->order_status ,
@@ -24,7 +32,10 @@ class OrderResource extends JsonResource
             'total' =>$this->total ,
             'address_id' =>$this->address_id ,
             'user_id' =>$this->user_id ,
-
         ];
+
+        } else {
+            return [];
+        }
     }
 }
