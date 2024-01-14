@@ -169,7 +169,11 @@ class AdvertismentController extends Controller
                     $imagesToKeep = array_diff($existingImages, $imagesToDelete);
                     $ads->update([
                         'name' => $data['name'],
+                        'country_id' => $data['country_id'],
                         'price' => $data['price'],
+                        'type' => $data['type'],
+                        'category_id' => $data['category_id'],
+                        'plan_id' => $data['plan_id'],
                         'age' => $data['age'],
                         'description' => $data['description'],
                         'phone' => $data['phone'],
@@ -186,7 +190,11 @@ class AdvertismentController extends Controller
                     $videosToKeep = array_diff($existingvideos, $videosToDelete);
                     $ads->update([
                         'name' => $data['name'],
+                        'country_id' => $data['country_id'],
                         'price' => $data['price'],
+                        'type' => $data['type'],
+                        'category_id' => $data['category_id'],
+                        'plan_id' => $data['plan_id'],
                         'age' => $data['age'],
                         'description' => $data['description'],
                         'phone' => $data['phone'],

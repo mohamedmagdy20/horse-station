@@ -88,7 +88,8 @@ class AuthController extends Controller
                 return response()->json([
                     'status'  => 400,
                     'message' => "Account Already exist but Not verified",
-                    'data'    => $user->phone
+                    'data'    => $user->phone,
+                    'OTP'    => $user->otp,
                ],400);
             }else{
                 return response()->json([
