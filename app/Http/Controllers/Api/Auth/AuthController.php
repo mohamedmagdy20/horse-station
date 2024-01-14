@@ -55,34 +55,15 @@ class AuthController extends Controller
     */
     public function register(RegisterRequest $request)
     {
-        // Data Validition
-        // $validator = Validator::make($request->all(), [
-        //     'name'         => 'required|string|max:100',
-        //     'email'        => 'email|unique:users,email|max:100',
-        //     'password'     => 'required|confirmed|string|max:50|min:5',
-        //     'phone'        => 'required|string|max:100',
-        //     // 'link'         =>
-        // ]);
-        // if ($validator->fails()) {
-        //     $errors = $validator->errors();
-        //     return response()->json($errors);
-        // }
         $data = $request->validated();
-        // check if User Exist
         $is_user = Auth::attempt(['phone' => $request->phone, 'password' => $request->password]);
         if(! $is_user)
         {
-            // password Has and Generate Token
             $data =  $request->all();
             $data['password'] = Hash::make($request->password);
             $data['remember_token'] = Str::random(64);
             $data['otp']  = $this->generateOtp();
-             // add user to database if it doesnot exist
-            // $user = User::create($data);
-            // Send Sms Otp
             try{
-                // $message =  'Your Otp is '.$data['otp'];
-                // $sms = SMS::sendSms($data['phone'],$message);
                 $user = User::create($data);
                 return response()->json([
                     'status'  => 200,
