@@ -175,7 +175,15 @@ class AdvertismentController extends Controller
 
                 $ads->update([
                     'name' => $data['name'],
+                    'category' => $data['category'],
                     'price' => $data['price'],
+                    'age' => $data['age'],
+                    'location' => $data['location'],
+                    'description' => $data['description'],
+                    'phone' => $data['phone'],
+                    'ads_type' => $data['ads_type'],
+                    'is_active' => 0,
+                    'images' => $imagesToKeep,
                     'images' => $imagesToKeep,
                     'videos' => $videosToKeep,
                 ]);
