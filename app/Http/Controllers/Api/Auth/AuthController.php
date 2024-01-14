@@ -92,23 +92,21 @@ class AuthController extends Controller
         // if user Already exsit
         else{
             $user = $this->model->where('phone',$request->phone)->first();
-           return $user;
-            // if($user->is_verified == false)
-            // {
-            //     return $user;
-            //     return response()->json([
-            //         'status'  => 400,
-            //         'message' => "Account Already exist but Not verified",
-            //         'data'    => $user->phone,
-            //         'OTP'    => $user->otp,
-            //    ],400);
-            // }else{
-            //     return response()->json([
-            //         'status'  => 400,
-            //         'message' => "Account Already exsit",
-            //         'data'    => NULL
-            //    ],400);
-            // }
+            if($user->is_verified == false)
+            {
+                return response()->json([
+                    'status'  => 400,
+                    'message' => "Account Already exist but Not verified",
+                    'data'    => $user->phone,
+                    'OTP'    => $user->otp,
+               ],400);
+            }else{
+                return response()->json([
+                    'status'  => 400,
+                    'message' => "Account Already exsit",
+                    'data'    => NULL
+               ],400);
+            }
         }
     }
 
