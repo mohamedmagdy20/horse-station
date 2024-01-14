@@ -33,7 +33,6 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $data = $request->validated();
-
         $user = $this->model->where('phone', $data['phone'])->first();
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return response()->json([
@@ -42,13 +41,23 @@ class AuthController extends Controller
                 'message' => 'Invalid Phone or Password',
             ], 401);
         }
-        $token = $user->createToken('user Token')->plainTextToken;
-        $user['token'] = $token;
-        return response()->json([
-            'data' => new UserResource($user),
-            'status' => 200,
-            'message' => 'Successfully Login',
-        ]);
+        if($user->is_verified == true)
+        {
+            $token = $user->createToken('user Token')->plainTextToken;
+            $user['token'] = $token;
+            return response()->json([
+                'data' => new UserResource($user),
+                'status' => 200,
+                'message' => 'Successfully Login',
+            ]);
+        }
+        else{
+            return response()->json([
+                'data' => null,
+                'status' => 200,
+                'message' => 'Not verified',
+            ]);
+        }
     }
     /**
     * Api Registration
@@ -85,6 +94,7 @@ class AuthController extends Controller
             $user = $this->model->where('phone',$request->phone)->first();
             if($user->is_verified == false)
             {
+                return $user;
                 return response()->json([
                     'status'  => 400,
                     'message' => "Account Already exist but Not verified",
