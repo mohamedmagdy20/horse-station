@@ -35,6 +35,7 @@ class Advertisment extends Model
         'images'=>'array',
         'videos'=>'array',
         'ads_type'=>AdvertismentStatus::class,
+
     ];
 
     public function category()
@@ -69,7 +70,8 @@ class Advertisment extends Model
             $currency = Country::first();
         }
         $convertedPrice = $price / $currency->currency;
-        return number_format($convertedPrice, 2);
+        //return number_format($convertedPrice, 2);
+        return $convertedPrice;
     }
 
      public function scopeExpire($query)
