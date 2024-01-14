@@ -174,6 +174,7 @@ class AdvertismentController extends Controller
                         'type' => $data['type'],
                         'category_id' => $data['category_id'],
                         //'plan_id' => $data['plan_id'],
+
                         'age' => $data['age'],
                         'description' => $data['description'],
                         'phone' => $data['phone'],
