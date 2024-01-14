@@ -45,7 +45,6 @@ class ProductController extends Controller
             'message'=>'Success'
         ]);
     }
-
     public function show(Request $request,$id)
     {
 
@@ -64,36 +63,48 @@ class ProductController extends Controller
         ]);
 
     }
-
-
     public function favourite(Request $request)
     {
-
-        if($request->header('locale'))
-        {
+        if ($request->header('locale')) {
             App::setLocale($request->header('locale'));
-        }else{
+        } else {
             App::setLocale('ar');
         }
         $sign = $request->sign;
-        $products = $this->favModel->where('user_id',auth()->user()->id)->with('product')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
-            $item->type = 'product';
-            $item->price = $item->product->getPriceInCurrency($sign , $item->product->price);
-            return $item;
-        });
-        $ads = AdsFavourite::where('user_id',auth()->user()->id)->with('advertisment')->latest()->simplePaginate(7)->map(function ($item) use ($sign) {
-            $item->type = 'advertisment';
-            $item->price = $item->advertisment->getPriceInCurrency($sign , $item->advertisment->price);
-            return $item;
-        });
+        $products = $this->favModel
+            ->where('user_id', auth()->user()->id)
+            ->with('product')
+            ->latest()
+            ->simplePaginate(7)
+            ->map(function ($item) use ($sign) {
+                $item->type = 'product';
+                if ($item->product) {
+                    $item->price = $item->product->getPriceInCurrency($sign, $item->product->price);
+                } else {
+                    $item->price = null;
+                }
+                return $item;
+            });
+        $ads = AdsFavourite::where('user_id', auth()->user()->id)
+            ->with('advertisment')
+            ->latest()
+            ->simplePaginate(7)
+            ->map(function ($item) use ($sign) {
+                $item->type = 'advertisment';
+                if ($item->advertisment) {
+                    $item->price = $item->advertisment->getPriceInCurrency($sign, $item->advertisment->price);
+                } else {
+                    $item->price = null;
+                }
+                return $item;
+            });
         $data = $products->merge($ads);
         return response()->json([
-            'data'=> FavouriteResource::collection($data),
-            'status'=>200,
-            'message'=>'Success'
+            'data' => FavouriteResource::collection($data),
+            'status' => 200,
+            'message' => 'Success',
         ]);
     }
-
     public function addFav(Request $request)
     {
         if($request->type == 'product')
@@ -115,7 +126,6 @@ class ProductController extends Controller
             'message'=>'Item Added to Favourite'
         ]);
     }
-
     public function deleteFav(Request $request, $id)
     {
         if($request->type == 'product')

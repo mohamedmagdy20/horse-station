@@ -168,16 +168,16 @@ class AdvertismentController extends Controller
                 $imagesToDelete = array_intersect($deletedImages, $existingImages);
                 $imagesToKeep = array_diff($existingImages, $imagesToDelete);
 
-                // $deletedvideos = $request->input('delete_videos', []);
-                // $existingvideos = $ads->videos;
-                // $videosToDelete = array_intersect($deletedvideos, $existingvideos);
-                // $videosToKeep = array_diff($existingvideos, $videosToDelete);
+                $deletedvideos = $request->input('delete_videos', []);
+                $existingvideos = $ads->videos;
+                $videosToDelete = array_intersect($deletedvideos, $existingvideos);
+                $videosToKeep = array_diff($existingvideos, $videosToDelete);
 
                 $ads->update([
                     'name' => $data['name'],
                     'price' => $data['price'],
                     'images' => $imagesToKeep,
-                    //'videos' => $videosToKeep,
+                    'videos' => $videosToKeep,
                 ]);
                 if ($request->hasFile('images')) {
                     $dataImage = $imagesToKeep;
@@ -187,7 +187,7 @@ class AdvertismentController extends Controller
                     $ads->update(['images' => $dataImage]);
                 }
                 if ($request->hasFile('videos')) {
-                    $dataVideo = [];
+                    $dataVideo = $videosToKeep;
                     foreach ($request->videos as $video) {
                         $dataVideo[] = $this->saveFile($video, config('filepath.VIDEOS_PATH'));
                     }

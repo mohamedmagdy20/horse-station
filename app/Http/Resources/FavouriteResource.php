@@ -14,29 +14,38 @@ class FavouriteResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        if($this->type == 'advertisment')
-        {
+        if ($this->type == 'advertisment' && $this->advertisment) {
             return [
-                'id'=>$this->advertisment->id,
-                'item_id'=>  $this->id,
-                'name'=>$this->advertisment->name,
-                'category'=>$this->advertisment->category->name,
-                'price'=>$this->price,
-                'type'=>$this->type,
-                'image'=>$this->advertisment->images != null ?  asset('uploads/advertisments/'.$this->advertisment->images[0]) : asset('default.png')
+                'id' => $this->advertisment->id,
+                'item_id' => $this->id,
+                'name' => $this->advertisment->name,
+                'category' => $this->advertisment->category->name,
+                'price' => $this->price,
+                'type' => $this->type,
+                'image' => $this->advertisment->images != null ? asset('uploads/advertisments/'.$this->advertisment->images[0]) : asset('default.png'),
             ];
-        }else
-        {
+        } elseif ($this->type == 'product' && $this->product) {
             return [
-                'id'=>$this->product->id,
-                'item_id'=>  $this->id,
-                'name'=>$this->product->name,
-                'category'=>$this->product->category->name,
-                'price'=>$this->price,
-                'type'=>$this->type,
-                'image'=>$this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png')
+                'id' => $this->product->id,
+                'item_id' => $this->id,
+                'name' => $this->product->name,
+                'category' => $this->product->category->name,
+                'price' => $this->price,
+                'type' => $this->type,
+                'image' => $this->product->images != null ? asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
+            ];
+        } else {
+            // Handle the case where $this->advertisment or $this->product is null.
+            return [
+                'id' => null,
+                'item_id' => $this->id,
+                'name' => 'Unknown',
+                'category' => 'Unknown',
+                'price' => $this->price,
+                'type' => $this->type,
+                'image' => asset('default.png'),
             ];
         }
-
     }
+
 }
