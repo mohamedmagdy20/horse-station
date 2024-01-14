@@ -50,7 +50,7 @@ class AdvertismentDetailsResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'category' => optional($this->category)->name,
+            //'category' => optional($this->category)->name,
             'images' => $dataImages,
             'videos' => $dataVideos,
             'price' => $this->price,

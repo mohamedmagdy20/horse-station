@@ -162,31 +162,40 @@ class AdvertismentController extends Controller
             $ads = $this->model->findOrFail($advertisement);
             if ($ads) {
                 $data = $request->validated();
-
-                $deletedImages = $request->input('delete_images', []);
+                $deletedImages = $request->input('delete_images', []) ?? [];
                 $existingImages = $ads->images;
-                $imagesToDelete = array_intersect($deletedImages, $existingImages);
-                $imagesToKeep = array_diff($existingImages, $imagesToDelete);
-
-                $deletedvideos = $request->input('delete_videos', []);
+                if ($existingImages != null) {
+                    $imagesToDelete = array_intersect($deletedImages, $existingImages);
+                    $imagesToKeep = array_diff($existingImages, $imagesToDelete);
+                    $ads->update([
+                        'name' => $data['name'],
+                        'price' => $data['price'],
+                        'age' => $data['age'],
+                        'description' => $data['description'],
+                        'phone' => $data['phone'],
+                        'ads_type' => $data['ads_type'],
+                        'is_active' => 0,
+                        'images' => $imagesToKeep,
+                    ]);
+                }
+                $deletedvideos = $request->input('delete_videos', []) ?? [];
                 $existingvideos = $ads->videos;
-                $videosToDelete = array_intersect($deletedvideos, $existingvideos);
-                $videosToKeep = array_diff($existingvideos, $videosToDelete);
+                if ($existingvideos != null) {
+                    $videosToDelete = array_intersect($deletedvideos, $existingvideos);
+                    $videosToKeep = array_diff($existingvideos, $videosToDelete);
+                    $ads->update([
+                        'name' => $data['name'],
+                        'price' => $data['price'],
+                        'age' => $data['age'],
+                        'description' => $data['description'],
+                        'phone' => $data['phone'],
+                        'ads_type' => $data['ads_type'],
+                        'is_active' => 0,
+                        'images' => $imagesToKeep,
+                        'videos' => $videosToKeep,
+                    ]);
+                }
 
-                $ads->update([
-                    'name' => $data['name'],
-                    'category' => $data['category'],
-                    'price' => $data['price'],
-                    'age' => $data['age'],
-                    'location' => $data['location'],
-                    'description' => $data['description'],
-                    'phone' => $data['phone'],
-                    'ads_type' => $data['ads_type'],
-                    'is_active' => 0,
-                    'images' => $imagesToKeep,
-                    'images' => $imagesToKeep,
-                    'videos' => $videosToKeep,
-                ]);
                 if ($request->hasFile('images')) {
                     $dataImage = $imagesToKeep;
                     foreach ($request->images as $image) {
