@@ -54,7 +54,7 @@ class AuthController extends Controller
         else{
             return response()->json([
                 'data' => null,
-                'status' => 200,
+                'status' => 403,
                 'message' => 'User Not verified',
             ]);
         }
