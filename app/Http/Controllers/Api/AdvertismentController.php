@@ -178,6 +178,7 @@ class AdvertismentController extends Controller
                         'images' => $imagesToKeep,
                     ]);
                 }
+
                 $deletedvideos = $request->input('delete_videos', []) ?? [];
                 $existingvideos = $ads->videos;
                 if ($existingvideos != null) {
