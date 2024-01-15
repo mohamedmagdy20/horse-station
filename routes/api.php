@@ -46,7 +46,7 @@ Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
 Route::get('product/{id}',[ProductController::class,'show']);
 Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
 Route::get('camp/{id}',[CampController::class,'show']);
-Route::get('order/{id}',[OrderController::class,'show']);
+Route::get('order',[OrderController::class,'show']);
 Route::post('change-password',[AuthController::class,'forgetPassword']);
 
 Route::get('search',[CategoryController::class,'search']);

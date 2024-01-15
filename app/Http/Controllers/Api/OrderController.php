@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OrderResource;
 
 class OrderController extends Controller
@@ -15,7 +16,7 @@ class OrderController extends Controller
     {
         $this->model = $model;
     }
-    public function show(Request $request ,$id)
+    public function show(Request $request )
     {
         if($request->header('locale'))
         {
@@ -23,7 +24,12 @@ class OrderController extends Controller
         }else{
             App::setLocale('ar');
         }
-        $data = Order::where('user_id',$id)->get(); ;
+        if ($bearerToken = $request->bearerToken()) {
+        $user = Auth::guard('sanctum')->setRequest($request)->user();
+        } else {
+            $user = null;
+        }
+        $data = Order::where('user_id',$user->id)->get();
         if ($data) {
         //$data['total'] = $data->getPriceInCurrency($request->sign , $data->total);
         return response()->json([
@@ -32,9 +38,9 @@ class OrderController extends Controller
             'message'=>'Success'
         ]);
        }
-    else
-    {
-     return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
-    }
+        else
+        {
+        return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
+        }
     }
 }
