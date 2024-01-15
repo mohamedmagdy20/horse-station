@@ -14,28 +14,28 @@ class OrderResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
-    {
-        if ($bearerToken = $request->bearerToken()) {
-            $user = Auth::guard('sanctum')->setRequest($request)->user();
-        } else {
-            $user = null;
-        }
-        if ($user) {
+    // public function toArray(Request $request): array
+    // {
+    //     if ($bearerToken = $request->bearerToken()) {
+    //         $user = Auth::guard('sanctum')->setRequest($request)->user();
+    //     } else {
+    //         $user = null;
+    //     }
+    //     if ($user) {
 
-         return [
-            'id'=>$this->id,
-            'order_number'    =>$this->order_number ,
-            'order_status'    =>$this->order_status ,
-            'payment_status'  =>$this->payment_status ,
-            'shipment_status' =>$this->shipment_status ,
-            'total' =>$this->total ,
-            'address_id' =>$this->address_id ,
-            'user_id' =>$this->user_id ,
-        ];
+    //      return [
+    //         'id'=>$this->id,
+    //         'order_number'    =>$this->order_number ,
+    //         'order_status'    =>$this->order_status ,
+    //         'payment_status'  =>$this->payment_status ,
+    //         'shipment_status' =>$this->shipment_status ,
+    //         'total' =>$this->total ,
+    //         'address_id' =>$this->address_id ,
+    //         'user_id' =>$this->user_id ,
+    //     ];
 
-        } else {
-            return [];
-        }
-    }
+    //     } else {
+    //         return [];
+    //     }
+    // }
 }

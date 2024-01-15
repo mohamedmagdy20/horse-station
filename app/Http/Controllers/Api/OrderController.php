@@ -17,22 +17,21 @@ class OrderController extends Controller
     }
     public function show(Request $request ,$id)
     {
-
         if($request->header('locale'))
         {
             App::setLocale($request->header('locale'));
         }else{
             App::setLocale('ar');
         }
-        $data = $this->model->find($id);
+        $data = Order::where('user_id',$id)->get(); ;
         if ($data) {
-        $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
+        //$data['total'] = $data->getPriceInCurrency($request->sign , $data->total);
         return response()->json([
-            'data'=> new OrderResource($data),
+            'data'=> $data,
             'status'=>200,
             'message'=>'Success'
         ]);
-    }
+       }
     else
     {
      return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
