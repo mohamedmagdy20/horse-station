@@ -53,10 +53,11 @@ class AuthController extends Controller
         }
         else{
             return response()->json([
-                'data' => null,
-                'status' => 406,
+                'data'    => null,
+                'status'  => 201,
                 'message' => 'User Not Verified',
-            ],406);
+                'OTP'     =>$user->otp,
+            ],200);
         }
     }
     /**
@@ -95,11 +96,11 @@ class AuthController extends Controller
             if($user->is_verified == false)
             {
                 return response()->json([
-                    'status'  => 400,
+                    'status'  => 200,
                     'message' => "Account Already exist but Not verified",
                     'data'    => $user->phone,
                     'OTP'    => $user->otp,
-               ],400);
+               ],200);
             }else{
                 return response()->json([
                     'status'  => 400,
