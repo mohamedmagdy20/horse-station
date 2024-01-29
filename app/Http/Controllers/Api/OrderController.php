@@ -31,9 +31,8 @@ class OrderController extends Controller
         }
         $data = Order::where('user_id',$user->id)->get();
         if ($data) {
-        //$data['total'] = $data->getPriceInCurrency($request->sign , $data->total);
         return response()->json([
-            'data'=> $data,
+            'data'=> OrderResource::collection($data),
             'status'=>200,
             'message'=>'Success'
         ]);

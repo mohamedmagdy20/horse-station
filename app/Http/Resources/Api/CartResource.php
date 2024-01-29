@@ -17,6 +17,8 @@ class CartResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->product->name,
+            'size'=>$this->product->size,
+            'colors'=>$this->product->colors,
             'price'=> $this->product->price,
             'deliver_time'=>$this->product->deliver_time,
             'image'=> $this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),

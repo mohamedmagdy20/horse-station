@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\CartRequest;
 use App\Http\Resources\Api\CartResource;
 use App\Models\CartItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -18,7 +19,7 @@ class CartController extends Controller
     }
     public function index(Request $request)
     {
-        
+
         if($request->header('locale'))
         {
             App::setLocale($request->header('locale'));
@@ -41,13 +42,22 @@ class CartController extends Controller
     public function store(CartRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
-        $this->model->firstOrCreate($data);
-        return response()->json(
-            ['status'=>200
-            ,'message'=>'Created Successfully',
-            'data'=>NULL        
-        ]);
+        $id = $data['product_id'];
+        $pr = Product::find($id);
+        if($pr)
+        {
+            $data['user_id'] = auth()->user()->id;
+            $this->model->firstOrCreate($data);
+            return response()->json(
+                ['status'=>200
+                ,'message'=>'Created Successfully',
+                'data'=>NULL
+            ]);
+        }
+        else{
+            return response()->json(['status'=>400,'message'=>'This product is not found'],400);
+        }
+
     }
 
     public function addQuantity(Request $request)
