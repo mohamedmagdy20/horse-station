@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('qantity')->nullable();
             $table->double('total')->nullable();
+            $table->text('colors')->nullable();
+            $table->text('size')->nullable();
             $table->timestamps();
         });
     }

@@ -12,7 +12,9 @@ class CartItem extends Model
         'product_id',
         'user_id',
         'qantity',
-        'total'
+        'total',
+        'colors',
+        'size'
     ];
 
     public function getPriceInCurrency($currencySign , $price)

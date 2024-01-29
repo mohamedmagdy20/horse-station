@@ -38,26 +38,27 @@ class CartController extends Controller
             'message'=>'Success'
         ]);
     }
-
     public function store(CartRequest $request)
     {
         $data = $request->validated();
         $id = $data['product_id'];
         $pr = Product::find($id);
-        if($pr)
-        {
-            $data['user_id'] = auth()->user()->id;
-            $this->model->firstOrCreate($data);
-            return response()->json(
-                ['status'=>200
-                ,'message'=>'Created Successfully',
-                'data'=>NULL
-            ]);
-        }
-        else{
-            return response()->json(['status'=>400,'message'=>'This product is not found'],400);
-        }
 
+        if ($pr) {
+            $data['colors'] = json_encode($data['colors']);
+            $data['size'] = json_encode($data['size']);
+            $data['user_id'] = auth()->user()->id;
+
+            $cartItem = $this->model->firstOrCreate($data);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Created Successfully',
+                'data' => $cartItem
+            ]);
+        } else {
+            return response()->json(['status' => 400, 'message' => 'This product is not found'], 400);
+        }
     }
 
     public function addQuantity(Request $request)

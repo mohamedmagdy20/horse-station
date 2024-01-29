@@ -15,15 +15,16 @@ class CartResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->id,
-            'name'=>$this->product->name,
-            'size'=>$this->product->size,
-            'colors'=>$this->product->colors,
-            'price'=> $this->product->price,
-            'deliver_time'=>$this->product->deliver_time,
-            'image'=> $this->product->images != null ?  asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
-            'stock'=>$this->qantity,
-            'total'=>number_format((float)$this->product->price * $this->qantity, 2),
+            'id' => $this->id,
+            'name' => $this->product->name,
+            'colors' => json_decode($this->colors),
+            'size' => json_decode($this->size),
+            'price' => $this->product->price,
+            'deliver_time' => $this->product->deliver_time,
+            'image' => $this->product->images != null ? asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
+            'stock' => $this->qantity,
+            'total' => number_format((float)$this->product->price * $this->qantity, 2),
         ];
     }
+
 }
