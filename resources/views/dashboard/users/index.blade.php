@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Users List</h4>
-               
+
                 <table id="datatable-buttons" class="table dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -64,6 +64,8 @@
                              <td>
                                 <a href="{{route('admin.user.edit',$item->id)}}" class="btn btn-info"><i class="fa fa-pen"></i></a>
                                 <a href="{{route('admin.user.show',$item->id)}}" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                <a href="{{route('admin.user.delete',$item->id)}}" class="btn btn-danger delete-confirm"><i class="fa fa-trash"></i></a>
+
                             </td>
                         </tr>
                     @endforeach
@@ -95,7 +97,7 @@
         },
         error:function(result){
             console.log(result);
-            toastr.error('Error Accure', 'Error');  
+            toastr.error('Error Accure', 'Error');
 
         }
     });

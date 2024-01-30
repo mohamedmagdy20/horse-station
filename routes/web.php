@@ -85,22 +85,26 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::post('store','store')->name('admin.product.store');
     });
 
-    
+
     Route::group(['prefix'=>'users','controller'=>UserController::class],function(){
         Route::get('/','index')->name('admin.user.index');
         Route::get('edit/{id}','edit')->name('admin.user.edit');
         Route::post('update/{id}','update')->name('admin.user.update');
         Route::get('toggle-data','toggleData')->name('admin.user.toggle');
         Route::get('show/{id}','show')->name('admin.user.show');
+        Route::get('delete/{id}','delete')->name('admin.user.delete');
+
 
     });
 
     Route::group(['prefix'=>'advertisment','controller'=>AdvertismentController::class],function(){
         Route::get('/','index')->name('admin.advertisment.index');
+        Route::get('create','create')->name('admin.advertisment.create');
+        Route::post('store','store')->name('admin.advertisment.store');
         Route::get('show/{id}','show')->name('admin.advertisment.show');
         Route::get('toggle-data','toggleActive')->name('admin.advertisment.toggle');
     });
-    
+
 
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('/','index')->name('admin.camp.index');
@@ -109,7 +113,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('create','create')->name('admin.camp.create');
         Route::get('show/{id}','show')->name('admin.camp.show');
         Route::get('edit/{id}','edit')->name('admin.camp.edit');
-       
+
         Route::get('delete/{id}','delete')->name('admin.camp.delete');
 
         Route::post('store','store')->name('admin.camp.store');
@@ -119,12 +123,12 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
     });
 
-    
+
     Route::group(['prefix'=>'order','controller'=>OrderController::class],function(){
         Route::get('/','index')->name('admin.order.index');
         Route::get('show/{id}','show')->name('admin.order.show');
     });
-    
+
 });
 Route::get('/', function () {
     return view('welcome');

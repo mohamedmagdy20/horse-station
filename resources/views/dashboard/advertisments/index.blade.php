@@ -24,7 +24,9 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Advertisments List</h4>
-               <div class="text-center mb-3">
+                <div class="text-center mb-3">
+                    <a href="{{ route('admin.advertisment.create') }}" class="btn btn-primary">Add Advertisment <i
+                            class="fa fa-plus"></i></a>
                 </div>
                 <table id="datatable-buttons" class="table dt-responsive nowrap w-100">
                     <thead>

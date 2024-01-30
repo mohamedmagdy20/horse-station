@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = $this->model->withTrashed()->get();
+        $data = $this->model->get();
         return view('dashboard.users.index',['data'=>$data]);
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data  =$this->model->withTrashed()->findOrFail($id);
-        return view('dashboard.users.edit',['data'=>$data]);   
+        return view('dashboard.users.edit',['data'=>$data]);
     }
 
     public function update(UserRequest $request , $id)
@@ -69,7 +69,12 @@ class UserController extends Controller
             'message'=>'Success'
         ]);
     }
-
+    public function delete($id)
+    {
+        $data = $this->model->findOrFail($id);
+        $data->delete();
+        return redirect()->back()->with('success','Deleted');
+    }
     // public function restore(Request $request)
     // {
     //     $data = $this->model->withTrashed()->find($request->id);

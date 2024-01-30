@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $this->model = $model;
         $this->category = $category;
-    
+
     }
 
     public function index()
@@ -49,7 +49,7 @@ class ProductController extends Controller
         $dataImage  = [];
         $dataVideos = [];
         $data = $request->all();
-        
+
         try{
             if($request->hasFile('images'))
             {
@@ -59,8 +59,8 @@ class ProductController extends Controller
                 }
                 $data['images'] = $dataImage;
             }
-    
-            
+
+
             if($request->hasFile('videos'))
             {
                 foreach($request->file('videos') as $video)
@@ -69,10 +69,10 @@ class ProductController extends Controller
                 }
                 $data['videos'] = $dataVideos;
             }
-    
+
             $this->model->create($data);
             return redirect()->back()->with('success', 'Product Added');
-    
+
         }catch(Exception $e)
         {
             return $e;
@@ -110,7 +110,7 @@ class ProductController extends Controller
         {
             return $e;
         }
-        
+
 
     }
 
@@ -125,7 +125,7 @@ class ProductController extends Controller
                 {
                     $this->deleteFile($item , config('filepath.PRODUCT_PATH'));
                 }
-            }     
+            }
             if($product->videos != null)
             {
                 foreach($product->videos as $item)
@@ -141,5 +141,5 @@ class ProductController extends Controller
         }
     }
 
-    
+
 }

@@ -17,18 +17,19 @@ class Advertisment extends Model
         'images',
         'videos',
         'price',
-        'location',
         'category_id',
+        'user_id',
+        'plan_id',
+        'country_id',
+        'location',
+        'age',
+        'phone',
+        'ads_type',
+        'type',
         'is_sold',
         'is_active',
         'is_expire',
-        'user_id',
-        'plan_id',
-        'age',
-        'phone',
-        'type',
-        'country_id',
-        'ads_type'
+
     ];
 
     protected $casts = [
