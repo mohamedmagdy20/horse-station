@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('area')->nullable();
             $table->string('piece')->nullable();
             $table->string('street')->nullable();
+            $table->string('apenue')->nullable();
             $table->string('house_number')->nullable();
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');    
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

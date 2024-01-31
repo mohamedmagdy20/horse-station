@@ -17,7 +17,8 @@ class Address extends Model
         'piece',
         'street',
         'house_number',
-        'user_id'
+        'user_id',
+        'apenue'
     ];
 
     public function user()

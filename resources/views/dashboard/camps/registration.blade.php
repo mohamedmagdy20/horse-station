@@ -32,6 +32,7 @@
                             <th>Age</th>
                             <th>Ride With Trainer</th>
                             <th>Have Horse</th>
+                            <th>Rider level</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@
                             <td>{{$item->age}}</td>
                             <td>{{$item->ride_with_trainer == true ? 'True' : 'False'}}</td>
                             <td>{{$item->have_horse == true ? 'True' : 'False'}}</td>
+                            <td>{{$item->rider_level}}</td>
                             <td>{{$item->total}}</td>
                         </tr>
                     @endforeach

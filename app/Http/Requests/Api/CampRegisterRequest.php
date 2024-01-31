@@ -24,6 +24,7 @@ class CampRegisterRequest extends FormRequest
     {
         return [
             'camp_id'=>'required',
+            'rider_level'=>'string',
             'camp_level_id'=>'required',
             'camp_sport_id'=>'required',
             'name'=>'required|string',

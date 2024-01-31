@@ -19,7 +19,8 @@ class RegisterCamp extends Model
         'ride_with_trainer',
         'have_horse',
         'user_id',
-        'total'
+        'total',
+        'rider_level'
     ];
 
     public function camp()
@@ -38,5 +39,5 @@ class RegisterCamp extends Model
         return $this->belongsTo(CampSport::class,'camp_sport_id');
     }
 
-    
+
 }

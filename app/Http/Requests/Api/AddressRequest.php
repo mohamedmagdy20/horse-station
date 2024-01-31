@@ -24,6 +24,7 @@ class AddressRequest extends FormRequest
     {
         return [
             'name'=>'required|string',
+            'apenue'=>'string',
             // 'email'=>'required|email',
             // 'phone'=>'required',
             'city'=>'required',
