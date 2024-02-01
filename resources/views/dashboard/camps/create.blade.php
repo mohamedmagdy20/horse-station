@@ -34,7 +34,7 @@
 
                 @foreach(config('translatable.locales') as $locale)
                     <div class="col-md-6 mb-4">
-                            <label>Name in {{$locale}} : <span class="text-danger">*</span> </label> 
+                            <label>Name in {{$locale}} : <span class="text-danger">*</span> </label>
                             <input type="text" class="form-control" name="{{$locale}}[name]" required value="{{old($locale.':name')}}" id="">
                     </div>
 
@@ -44,9 +44,9 @@
 
                 @endforeach
 
-              
-                
-        
+
+
+
                 <div class="col-md-6 mb-4">
                     <div class="form-group">
                         <label for="">Categories <span class="text-danger"></span></label>
@@ -57,12 +57,12 @@
                             @endforeach
                         </select>
                     </div>
-                    
+
                     @error('category_id')
                     <span class="text-danger"> {{ $message }} </span>
                     @enderror
-                </div>  
-                
+                </div>
+
                 <div class="col-md-6 mb-4">
                     <div class="form-group">
                         <label for="">Countries <span class="text-danger"></span></label>
@@ -73,15 +73,15 @@
                             @endforeach
                         </select>
                     </div>
-                    
+
                     @error('country_id')
                     <span class="text-danger"> {{ $message }} </span>
                     @enderror
-                </div>  
+                </div>
 
                 @foreach(config('translatable.locales') as $locale)
                 <div class="col-md-6 mb-4">
-                        <label>Description in {{$locale}} : <span class="text-danger">*</span> </label> 
+                        <label>Description in {{$locale}} : <span class="text-danger">*</span> </label>
                         <input type="text" required name="{{$locale}}[description]" value="{{old($locale.'[description]')}}" autocomplete="on" class="input-tags_{{$locale}}" id="">
                 </div>
                 @endforeach
@@ -98,8 +98,8 @@
                     </div>
                 </div>
 
-               
-                
+
+
                 <div class="col-md-12 mb-4">
                     <div class="form-group">
                         <label for="">Videos <span class="text-danger"></span></label>
@@ -108,14 +108,14 @@
                 </div>
 
                 <div class="col-md-12 mb-4">
-                    <label for="">Number of Levels </label>
+                    <label for="">Number of duration </label>
                     <input type="number" id="level_number" onchange="contianer()" class="form-control" name="" id="">
                 </div>
                 <div class="col-md-12">
                     <div class="row" id="container_inputs">
-                       
+
                     </div>
-                  
+
                 </div>
 
                 <div class="col-md-12 mb-4">
@@ -124,9 +124,9 @@
                 </div>
                 <div class="col-md-12">
                     <div class="row" id="sport_container_inputs">
-                       
+
                     </div>
-                  
+
                 </div>
                 <!-- end row -->
                 </div>
@@ -174,7 +174,7 @@
         }
 
         $('#container_inputs').html(html);
-        
+
 
     }
 
@@ -197,7 +197,7 @@
         }
 
         $('#sport_container_inputs').html(html);
-        
+
 
     }
 </script>
