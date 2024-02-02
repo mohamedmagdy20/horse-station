@@ -45,9 +45,10 @@ class CartController extends Controller
         $pr = Product::find($id);
 
         if ($pr) {
-            $data['colors'] = json_encode($data['colors']);
-            $data['size'] = json_encode($data['size']);
+            $data['colors']  = json_encode($data['colors']);
+            $data['size']    = json_encode($data['size']);
             $data['user_id'] = auth()->user()->id;
+            $data['qantity'] = $pr->stock;
 
             $cartItem = $this->model->firstOrCreate($data);
 
