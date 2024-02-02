@@ -23,7 +23,7 @@ class EditAddressRequest extends FormRequest
     {
         return [
             'id'=>'required',
-            'apenue'=>'string',
+            'apenue'=>'string|nullable',
             'name'=>'nullable|string',
             'email'=>'nullable',
             'phone'=>'nullable',

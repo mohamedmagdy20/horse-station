@@ -108,8 +108,8 @@
                 </div>
 
                 <div class="col-md-12 mb-4">
-                    <label for="">Number of duration </label>
-                    <input type="number" id="level_number" onchange="contianer()" class="form-control" name="" id="">
+                    <label for="">duration </label>
+                    <input type="number" required id="level_number" onchange="contianer()" class="form-control" name="" id="">
                 </div>
                 <div class="col-md-12">
                     <div class="row" id="container_inputs">
@@ -120,7 +120,7 @@
 
                 <div class="col-md-12 mb-4">
                     <label for="">Number of Sports </label>
-                    <input type="number" id="sport_number" onchange="sportContianer()" class="form-control" name="" id="">
+                    <input type="number" required id="sport_number" onchange="sportContianer()" class="form-control" name="" id="">
                 </div>
                 <div class="col-md-12">
                     <div class="row" id="sport_container_inputs">
