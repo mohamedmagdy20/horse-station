@@ -134,8 +134,8 @@
                             data-id="55fd9fa" data-element_type="widget"
                             data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}"
                             data-widget_type="nav-menu.default">
-                        <div class="" style="color: white;!important">
-                                <nav style="color: white;!important"
+                        <div class="" style="color: white;">
+                                <nav style="color: white;"
                                     class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-slide">
                                     <ul id="menu-1-55fd9fa" class="elementor-nav-menu">
                                         <li
