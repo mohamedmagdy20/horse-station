@@ -1,18 +1,22 @@
 <?php
 
-use App\Http\Controllers\Dashboard\BannerController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\CampController;
-use App\Http\Controllers\Dashboard\Admin\AdminController;
-use App\Http\Controllers\Dashboard\AdvertismentController;
-use App\Http\Controllers\Dashboard\CategoryController;
-use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\HomeController;
-use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PlanController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\BannerController;
+use App\Http\Controllers\Dashboard\CountryController;
 use App\Http\Controllers\Dashboard\ProductController;
 
-use App\Http\Controllers\Dashboard\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\website\Auth\AuthController;
+use App\Http\Controllers\website\Home\MainController;
+use App\Http\Controllers\Dashboard\CategoryController;
+use App\Http\Controllers\website\LocalizationController;
+use App\Http\Controllers\Dashboard\Admin\AdminController;
+use App\Http\Controllers\Dashboard\AdvertismentController;
+use App\Http\Controllers\website\Auth\ForgetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +28,40 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+///////////////////////////////WEBSITE////////////////////////////////////
+    Route::group(['middleware'=>'guest'],function(){
+    Route::get('login',[AuthController::class,'loginView'])->name('login.view');
+    Route::post('login',[AuthController::class,'login'])->name('login');
+    Route::get('register',[AuthController::class,'registerView'])->name('register.view');
+    Route::post('register',[AuthController::class,'register'])->name('register');
+    Route::get('verify',[AuthController::class,'verify'])->name('verify');
+    Route::post('check-otp',[AuthController::class,'checkOtp'])->name('check-otp');
+    Route::post('update-fcm',[AuthController::class,'updateFCM'])->name('update-fcm');
+    // Forget Password
+    Route::get('resend_otp',[ForgetPasswordController::class,'resend'])->name('resend_otp');
+    Route::get('forget-password',[ForgetPasswordController::class,'index'])->name('forget-password.view');
+    Route::get('forget-password/verify/{phone}',[ForgetPasswordController::class,'verifyView'])->name('verify.view');
+    Route::get('change-password',[ForgetPasswordController::class,'changePasswordView'])->name('change-password.view');
+    Route::get('resend-otp/{phone}',[ForgetPasswordController::class,'resend'])->name('resend-otp');
+    Route::post('send-otp',[ForgetPasswordController::class,'sendOtp'])->name('send-otp');
+    Route::post('forget-password/verify',[ForgetPasswordController::class,'verify'])->name('forget-password.verify');
+    Route::post('change-password',[ForgetPasswordController::class,'changePassword'])->name('change-password');
+   });
+    Route::get('logout',[AuthController::class,'logout'])->name('logout');
+    Route::get('/', [MainController::class,'main'])->name('home');
+    Route::get('/home', [MainController::class,'home'])->name('home.main');
+    Route::get('change/{lang}',[LocalizationController::class,'setLang'])->name('change-lang');
 
-Route::get('admin/login',[AdminController::class,'loginView'])->middleware('guest:admin')->name('admin.login.view');
-Route::post('admin/login',[AdminController::class,'login'])->middleware('guest:admin')->name('admin.login');
-Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
+
+
+
+    Route::get('admin/login',[AdminController::class,'loginView'])->middleware('guest:admin')->name('admin.login.view');
+    Route::post('admin/login',[AdminController::class,'login'])->middleware('guest:admin')->name('admin.login');
+    Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
     Route::get('/',[HomeController::class,'index'])->name('admin');
     Route::get('logout',[AdminController::class,'logout'])->name('admin.logout');
     Route::get('get-ads_type',[HomeController::class,'advertismentType'])->name('admin.get-ads_type');
     Route::get('get-ads_status',[HomeController::class,'advertismentStatus'])->name('admin.get-ads_status');
-
     Route::group(['prefix'=>'country','controller'=>CountryController::class],function(){
         Route::get('/','index')->name('admin.country.index');
         Route::get('edit/{id}','edit')->name('admin.country.edit');
@@ -41,7 +70,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('update-currency','updateCurrency')->name('admin.country.update-currency');
 
     });
-
     Route::group(['prefix'=>'category','controller'=>CategoryController::class],function(){
         Route::get('/','index')->name('admin.category.index');
         Route::get('create','create')->name('admin.category.create');
@@ -50,7 +78,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::post('update/{id}','update')->name('admin.category.update');
         Route::post('store','store')->name('admin.category.store');
     });
-
     Route::group(['prefix'=>'banner','controller'=>BannerController::class],function(){
         Route::get('/','index')->name('admin.banner.index');
         Route::get('create','create')->name('admin.banner.create');
@@ -59,7 +86,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::post('update/{id}','update')->name('admin.banner.update');
         Route::post('store','store')->name('admin.banner.store');
     });
-
     Route::group(['prefix'=>'plan','controller'=>PlanController::class],function(){
         Route::get('/','index')->name('admin.plan.index');
         Route::get('create','create')->name('admin.plan.create');
@@ -84,8 +110,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::post('update/{id}','update')->name('admin.product.update');
         Route::post('store','store')->name('admin.product.store');
     });
-
-
     Route::group(['prefix'=>'users','controller'=>UserController::class],function(){
         Route::get('/','index')->name('admin.user.index');
         Route::get('edit/{id}','edit')->name('admin.user.edit');
@@ -96,7 +120,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
 
 
     });
-
     Route::group(['prefix'=>'advertisment','controller'=>AdvertismentController::class],function(){
         Route::get('/','index')->name('admin.advertisment.index');
         Route::get('create','create')->name('admin.advertisment.create');
@@ -104,8 +127,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('show/{id}','show')->name('admin.advertisment.show');
         Route::get('toggle-data','toggleActive')->name('admin.advertisment.toggle');
     });
-
-
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('/','index')->name('admin.camp.index');
         Route::get('regsiteration','registration')->name('admin.camp.registration');
@@ -122,14 +143,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth:admin'],function(){
         Route::get('toggle-data','toggleActive')->name('admin.camp.toggle');
 
     });
-
-
     Route::group(['prefix'=>'order','controller'=>OrderController::class],function(){
         Route::get('/','index')->name('admin.order.index');
         Route::get('show/{id}','show')->name('admin.order.show');
     });
+});
 
-});
-Route::get('/', function () {
-    return view('welcome');
-});
