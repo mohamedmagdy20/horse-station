@@ -209,7 +209,8 @@ return [
     'image'=>'صوره',
     'licence'=>'الرخصه',
     'instegram_link' => 'الانستجرام',
-    'optional' => 'اختيارى'
+    'optional' => 'اختيارى',
+    'profile'=> 'الملف الشخصى'
 
 
 ];

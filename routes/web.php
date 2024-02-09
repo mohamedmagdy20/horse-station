@@ -6,10 +6,11 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\PlanController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\website\ProfileController;
 use App\Http\Controllers\Dashboard\BannerController;
 use App\Http\Controllers\Dashboard\CountryController;
-use App\Http\Controllers\Dashboard\ProductController;
 
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\website\Auth\AuthController;
 use App\Http\Controllers\website\Home\MainController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -51,8 +52,20 @@ use App\Http\Controllers\website\Auth\ForgetPasswordController;
     Route::get('/', [MainController::class,'main'])->name('home');
     Route::get('/home', [MainController::class,'home'])->name('home.main');
     Route::get('change/{lang}',[LocalizationController::class,'setLang'])->name('change-lang');
-
-
+    Route::get('contact',[MainController::class,'contact'])->name('contact');
+    Route::get('about',[MainController::class,'about'])->name('about');
+    Route::get('terms',[MainController::class,'terms'])->name('terms');
+    Route::group(['prefix'=>'profile','controller'=>ProfileController::class],function(){
+        Route::get('main','index')->name('profile.main');
+        Route::get('listing','listing')->name('profile.listing');
+        Route::get('favourite','favouriteListing')->name('profile.favourite');
+        Route::get('chat','chat')->name('profile.chat');
+        Route::get('payment','payment')->name('profile.payment');
+        Route::get('edit','edit')->name('profile.edit');
+        Route::post('update','update')->name('profile.update');
+        Route::get('delete-ads/{id}','deleteAds')->name('delete.advertisment');
+        Route::get('delete-fav/{id}','deleteFav')->name('delete.advertisment.fav');
+    });
 
 
     Route::get('admin/login',[AdminController::class,'loginView'])->middleware('guest:admin')->name('admin.login.view');

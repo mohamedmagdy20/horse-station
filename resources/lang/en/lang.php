@@ -212,6 +212,6 @@ return [
     'image'=>'image',
     'licence'=>'licence',
     'instegram_link'=> 'instegram link',
-    'optional' => 'optional'
-
+    'optional' => 'optional',
+     'profile'=> 'profile'
 ];

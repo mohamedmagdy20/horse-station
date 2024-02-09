@@ -106,207 +106,181 @@
             </div>
         </section>
         <section style="background-color: #333231;"
-            class="elementor-section elementor-top-section elementor-element elementor-element-5c45da8 elementor-section-full_width elementor-section-height-default elementor-section-height-default rt-parallax-bg-no"
-            data-id="5c45da8" data-element_type="section"
-            data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
-            <div class="elementor-container elementor-column-gap-default">
-                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-66995e5"
-                    data-id="66995e5" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated" >
-                        <div class="elementor-element elementor-element-351c0e4 elementor-widget elementor-widget-theme-site-logo elementor-widget-image"
-                            data-id="351c0e4" data-element_type="widget"
-                            data-widget_type="theme-site-logo.default">
-                            <div class="elementor-widget-container">
-                                <a href="{{route('home')}}">
-                                    <img fetchpriority="high" width="950" height="525"
-                                        src="{{asset('assets/images/ssdssd.jpg')}}"
-                                        class="attachment-full size-full wp-image-2656" alt=""
-                                        srcset="{{asset('assets/images/ssdssd.jpg')}} 950w, {{asset('assets/images/ssdssd.jpg')}} 300w"
-                                        sizes="(max-width: 950px) 100vw, 950px" title=""> </a>
-                            </div>
+        class="elementor-section elementor-top-section elementor-element elementor-element-5c45da8 elementor-section-full_width elementor-section-height-default elementor-section-height-default rt-parallax-bg-no"
+        data-id="5c45da8" data-element_type="section"
+        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+        <div class="elementor-container elementor-column-gap-default">
+            <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-66995e5"
+                data-id="66995e5" data-element_type="column">
+                <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-element elementor-element-351c0e4 elementor-widget elementor-widget-theme-site-logo elementor-widget-image"
+                        data-id="351c0e4" data-element_type="widget"
+                        data-widget_type="theme-site-logo.default">
+                        <div class="elementor-widget-container">
+                            <a href="{{route('home')}}">
+                                <img fetchpriority="high" width="950" height="525"
+                                    src="{{asset('assets/images/ssdssd.jpg')}}"
+                                    class="attachment-full size-full wp-image-2656" alt=""
+                                    srcset="{{asset('assets/images/ssdssd.jpg')}} 950w, {{asset('assets/images/ssdssd.jpg')}} 300w"
+                                    sizes="(max-width: 950px) 100vw, 950px" title=""> </a>
                         </div>
-                    </div>
-                </div>
-                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-00f17ae"
-                    data-id="00f17ae" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <div class="elementor-element elementor-element-55fd9fa elementor-nav-menu__align-left elementor-widget__width-auto elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu"
-                            data-id="55fd9fa" data-element_type="widget"
-                            data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}"
-                            data-widget_type="nav-menu.default">
-                        <div class="" style="color: white;">
-                                <nav style="color: white;"
-                                    class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-slide">
-                                    <ul id="menu-1-55fd9fa" class="elementor-nav-menu">
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-2905">
-                                            <a href="{{route('home')}}"
-                                                class="elementor-item {{Request::is('/*') ? 'elementor-item-active' : ''}} ">@lang('lang.home')</a></li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2912">
-                                            {{-- <ul class="sub-menu elementor-nav-menu--dropdown">
-                                                <li
-                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2913">
-                                                    <a href="{{route('tips')}}"
-                                                        class="elementor-sub-item">FAQs</a></li>
-                                            </ul> --}}
-                                        </li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2908">
-                                            <a href="{{route('login.view')}}" class="elementor-item elementor-item-anchor {{Request::is('login*') ? 'elementor-item-active' : ''}}">@lang('lang.sign_up')</a>
-                                        </li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
-                                        </li>
-                                    </ul>
-                                </nav>
-                                <div class="elementor-menu-toggle" role="button" tabindex="0"
-                                    aria-label="Menu Toggle" aria-expanded="false">
-                                    <i aria-hidden="true" role="presentation"
-                                        class="elementor-menu-toggle__icon--open eicon-menu-bar"></i><i
-                                        aria-hidden="true" role="presentation"
-                                        class="elementor-menu-toggle__icon--close eicon-close"></i> <span
-                                        class="elementor-screen-only">Menu</span>
-                                </div>
-                                <nav class="elementor-nav-menu--dropdown elementor-nav-menu__container"
-                                    aria-hidden="true">
-                                    <ul id="menu-2-55fd9fa" class="elementor-nav-menu">
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-2905">
-                                            <a href="{{route('home')}}" class="elementor-item elementor-item-active"
-                                                tabindex="-1">@lang('lang.home')</a></li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2912">
-                                            <a href="#" class="elementor-item elementor-item-anchor"
-                                                tabindex="-1">@lang('lang.about_us')</a>
-                                            <ul class="sub-menu elementor-nav-menu--dropdown">
-                                                <li
-                                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2913">
-
-                                                    </li>
-                                            </ul>
-                                        </li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
-                                            <a href="#" class="elementor-item elementor-item-anchor"
-                                                tabindex="-1">@lang('lang.terms_and_conditions')</a></li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2908">
-                                            <a href="#" class="elementor-item elementor-item-anchor"
-                                                tabindex="-1">@lang('lang.sign_up')</a></li>
-                                        <li
-                                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
-                                            <a href="./contact/index.html" class="elementor-item"
-                                                tabindex="-1">@lang('lang.sign_up')</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                @if (app()->getLocale() === 'en')
-                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-e7642f7"
-                    data-id="e7642f7" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <div class="elementor-element elementor-element-789ea5c elementor-widget elementor-widget-image"
-                            data-id="789ea5c" data-element_type="widget" data-widget_type="image.default">
-                            <div class="elementor-widget-container">
-                                <a href="{{route('change-lang','ar')}}">
-                                    <img width="512" height="512" src="{{asset('assets/uploads/images/kuwait.png')}}"
-                                    class="attachment-large size-large wp-image-3038" alt=""
-                                    srcset="{{asset('assets/uploads/images/kuwait.png')}} 512w, {{asset('assets/uploads/images/kuwait-300x300.png')}} 300w, {{asset('assets/uploads/images/kuwait-150x150.png')}} 150w, {{asset('assets/uploads/images/kuwait-140x140.png')}} 140w, {{asset('assets/uploads/images/kuwait-493x493.png')}} 493w"
-                                    sizes="(max-width: 512px) 100vw, 512px" title="">
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @else
-                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-e7642f7"
-                    data-id="e7642f7" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <div class="elementor-element elementor-element-789ea5c elementor-widget elementor-widget-image"
-                            data-id="789ea5c" data-element_type="widget" data-widget_type="image.default">
-                            <div class="elementor-widget-container">
-                                <a href="{{route('change-lang','en')}}">
-                                    <img width="512" height="512" src="{{asset('assets/usa.png')}}"
-                                    class="attachment-large size-large wp-image-3038" alt=""
-                                    srcset="{{asset('assets/usa.png')}} 512w, {{asset('assets/usa.png')}} 300w, {{asset('assets/usa.png')}} 150w, {{asset('assets/usa.png')}} 140w, {{asset('assets/usa.png')}} 493w"
-                                    sizes="(max-width: 512px) 100vw, 512px" title="">
-                                </a>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
-
-                <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-27e4c43"
-                    data-id="27e4c43" data-element_type="column">
-                    <div class="elementor-widget-wrap elementor-element-populated">
-                        <div class="elementor-element elementor-element-e849d76 elementor-view-framed elementor-shape-square elementor-position-left elementor-vertical-align-middle elementor-widget__width-auto elementor-mobile-position-top elementor-widget elementor-widget-icon-box"
-                            data-id="e849d76" data-element_type="widget" data-widget_type="icon-box.default">
-                            <div class="elementor-widget-container">
-                                <div class="elementor-icon-box-wrapper  d-flex ">
-                                    @if (auth()->check())
-                                    <div class="elementor-icon-box-icon ">
-                                        <a href="{{route('profile.main')}}"
-                                            class="elementor-icon elementor-animation-" tabindex="-1">
-                                            <i aria-hidden="true" class="far fa-user-circle"></i> </a>
-                                    </div>
-
-                                    <div class="elementor-icon-box-icon">
-                                        <a href="{{route('ads.add')}}"
-                                            class="elementor-icon elementor-animation-" tabindex="-1">
-                                            <i aria-hidden="true" class="fas fa-plus"></i> </a>
-
-                                        </a>
-                                    </div>
-
-
-                                    <div class="elementor-icon-box-icon">
-                                        <a href="{{route('logout')}}"
-                                            class="elementor-icon elementor-animation-" tabindex="-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
-                                        </a>
-                                    </div>
-
-                                    @else
-                                    <div class="elementor-icon-box-icon">
-                                        <a href="{{route('login.view')}}"
-                                                class="elementor-icon elementor-animation-" tabindex="-1">
-                                                <i aria-hidden="true" class="far fa-user-circle"></i> </a>
-                                    </div>
-                                    @endif
-
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="elementor-element elementor-element-e55b84e elementor-view-framed elementor-shape-square elementor-position-left elementor-vertical-align-middle elementor-widget__width-auto elementor-mobile-position-top elementor-widget elementor-widget-icon-box"
-                            data-id="e55b84e" data-element_type="widget" data-widget_type="icon-box.default">
-                            <div class="elementor-widget-container">
-                                <div class="elementor-icon-box-wrapper">
-                                    <div class="elementor-icon-box-icon">
-                                        <a href="./post-an-ad/index.html"
-                                            class="elementor-icon elementor-animation-" tabindex="-1">
-                                            <i aria-hidden="true" class="fas fa-plus"></i> </a>
-                                    </div>
-                                    <div class="elementor-icon-box-content">
-                                        <h3 class="elementor-icon-box-title">
-                                            <a href="./post-an-ad/index.html">
-                                            </a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
-        </section>
+            <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-00f17ae"
+                data-id="00f17ae" data-element_type="column">
+                <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-element elementor-element-55fd9fa elementor-nav-menu__align-left elementor-widget__width-auto elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu"
+                        data-id="55fd9fa" data-element_type="widget"
+                        data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}"
+                        data-widget_type="nav-menu.default">
+                        <div class="elementor-widget-container">
+                            <nav
+                                class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-slide">
+                                <ul id="menu-1-55fd9fa" class="elementor-nav-menu">
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-2905">
+                                        <a href="{{route('home')}}"
+                                            class="elementor-item {{Request::is('/*') ? 'elementor-item-active' : ''}} ">@lang('lang.home')</a></li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2912">
+                                        <a href="{{route('about')}}" class="elementor-item  {{Request::is('about*' ? 'elementor-item-active' : '')}}">@lang('lang.about_us')</a>
+                                    </li>
+                                    <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
+                                    <a href="{{route('terms')}}" class="elementor-item elementor-item-anchor">@lang('lang.faq')</a>
+                                   </li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
+                                        <a href="{{route('terms')}}" class="elementor-item elementor-item-anchor">@lang('lang.terms_and_conditions')</a>
+                                    </li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2908">
+                                        <a href="{{route('login.view')}}" class="elementor-item elementor-item-anchor {{Request::is('login*') ? 'elementor-item-active' : ''}}">@lang('lang.sign_up')</a>
+                                    </li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
+                                        <a href="{{route('contact')}}" class="elementor-item {{Request::is('contact*') ? 'elementor-item-active' : ''}} ">@lang('lang.contact')</a>
+                                    </li>
+                                    <li
+                                    class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
+                                    <a href="{{route('contact')}}" class="elementor-item {{Request::is('profile*') ? 'elementor-item-active' : ''}} ">@lang('lang.profile')</a>
+                                </li>
+                                </ul>
+                            </nav>
+                            <div class="elementor-menu-toggle" role="button" tabindex="0"
+                                aria-label="Menu Toggle" aria-expanded="false">
+                                <i aria-hidden="true" role="presentation"
+                                    class="elementor-menu-toggle__icon--open eicon-menu-bar"></i><i
+                                    aria-hidden="true" role="presentation"
+                                    class="elementor-menu-toggle__icon--close eicon-close"></i> <span
+                                    class="elementor-screen-only">Menu</span>
+                            </div>
+                            <nav class="elementor-nav-menu--dropdown elementor-nav-menu__container"
+                                aria-hidden="true">
+                                <ul id="menu-2-55fd9fa" class="elementor-nav-menu">
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item menu-item-home menu-item-2905">
+                                        <a href="{{route('home')}}" class="elementor-item elementor-item-active"
+                                            tabindex="-1">@lang('lang.home')</a></li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2912">
+                                        <a href="#" class="elementor-item elementor-item-anchor"
+                                            tabindex="-1">@lang('lang.about_us')</a>
+                                    </li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
+                                        <a href="#" class="elementor-item elementor-item-anchor"
+                                            tabindex="-1">@lang('lang.terms_and_conditions')</a></li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2908">
+                                        <a href="#" class="elementor-item elementor-item-anchor"
+                                            tabindex="-1">@lang('lang.sign_up')</a></li>
+                                    <li
+                                        class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
+                                        <a href="./contact/index.html" class="elementor-item"
+                                            tabindex="-1">@lang('lang.sign_up')</a>
+                                   </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (app()->getLocale() === 'en')
+            <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-e7642f7"
+                data-id="e7642f7" data-element_type="column">
+                <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-element elementor-element-789ea5c elementor-widget elementor-widget-image"
+                        data-id="789ea5c" data-element_type="widget" data-widget_type="image.default">
+                        <div class="elementor-widget-container">
+                            <a href="{{route('change-lang','ar')}}">
+                                <img width="512" height="512" src="{{asset('assets/uploads/images/kuwait.png')}}"
+                                class="attachment-large size-large wp-image-3038" alt=""
+                                srcset="{{asset('assets/uploads/images/kuwait.png')}} 512w, {{asset('assets/uploads/images/kuwait-300x300.png')}} 300w, {{asset('assets/uploads/images/kuwait-150x150.png')}} 150w, {{asset('assets/uploads/images/kuwait-140x140.png')}} 140w, {{asset('assets/uploads/images/kuwait-493x493.png')}} 493w"
+                                sizes="(max-width: 512px) 100vw, 512px" title="">
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-e7642f7"
+                data-id="e7642f7" data-element_type="column">
+                <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-element elementor-element-789ea5c elementor-widget elementor-widget-image"
+                        data-id="789ea5c" data-element_type="widget" data-widget_type="image.default">
+                        <div class="elementor-widget-container">
+                            <a href="{{route('change-lang','en')}}">
+                                <img width="512" height="512" src="{{asset('assets/usa.png')}}"
+                                class="attachment-large size-large wp-image-3038" alt=""
+                                srcset="{{asset('assets/usa.png')}} 512w, {{asset('assets/usa.png')}} 300w, {{asset('assets/usa.png')}} 150w, {{asset('assets/usa.png')}} 140w, {{asset('assets/usa.png')}} 493w"
+                                sizes="(max-width: 512px) 100vw, 512px" title="">
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-27e4c43"
+                data-id="27e4c43" data-element_type="column">
+                <div class="elementor-widget-wrap elementor-element-populated">
+                    <div class="elementor-element elementor-element-e849d76 elementor-view-framed elementor-shape-square elementor-position-left elementor-vertical-align-middle elementor-widget__width-auto elementor-mobile-position-top elementor-widget elementor-widget-icon-box"
+                        data-id="e849d76" data-element_type="widget" data-widget_type="icon-box.default">
+                        <div class="elementor-widget-container">
+                            <div class="elementor-icon-box-wrapper  d-flex ">
+                                @if (auth()->check())
+                                <div class="elementor-icon-box-icon ">
+                                    <a href="{{route('profile.main')}}"
+                                        class="elementor-icon elementor-animation-" tabindex="-1">
+                                        <i aria-hidden="true" class="far fa-user-circle"></i> </a>
+                                </div>
+
+                                <div class="elementor-icon-box-icon">
+                                    <a href="{{route('logout')}}"
+                                        class="elementor-icon elementor-animation-" tabindex="-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.--><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+                                    </a>
+                                </div>
+
+                                @else
+                                <div class="elementor-icon-box-icon">
+                                    <a href="{{route('login.view')}}"
+                                            class="elementor-icon elementor-animation-" tabindex="-1">
+                                            <i aria-hidden="true" class="far fa-user-circle"></i> </a>
+                                </div>
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     </div>
 </header>

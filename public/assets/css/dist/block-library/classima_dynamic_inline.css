@@ -65,13 +65,13 @@ ins {
 
 a:link,
 a:visited {
-    color: #0b4577;
+    color: white;
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: #eab300;
+    color: #B18C58;
 }
 
 blockquote::before,
