@@ -164,7 +164,7 @@
                                     </li>
                                     <li
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
-                                    <a href="{{route('contact')}}" class="elementor-item {{Request::is('profile*') ? 'elementor-item-active' : ''}} ">@lang('lang.profile')</a>
+                                    <a href="{{route('profile.main')}}" class="elementor-item {{Request::is('profile*') ? 'elementor-item-active' : ''}} ">@lang('lang.profile')</a>
                                 </li>
                                 </ul>
                             </nav>

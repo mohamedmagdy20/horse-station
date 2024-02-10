@@ -10,14 +10,19 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $abroveAds  = Advertisment::where('user_id',auth()->user()->id)->where('abroved',true)->count();
-        $NotabroveAds  = Advertisment::where('user_id',auth()->user()->id)->where('abroved',false)->count();
-        $expireAds  = Advertisment::where('user_id',auth()->user()->id)->where('is_expire',true)->count();
-        return view('profile.main',[
-            'abroveAds'=>$abroveAds,
-            'NotabroveAds'=>$NotabroveAds,
-            'expireAds'=>$expireAds
-        ]);
+        $user = auth()->user();
+        if ($user) {
+            $abroveAds     = Advertisment::where('is_active', true)->notExpire()->where('user_id', $user->id)->count();
+            $NotabroveAds  = Advertisment::where('is_active', false)->notExpire()->where('user_id', $user->id)->count();
+            $expireAds     = Advertisment::expire()->where('user_id', $user->id)->count();
+            return view('profile.main', [
+                'abroveAds'    => $abroveAds,
+                'NotabroveAds' => $NotabroveAds,
+                'expireAds'    => $expireAds
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
     }
     public function listing(Request $request)
     {

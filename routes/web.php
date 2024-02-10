@@ -55,6 +55,8 @@ use App\Http\Controllers\website\Auth\ForgetPasswordController;
     Route::get('contact',[MainController::class,'contact'])->name('contact');
     Route::get('about',[MainController::class,'about'])->name('about');
     Route::get('terms',[MainController::class,'terms'])->name('terms');
+    Route::get('/advertisment/{id}', [HomeController::class , 'show'])->name('advertisment.show');
+
     Route::group(['prefix'=>'profile','controller'=>ProfileController::class],function(){
         Route::get('main','index')->name('profile.main');
         Route::get('listing','listing')->name('profile.listing');

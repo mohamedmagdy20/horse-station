@@ -26,33 +26,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Public Route //
-Route::post('login',[AuthController::class,'login']);
-Route::post('register',[AuthController::class,'register']);
-Route::post('verify',[AuthController::class,'verify']);
-Route::post('resend',[AuthController::class,'resend']);
-
-
-Route::get('countries',[CountryController::class,'index']);
-Route::get('banners',[BannerController::class,'getAll']);
-Route::get('main-category',[CategoryController::class,'getMainCategory']);
-Route::get('featured-product',[ProductController::class,'featuredProduct']);
-Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
-Route::get('advertisments',[AdvertismentController::class,'index']);
-Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
-// Route::get('categories/{id}',[ApiCategoryController::class,'getCategoriesById']);
-Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
-
-Route::get('product/{id}',[ProductController::class,'show']);
-Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
-Route::get('camp/{id}',[CampController::class,'show']);
-Route::get('order',[OrderController::class,'show']);
-Route::post('change-password',[AuthController::class,'forgetPassword']);
-
-Route::get('search',[CategoryController::class,'search']);
-
-// Protected Route
-Route::group(['middleware'=>'auth:sanctum'],function(){
+    // Public Route //
+    Route::post('login',[AuthController::class,'login']);
+    Route::post('register',[AuthController::class,'register']);
+    Route::post('verify',[AuthController::class,'verify']);
+    Route::post('resend',[AuthController::class,'resend']);
+    Route::get('countries',[CountryController::class,'index']);
+    Route::get('banners',[BannerController::class,'getAll']);
+    Route::get('main-category',[CategoryController::class,'getMainCategory']);
+    Route::get('featured-product',[ProductController::class,'featuredProduct']);
+    Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
+    Route::get('advertisments',[AdvertismentController::class,'index']);
+    Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
+    Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
+    Route::get('product/{id}',[ProductController::class,'show']);
+    Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
+    Route::get('camp/{id}',[CampController::class,'show']);
+    Route::get('order',[OrderController::class,'show']);
+    Route::post('change-password',[AuthController::class,'forgetPassword']);
+    Route::get('search',[CategoryController::class,'search']);
+    // Protected Route
+    Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::delete('logout',[AuthController::class,'logout']);
     Route::post('edit-profile',[AuthController::class,'EditProfile']);
     Route::post('create-advertisment',[AdvertismentController::class,'store']);
@@ -60,40 +54,29 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('advertisment/setsold',[AdvertismentController::class,'setAsSold']);
     Route::post('advertisment/setunsold',[AdvertismentController::class,'setAsUnSold']);
 
-    // Route::group(['prefix'=>'favourite/advertisments','controller'=>AdvertismentController::class],function(){
-    //     // Route::get('/','getFavAds');
-    //     Route::post('create','adsFav');
-    //     Route::delete('delete/{id}','deleteFav');
-    // });
-
     Route::group(['prefix'=>'favourite','controller'=>ProductController::class],function(){
         Route::get('/','favourite');
         Route::post('/create','addFav');
         Route::delete('/delete/{id}','deleteFav');
     });
-
-
     Route::group(['prefix'=>'camps','controller'=>CampController::class],function(){
         Route::get('get-levels','getLevelByCamp');
         Route::get('get-sports','getSportByCamp');
         Route::post('register','store');
     });
-
     Route::group(['prefix'=>'cart','controller'=>CartController::class],function(){
         Route::get('/','index');
         Route::post('store','store');
         Route::get('increment','addQuantity');
         Route::get('decrement','decQuantity');
+        Route::delete('delete/{id}','delete');
     });
-
     Route::group(['prefix'=>'address','controller'=>AddressController::class],function(){
         Route::get('/','index');
         Route::post('store','store');
         Route::post('edit','update');
-
         Route::delete('delete/{id}','delete');
       });
-
     Route::get('profile/advertisment',[ProfileController::class,'advertisment']);
 
 });

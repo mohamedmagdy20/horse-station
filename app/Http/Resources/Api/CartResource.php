@@ -17,8 +17,8 @@ class CartResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->product->name,
-            'colors' => json_decode($this->colors),
-            'size' => json_decode($this->size),
+            'colors' => implode(', ', json_decode($this->colors)),
+            'size' => implode(', ', json_decode($this->size)),
             'price' => $this->product->price,
             'deliver_time' => $this->product->deliver_time,
             'image' => $this->product->images != null ? asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
@@ -27,5 +27,7 @@ class CartResource extends JsonResource
             'total' => number_format((float)$this->product->price * $this->qantity, 2),
         ];
     }
+
+
 
 }
