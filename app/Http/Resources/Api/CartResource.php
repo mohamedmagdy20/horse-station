@@ -20,6 +20,7 @@ class CartResource extends JsonResource
             'colors' => implode(', ', json_decode($this->colors)),
             'size' => implode(', ', json_decode($this->size)),
             'price' => $this->product->price,
+            'product_id' => $this->product->id,
             'deliver_time' => $this->product->deliver_time,
             'image' => $this->product->images != null ? asset('uploads/products/'.$this->product->images[0]) : asset('default.png'),
             'count' => (int)$this->qantity,
