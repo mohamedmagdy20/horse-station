@@ -83,60 +83,32 @@
                                               *</span></label>
                                         </div>
                                         <div class="col-sm-9 col-12">
-                                          <div class="form-group">
-                                            <select
-                                              class="rtcl-select2 form-control"
-                                              id="rtcl-category"
-                                              name="category"
-                                              onchange="getCategory()"
-                                              required>
-                                              <option value="">
-                                                Select a Category
-                                              </option>
-                                              <option value='chalet'>
-                                                Chalets</option>
-                                              <option value='commercial'>
-                                                Commercial
-                                                Buildings
-                                              </option>
-                                              <option value='commercial_units'>
-                                                Commercial Units
-                                              </option>
-                                              <option value='farm'>
-                                                Farms</option>
-                                              <option value='industrial'>
-                                                Industrial
-                                              </option>
-                                              <option value='investment'>
-                                                Investment
-                                                Properties
-                                              </option>
-                                             
-                                              <option value='lands'>Lands</option>
-                                              <option value='residential'>
-                                                Residential
-                                              </option>
-                                            </select>
-                                          </div>
+                                            <div class="form-group">
+                                                <select class="rtcl-select2 form-control" id="rtcl-category" name="category" onchange="getCategory()" required>
+                                                    <option value="">Select a Category</option>
+
+                                                    @foreach ($categories as $category)
+                                                        @if ($category->parent_id === null)
+                                                            <option value="{{ $category->id }}">
+                                                                {{ app()->getLocale() === 'en' ? $category->name : $category->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
+
                                       </div>
-
-
                                       <div class="row d-none"
                                         id="sub-cat-row">
                                         <div class="col-sm-3 col-12">
-                                          <label
-                                            class="control-label">Sub
-                                            Category<span>
-                                              *</span></label>
+                                            <label class="control-label">Sub Category<span>*</span></label>
                                         </div>
-                                        <div class="col-sm-9 col-12"
-                                          id="rtcl-sub-category-wrap">
-                                          <div class="form-group">
-                                            <select name="category_id" class="rtcl-select2 form-control" id="category_id" onchange="applyForm()">
-                                            
-                                            </select>
-                                          </div>
+                                        <div class="col-sm-9 col-12" id="rtcl-sub-category-wrap">
+                                            <div class="form-group">
+                                                <select name="category_id" class="rtcl-select2 form-control" id="category_id" onchange="applyForm()">
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="col-sm-3 col-12">
                                           <label
@@ -152,15 +124,14 @@
                                                 --Select
                                                 Location--
                                               </option>
-                                              @foreach ($areas as $area )
-                                              <option value="{{$area->id}}">{{ app()->getLocale() === 'en' ? $area->name_en : $area->name_ar}}
+                                              @foreach ($countries as $country )
+                                              <option value="{{$country->id}}">{{ app()->getLocale() === 'en' ? $country->name : $country->name}}
                                               </option>
                                               @endforeach
-                                    
+
                                             </select>
                                           </div>
                                         </div>
-                                       
                                       </div>
 
 
@@ -176,7 +147,7 @@
                                   </div>
                                 </div>
                               </form>
-                              
+
                               </div>
                             </div>
                           </div>
@@ -190,7 +161,7 @@
           </div>
         </div>
       </div>
-   
+
     </div>
   </div>
 </div>
@@ -198,12 +169,40 @@
 @section('script')
 <script src="{{asset('assets/js/create.js')}}"></script>
 <script>
+    function getCategory() {
+        const categorySelect = document.getElementById('rtcl-category');
+        const subCategorySelect = document.getElementById('category_id');
+        const categoryId = categorySelect.value;
+
+        // Clear previous options
+        subCategorySelect.innerHTML = '<option value="">Select a Sub-Category</option>';
+
+        // Filter sub-categories based on the selected category
+        const subCategories = @json($categories);
+
+        subCategories.forEach(subCategory => {
+            if (subCategory.parent_id === categoryId) {
+                var option = document.createElement('option');
+                option.value = subCategory.id;
+                option.text = subCategory.name;
+                subCategorySelect.add(option);
+            }
+        });
+
+        // Show or hide sub-category dropdown
+        subCategorySelect.style.display = subCategorySelect.options.length > 1 ? 'block' : 'none';
+    }
+</script>
+
+
+
+<script>
   	function getCategory() {
         let category = $("#rtcl-category").find(":selected").val();
         let subCat = $("#sub-cat-row");
         $.ajax({
             type: 'GET',
-            url: `{{route('get.category.type')}}?category=${category}`,
+            url: `{{route('get-categories')}}?category=${category}`,
             success: function(data) {
                 $("#sub-cat-row").removeClass('d-none');
                 $("#category_id").html(data);
@@ -215,13 +214,13 @@
     }
 </script>
 
+
 <script>
   let content = document.getElementById('form-content')
-        
+
   function applyForm()
   {
-    let category = $("#rtcl-category").find(":selected").val() 
-    console.log(category);
+    let category = $("#rtcl-category").find(":selected").val()
         if(category == 'industrial' || category == 'farm' || category == 'break' || category == 'lands')
         {
             content.replaceChildren();
@@ -448,8 +447,6 @@
 
 
 </div>
-
-
 <div class="rtcl-post-gallery rtcl-post-section">
 	<div class="classified-listing-form-title">
 		<i class="fa fa-image" aria-hidden="true"></i>
@@ -485,7 +482,7 @@
 		<h3>Contact Details</h3>
 	</div>
 
-	
+
 
 	<div class="row  rtcl-hide" id="sub-sub-location-row">
 		<div class="col-12 col-sm-3">
@@ -553,7 +550,7 @@
 			<div class="col-sm-3 col-12">
 				<label class="control-label">Pricing</label>
 			</div>
-			
+
 		</div>
 		<div id="rtcl-pricing-items" class="rtcl-pricing-price">
 			<div id="rtcl-price-items" class="rtcl-pricing-item">
@@ -576,7 +573,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="row" id="rtcl-price-unit-wrap">
 					<div class="col-12 col-sm-3">
@@ -830,11 +827,11 @@
 			<i class="fa fa-image" aria-hidden="true"></i>
 			<h3>Images</h3>
 		</div>
-	
+
 		<div class="form-group">
 			<div id="rtcl-gallery-upload-ui-wrapper" class="rtcl-browser-frontend">
 				<input type="file" name="images[]" class="form-control" multiple id="">
-	
+
 				<div class="rtcl-gallery-uploads">
 				</div>
 				<div class="description alert alert-danger">
@@ -849,20 +846,20 @@
 					<p>You can upload up
 						to 5 images.</p>
 				</div>
-	
+
 			</div>
 		</div>
-	
+
 	</div>
   		<button type="submit" class="btn btn-primary rtcl-submit-btn">
 			Submit		</button>
 </div>
-          
+
           `
         }else if(category == 'commercial_units' || category == 'commercial')
         {
           content.replaceChildren();
-          content.innerHTML = ` 
+          content.innerHTML = `
           <div class="rtcl-post-details rtcl-post-section rtcl-post-section-info">
 	<div class="classified-listing-form-title">
 		<i class="fa fa-folder-open" aria-hidden="true"></i>
@@ -889,7 +886,7 @@
 			<div class="col-sm-3 col-12">
 				<label class="control-label">Pricing</label>
 			</div>
-			
+
 		</div>
 		<div id="rtcl-pricing-items" class="rtcl-pricing-price">
 			<div id="rtcl-price-items" class="rtcl-pricing-item">
@@ -913,9 +910,9 @@
 						</div>
 
 
-						
+
 					</div>
-				
+
 				</div>
 				<div class="row" id="rtcl-price-unit-wrap">
 					<div class="col-12 col-sm-3">
@@ -971,11 +968,11 @@
 			<i class="fa fa-image" aria-hidden="true"></i>
 			<h3>Images</h3>
 		</div>
-	
+
 		<div class="form-group">
 			<div id="rtcl-gallery-upload-ui-wrapper" class="rtcl-browser-frontend">
 				<input type="file" name="images[]" class="form-control" multiple id="">
-	
+
 				<div class="rtcl-gallery-uploads">
 				</div>
 				<div class="description alert alert-danger">
@@ -990,10 +987,10 @@
 					<p>You can upload up
 						to 5 images.</p>
 				</div>
-	
+
 			</div>
 		</div>
-	
+
 	</div>
 
 	<div class="row classima-form-des-row">

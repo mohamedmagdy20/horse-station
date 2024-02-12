@@ -48,7 +48,7 @@ class CartController extends Controller
             $data['colors']  = json_encode($data['colors']);
             $data['size']    = json_encode($data['size']);
             $data['user_id'] = auth()->user()->id;
-            $data['qantity'] = $pr->stock;
+            //$data['qantity'] = $pr->stock;
 
             $cartItem = $this->model->firstOrCreate($data);
 
@@ -84,7 +84,7 @@ class CartController extends Controller
             'message'=>'success'
         ]);
     }
-    public function delete($id){
+        public function delete($id){
         $data  =$this->model->find($id)->delete();
         return response()->json([
             'message'=>'Deleted',

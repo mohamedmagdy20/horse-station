@@ -105,4 +105,16 @@ class AdvertismentController extends Controller
             'message'=>'Success'
         ]);
     }
+    public function getCategory(Request $request){
+        $categories = Category::filter($request->all())->get();
+        $text = "";
+        foreach ($categories as $cat) {
+            $name = app()->getLocale() === 'en' ? $cat->name_en : $cat->name_ar;
+            $text .= "<option value='$cat->id'>$name</option>";
+        }
+        return response()->json([
+            'text'=>$text,
+            'type'=>$request->type,
+        ]);
+    }
 }

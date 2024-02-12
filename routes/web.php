@@ -55,18 +55,24 @@ use App\Http\Controllers\website\Auth\ForgetPasswordController;
     Route::get('contact',[MainController::class,'contact'])->name('contact');
     Route::get('about',[MainController::class,'about'])->name('about');
     Route::get('terms',[MainController::class,'terms'])->name('terms');
-    Route::get('/advertisment/{id}', [HomeController::class , 'show'])->name('advertisment.show');
+    Route::get('/advertisment/{id}', [MainController::class , 'show'])->name('advertisment.show');
 
-    Route::group(['prefix'=>'profile','controller'=>ProfileController::class],function(){
-        Route::get('main','index')->name('profile.main');
-        Route::get('listing','listing')->name('profile.listing');
-        Route::get('favourite','favouriteListing')->name('profile.favourite');
-        Route::get('chat','chat')->name('profile.chat');
-        Route::get('payment','payment')->name('profile.payment');
-        Route::get('edit','edit')->name('profile.edit');
-        Route::post('update','update')->name('profile.update');
-        Route::get('delete-ads/{id}','deleteAds')->name('delete.advertisment');
-        Route::get('delete-fav/{id}','deleteFav')->name('delete.advertisment.fav');
+    Route::group(['middleware'=>'auth'],function(){
+        Route::get('create',[MainController::class,'create'])->name('ads.add');
+        Route::get('get-category',[AdvertismentController::class,'getCategory'])->name('get-categories');
+        Route::post('advertisment/store',[AdvertismentController::class,'store'])->name('ads.store');
+        Route::get('favourite/create',[AdvertismentController::class,'addFav'])->name('ads.fav.create');
+        Route::group(['prefix'=>'profile','controller'=>ProfileController::class],function(){
+            Route::get('main','index')->name('profile.main');
+            Route::get('listing','listing')->name('profile.listing');
+            Route::get('favourite','favouriteListing')->name('profile.favourite');
+            Route::get('chat','chat')->name('profile.chat');
+            Route::get('payment','payment')->name('profile.payment');
+            Route::get('edit','edit')->name('profile.edit');
+            Route::post('update','update')->name('profile.update');
+            Route::get('delete-ads/{id}','deleteAds')->name('delete.advertisment');
+            Route::get('delete-fav/{id}','deleteFav')->name('delete.advertisment.fav');
+        });
     });
 
 

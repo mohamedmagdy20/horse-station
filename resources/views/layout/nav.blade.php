@@ -259,7 +259,13 @@
                                         class="elementor-icon elementor-animation-" tabindex="-1">
                                         <i aria-hidden="true" class="far fa-user-circle"></i> </a>
                                 </div>
+                                <div class="elementor-icon-box-icon">
+                                    <a href="{{route('ads.add')}}"
+                                        class="elementor-icon elementor-animation-" tabindex="-1">
+                                        <i aria-hidden="true" class="fas fa-plus"></i> </a>
 
+
+                                </div>
                                 <div class="elementor-icon-box-icon">
                                     <a href="{{route('logout')}}"
                                         class="elementor-icon elementor-animation-" tabindex="-1">
