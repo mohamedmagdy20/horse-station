@@ -168,7 +168,7 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="rtcl-add-new-listing">
-                                                                    <a href="{{route('ads.add')}}"
+                                                                    <a href="{{route('addads')}}"
                                                                         class="btn btn-success">@lang('lang.add_ads')</a>
                                                                 </div>
                                                             </div>
@@ -203,7 +203,7 @@
                                                                                         @else
                                                                                             https://admin.alfuraij.com/uploads/ads/{{$item->adsImage[0]->image}}
                                                                                         @endif
-                                                                                
+
                                                                                         "
                                                                                         class="rtcl-thumbnail"
                                                                                         alt="{{$item->title}}"
@@ -269,9 +269,9 @@
                                                                                         @if ($item->abroved == true)
                                                                                             Published
                                                                                         @elseif ($item->abroved == false)
-                                                                                            Pending                                                                                  
-                                                                                        @endif                                                                                            
-                                                                                        
+                                                                                            Pending
+                                                                                        @endif
+
                                                                                         </span>
                                                                                     </div>
 
@@ -302,15 +302,15 @@
                                                                                         class="rtcl-price-currencySymbol">&#x62f;.&#x643;</span></span>
                                                                             </div>
                                                                         </td>
-                                                                       
+
                                                                         <td class="list-on-responsive"
                                                                             data-column="Action:">
                                                                             <div class="rtcl-actions">
-                                                                               
-                                                                              
+
+
                                                                                 <a href="{{route('delete.advertisment',$item->id)}}"
                                                                                     class="delete-confirm rtcl-tooltip-wrapper"
-                                                                                   
+
                                                                                     title="Delete">
                                                                                     <svg width="16"
                                                                                         height="16"
@@ -326,7 +326,7 @@
                                                                                 </a>
                                                                                 @if ($item->is_sold == true)
 
-                                                                                <a 
+                                                                                <a
                                                                                     href="{{route('unsold',$item->id)}}"
                                                                                     class="rtcl-tooltip-wrapper mark-as-sold sold">
                                                                                     <svg width="16"
@@ -341,10 +341,10 @@
                                                                                     <span
                                                                                         class="rtcl-tooltip">Mark
                                                                                         as unsold</span>
-                                                                                </a>                                                                                    
+                                                                                </a>
                                                                                 @else
 
-                                                                                <a 
+                                                                                <a
                                                                                     href="{{route('sold',$item->id)}}"
                                                                                     class="rtcl-tooltip-wrapper sold">
                                                                                     <svg width="16"
@@ -359,14 +359,14 @@
                                                                                     <span
                                                                                         class="rtcl-tooltip">Mark
                                                                                         as sold</span>
-                                                                                </a>                                                                                    
+                                                                                </a>
 
                                                                                 @endif
                                                                             </div>
                                                                         </td>
-                                                                    </tr>  
-                                                                     @endforeach  
-                                                                       
+                                                                    </tr>
+                                                                     @endforeach
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -384,7 +384,7 @@
                                                                                 Page</span>{{$page}}</a>
                                                                     </li>
                                                                 @endforeach
-                                                
+
 
 
                                                                 </ul>

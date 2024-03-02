@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Advertisment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\website\ads;
 use App\Models\Country;
 
 class MainController extends Controller
@@ -52,8 +53,40 @@ class MainController extends Controller
     public function create()
     {
         $categories = Category::all();
-        $countries  = Country::all();
-        return view('advertisment.create',['categories'=>$categories,'countries'=>$countries]);
+        $countries = Country::all();
+        return view('advertisment.create', ['categories' => $categories, 'countries' => $countries]);
     }
-
+    public function storeadd(Request $request)
+    {
+        $data = $request->all();
+        $data['user_id']   = auth()->user()->id;
+        if ($request->hasFile('images')) {
+            if ($data['images'] !== null) {
+                $oldImagePath = public_path('uploads/advertisments/') . $data['images'] ;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+            $newImage = $request->file('images');
+            $newImageName = "advertisments-" . uniqid() . '.' . $newImage->getClientOriginalExtension();
+            $newImage->move(public_path('uploads/advertisments/'), $newImageName);
+            $data['images']  = $newImageName;
+        }
+        if ($request->hasFile('videos')) {
+            if ($data['videos'] !== null) {
+                $oldImagePath = public_path('uploads/advertisments/') . $data['videos'] ;
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+            $newImage = $request->file('videos');
+            $newImageName = "advertisments-" . uniqid() . '.' . $newImage->getClientOriginalExtension();
+            $newImage->move(public_path('uploads/advertisments/'), $newImageName);
+            $data['videos']  = $newImageName;
+        }
+        $ads = Advertisment::create($data);
+        return redirect()->back()->with(['success' => 'Ads added succesfully !']);
+        return $ads;
+    }
 }
+

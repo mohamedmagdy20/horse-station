@@ -146,18 +146,18 @@
                                         class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-2912">
                                         <a href="{{route('about')}}" class="elementor-item  {{Request::is('about*' ? 'elementor-item-active' : '')}}">@lang('lang.about_us')</a>
                                     </li>
-                                    <li
+                                    {{-- <li
                                     class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
                                     <a href="{{route('terms')}}" class="elementor-item elementor-item-anchor">@lang('lang.faq')</a>
-                                   </li>
+                                   </li> --}}
                                     <li
                                         class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2906">
                                         <a href="{{route('terms')}}" class="elementor-item elementor-item-anchor">@lang('lang.terms_and_conditions')</a>
                                     </li>
-                                    <li
+                                    {{-- <li
                                         class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2908">
                                         <a href="{{route('login.view')}}" class="elementor-item elementor-item-anchor {{Request::is('login*') ? 'elementor-item-active' : ''}}">@lang('lang.sign_up')</a>
-                                    </li>
+                                    </li> --}}
                                     <li
                                         class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2907">
                                         <a href="{{route('contact')}}" class="elementor-item {{Request::is('contact*') ? 'elementor-item-active' : ''}} ">@lang('lang.contact')</a>
@@ -260,7 +260,7 @@
                                         <i aria-hidden="true" class="far fa-user-circle"></i> </a>
                                 </div>
                                 <div class="elementor-icon-box-icon">
-                                    <a href="{{route('ads.add')}}"
+                                    <a href="{{route('addads')}}"
                                         class="elementor-icon elementor-animation-" tabindex="-1">
                                         <i aria-hidden="true" class="fas fa-plus"></i> </a>
 

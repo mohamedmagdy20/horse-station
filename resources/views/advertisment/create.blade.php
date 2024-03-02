@@ -25,128 +25,249 @@
                           <div class="elementor-widget-container">
                             <div class="elementor-shortcode">
                               <div class="rtcl">
-                                <form method="POST" id="ads_form" enctype="multipart/form-data">
-                                  @csrf
-                                  <div
-                                  class="rtcl-listing-info-selecting classima-form">
-                                  <div id="rtcl-ad-type-selection">
-                                    <div
-                                      class="classified-listing-form-title">
-                                      <i class="fa fa-tags"
-                                        aria-hidden="true"></i>
-                                      <h3>Select Type</h3>
-                                    </div>
-                                    <div class="row">
-                                      <div class="col-sm-3 col-12">
-                                        <label class="control-label">Ad
-                                          Type<span> *</span></label>
-                                      </div>
-                                      <div class="col-sm-9 col-12">
-                                        <div class="form-group">
-                                          <select
-                                            class="rtcl-select2 form-control"
-                                            id="rtcl-ad-type"
-                                            name="type" required>
-                                            <option value="">
-                                              --Select Type--
-                                            </option>
-                                            <option
-                                              value='sale'>For
-                                              Sale</option>
-                                            <option
-                                              value='rent'>For
-                                              Rent</option>
-                                            <option
-                                              value='instead'>
-                                              For Exchange
-                                            </option>
-                                          </select>
+                                <form method="post" action="{{route('storeadd')}}" id="ads_form" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="rtcl-listing-info-selecting classima-form">
+                                      <div>
+                                        <div class="classified-listing-form-title">
+                                          <i class="fa fa-tags" aria-hidden="true"></i>
+                                          <h3>Select Type</h3>
                                         </div>
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div id="rtcl-ad-category-selection"
-                                   >
-                                    <div
-                                      class="classified-listing-form-title">
-                                      <i class="fa fa-tags"
-                                        aria-hidden="true"></i>
-                                      <h3>Select Category</h3>
-                                    </div>
-                                    <div class="rtcl-post-category">
-
-                                      <div class="row" id="cat-row">
-                                        <div class="col-sm-3 col-12">
-                                          <label
-                                            class="control-label">Category<span>
-                                              *</span></label>
-                                        </div>
-                                        <div class="col-sm-9 col-12">
+                                        <div class="row">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">Ad Type<span>*</span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
                                             <div class="form-group">
-                                                <select class="rtcl-select2 form-control" id="rtcl-category" name="category" onchange="getCategory()" required>
+                                              <select class="rtcl-select2 form-control" id="rtcl-ad-type" name="type" >
+                                                <option value="">--Select Type--</option>
+                                                <option value="horse">horse</option>
+                                                <option value="service">service</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div id="rtcl-ad-category" style="display: none;">
+                                        <div class="classified-listing-form-title">
+                                          <i class="fa fa-tags" aria-hidden="true"></i>
+                                          <h3>Select Category</h3>
+                                        </div>
+                                        <div class="rtcl-post-category">
+                                          <div class="row" id="">
+                                            <div class="col-sm-3 col-12">
+                                              <label class="control-label">Category<span>*</span></label>
+                                            </div>
+                                            <div class="col-sm-9 col-12">
+                                              <div class="form-group">
+                                                <select class="rtcl-select2 form-control" name="category_id" >
                                                     <option value="">Select a Category</option>
-
                                                     @foreach ($categories as $category)
-                                                        @if ($category->parent_id === null)
+                                                        @if ($category->parent_id === 2)
                                                             <option value="{{ $category->id }}">
-                                                                {{ app()->getLocale() === 'en' ? $category->name : $category->name }}
+                                                                {{ $category->name }}
                                                             </option>
                                                         @endif
                                                     @endforeach
                                                 </select>
+                                              </div>
                                             </div>
-                                        </div>
-
-                                      </div>
-                                      <div class="row d-none"
-                                        id="sub-cat-row">
-                                        <div class="col-sm-3 col-12">
-                                            <label class="control-label">Sub Category<span>*</span></label>
-                                        </div>
-                                        <div class="col-sm-9 col-12" id="rtcl-sub-category-wrap">
-                                            <div class="form-group">
-                                                <select name="category_id" class="rtcl-select2 form-control" id="category_id" onchange="applyForm()">
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-12">
-                                          <label
-                                            class="control-label">Select
-                                            Location<span>
-                                              *</span></label>
-                                        </div>
-                                        <div class="col-sm-9 col-12">
-                                          <div class="form-group">
-                                            <select id="rtcl-sub-sub-location" name="area_id"
-                                              class="rtcl-select2 rtcl-select form-control rtcl-map-field" required>
-                                              <option value="">
-                                                --Select
-                                                Location--
-                                              </option>
-                                              @foreach ($countries as $country )
-                                              <option value="{{$country->id}}">{{ app()->getLocale() === 'en' ? $country->name : $country->name}}
-                                              </option>
-                                              @endforeach
-
-                                            </select>
                                           </div>
                                         </div>
                                       </div>
 
-
-                                      <input type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}">
-                                      <div class="row">
-                                        <div class="col-md-9" id="form-content">
-
+                                      <div id="rtcl-ad-country" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">Select
+                                                Location<span>*</span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <select  id="" name="country_id"
+                                                class="rtcl-select2 rtcl-select form-control rtcl-map-field" >
+                                                <option value="">
+                                                  --Select
+                                                  Location--
+                                                </option>
+                                                @foreach ($countries as $country )
+                                                <option value="{{$country->id}}">
+                                                    {{ $country->name}}
+                                                </option>
+                                                @endforeach
+                                              </select>
+                                            </div>
+                                          </div>
                                         </div>
-
-                                      </div>
-
                                     </div>
-                                  </div>
-                                </div>
-                              </form>
+
+                                    <div id="rtcl-ad-age" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">Select
+                                                Age<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="number" class="form-control" value="" name="age" id=""
+                                                >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    {{-- <div id="rtcl-ad-name" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">horse name<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="text" class="form-control" value="" name="name" >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div> --}}
+                                    <div id="rtcl-ad-name" style="display: none;">
+                                        <div class="row" id="">
+                                          <div id="service-name" class="col-sm-3 col-12">
+                                            <label class="control-label">service name<span></span></label>
+                                          </div>
+                                          <div id="horse-name"  class="col-sm-3 col-12">
+                                            <label class="control-label">horse name<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="text" class="form-control" value="" name="name" >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-description-s" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">description<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="text" class="form-control" value="" name="description" id=""
+                                                >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="rtcl-ad-description" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">description<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="text" class="form-control" value="" name="description" id="">
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-phone" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">phone<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="text" class="form-control" value="" name="phone" id="">
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-price" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">price<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="number" class="form-control" value="" name="price" id=""
+                                                >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="rtcl-ad-image" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">image<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="file" class="form-control" value="" name="images" id=""
+                                                >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-video" style="display: none;">
+                                        <div class="row" id="">
+                                          <div class="col-sm-3 col-12">
+                                            <label class="control-label">video<span></span></label>
+                                          </div>
+                                          <div class="col-sm-9 col-12">
+                                            <div class="form-group">
+                                                <input  type="file" class="form-control" value="" name="videos" id=""
+                                                >
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-radio" style="display: none;margin-left: 45%" class="row">
+                                        <div class="col-sm-3 col-12">
+                                            <label class="control-label">Ads Type<span>*</span></label>
+                                        </div>
+                                        <div class="col-sm-9 col-12">
+                                            <div class="form-check form-check-inline">
+                                                <input  class="form-check-input" type="radio" name="ads_type" id="normal" value="normal" checked>
+                                                <label class="form-check-label" for="normal">Normal</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input  class="form-check-input" type="radio" name="ads_type" id="special" value="special">
+                                                <label class="form-check-label" for="special">Special</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-radio-s" style="display: none;margin-left: 45%" class="row" >
+                                        <div class="col-sm-3 col-12">
+                                            <label class="control-label">Ads Type<span>*</span></label>
+                                        </div>
+                                        <div class="col-sm-9 col-12">
+                                            <div class="form-check form-check-inline">
+                                                <input  class="form-check-input" type="radio" name="ads_type" id="normal" value="normal" checked>
+                                                <label class="form-check-label" for="normal">Normal</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input  class="form-check-input" type="radio" name="ads_type" id="special" value="special">
+                                                <label class="form-check-label" for="special">Special</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <input  type="hidden" name="user_id" id="user_id" value="{{auth()->user()->id}}">
+                                    <div class="row">
+                                      <div class="col-md-9" id="form-content">
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-submit-s" style="display: none; margin-left: 55%" class="row">
+                                        <div class="col-md-9" id="form-content">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                    <div id="rtcl-ad-submit" style="display: none; margin-left: 55%" class="row">
+                                        <div class="col-md-9" id="form-content">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
 
                               </div>
                             </div>
@@ -167,871 +288,60 @@
 </div>
 @endsection
 @section('script')
-<script src="{{asset('assets/js/create.js')}}"></script>
 <script>
-    function getCategory() {
-        const categorySelect = document.getElementById('rtcl-category');
-        const subCategorySelect = document.getElementById('category_id');
-        const categoryId = categorySelect.value;
-
-        // Clear previous options
-        subCategorySelect.innerHTML = '<option value="">Select a Sub-Category</option>';
-
-        // Filter sub-categories based on the selected category
-        const subCategories = @json($categories);
-
-        subCategories.forEach(subCategory => {
-            if (subCategory.parent_id === categoryId) {
-                var option = document.createElement('option');
-                option.value = subCategory.id;
-                option.text = subCategory.name;
-                subCategorySelect.add(option);
-            }
-        });
-
-        // Show or hide sub-category dropdown
-        subCategorySelect.style.display = subCategorySelect.options.length > 1 ? 'block' : 'none';
-    }
-</script>
-
-
-
-<script>
-  	function getCategory() {
-        let category = $("#rtcl-category").find(":selected").val();
-        let subCat = $("#sub-cat-row");
-        $.ajax({
-            type: 'GET',
-            url: `{{route('get-categories')}}?category=${category}`,
-            success: function(data) {
-                $("#sub-cat-row").removeClass('d-none');
-                $("#category_id").html(data);
-            },
-            error: function(error) {
-                console.log('error');
-            }
-        });
-    }
-</script>
-
-
-<script>
-  let content = document.getElementById('form-content')
-
-  function applyForm()
-  {
-    let category = $("#rtcl-category").find(":selected").val()
-        if(category == 'industrial' || category == 'farm' || category == 'break' || category == 'lands')
-        {
-            content.replaceChildren();
-            content.innerHTML = `
-<div class="rtcl-post-details rtcl-post-section rtcl-post-section-info">
-	<div class="classified-listing-form-title">
-		<i class="fa fa-folder-open" aria-hidden="true"></i>
-		<h3>Product Information</h3>
-	</div>
-	<div class="row classima-form-title-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Title<span>
-					*</span></label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<input type="text" data-max-length="3" maxlength="30" class="form-control" value="" name="title"
-					id="rtcl-title" name="title" required />
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>30</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="rtcl-pricing-wrap">
-		<div id="rtcl-pricing-items" class="rtcl-pricing-price">
-			<div id="rtcl-price-items" class="rtcl-pricing-item">
-				<div class="rtcl-price-item" id="rtcl-price-wrap">
-					<div class="price-wrap">
-						<div class="row">
-							<div class="col-md-3 col-12">
-								<label class="control-label">
-									<span class="price-label">Price
-										[<span class="rtcl-currency-symbol">&#x62f;.&#x643;</span>]</span>
-									<span>
-										*</span>
-								</label>
-							</div>
-							<div class="col-md-9 col-12">
-								<div class="form-group">
-									<input type="text" class="form-control" value="" name="price" id="rtcl-price"
-										required>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-							<div class="col-md-3 col-12">
-								<label class="control-label">
-									<span class="price-label"> Link Number
-										</span>
-									<span>
-										*</span>
-								</label>
-							</div>
-							<div class="col-md-9 col-12">
-								<div class="form-group">
-									<input type="number" class="form-control" value="" name="number" id="rtcl-price"
-										required>
-								</div>
-							</div>
-				</div>
-				<div class="row" id="rtcl-price-unit-wrap">
-					<div class="col-12 col-sm-3">
-						<label class="control-label">Price
-							Unit</label>
-					</div>
-					<div class="col-12 col-sm-9">
-						<div class="form-group">
-							<select class="form-control rtcl-select2" id="rtcl-price-unit" name="_rtcl_price_unit">
-								<option value="">
-									No
-									unit
-								</option>
-								<option value="total">
-									Total
-									Price
-									(total
-									price)</label>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="rtcl-custom-fields-list" data-post_id="0">
-		<div class="row rtcl-cf-wrap" data-id="_field_2820" data-type="number">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_number_2820" class="control-label rtcl-cf-label">Land
-					Area<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<input type="number" class="rtcl-number form-control rtcl-cf-field" id="rtcl_number_2820"
-						name="space" placeholder="" value="" step="any" min="0" required />
-					<div class='help-block with-errors'>
-					</div>
-					<small class='help-block'>Land
-						Area</small>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2821" data-type="radio">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_radio_2821" class="control-label rtcl-cf-label">Features<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<div class="rtcl-check-list">
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-1"
-								type="radio" name="advantages[]" value="One Street" checked="checked"
-								required><label class="form-check-label" for="rtcl_radio_2821option-title-1">One
-								Street</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-2"
-								type="radio" name="advantages[]" value="Two
-								Street" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-2">Two
-								Street</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-3"
-								type="radio" name="advantages[]" value="Two
-								Street" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-3">Two
-								Street
-								Corner</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-4"
-								type="radio" name="advantages[]" value="option-title-4" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-4">Three
-								Street</label>
-						</div>
-					</div>
-					<div class='help-block with-errors'>
-					</div>
-					<small class='help-block'>Features</small>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2822" data-type="checkbox">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_checkbox_2822" class="control-label rtcl-cf-label">feat</label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<div class="rtcl-check-list">
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-1"
-								type="checkbox" name="advantages[]" value="Near
-								Services" data-foo='yes'><label
-								class="form-check-label" for="rtcl_checkbox_2822option-title-1">Near
-								Services</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-2"
-								type="checkbox" name="advantages[]" value="Near
-								School" data-foo='yes'><label
-								class="form-check-label" for="rtcl_checkbox_2822option-title-2">Near
-								School</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-3"
-								type="checkbox" name="advantages[]" value="Near
-								Exit" data-foo='yes'><label
-								class="form-check-label" for="rtcl_checkbox_2822option-title-3">Near
-								Exit</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-4"
-								type="checkbox" name="advantages[]" value="option-title-4" data-foo='yes'><label
-								class="form-check-label" for="rtcl_checkbox_2822option-title-4">Near
-								Mosque</label>
-						</div>
-					</div>
-					<div class='help-block with-errors'>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row classima-form-des-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Description</label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<div id="wp-description-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
-
-					<div id="wp-description-editor-tools" class="wp-editor-tools hide-if-no-js">
-						<div class="wp-editor-tabs">
-							<button type="button" id="description-tmce" class="wp-switch-editor switch-tmce"
-								data-wp-editor-id="description">Visual</button>
-							<button type="button" id="description-html" class="wp-switch-editor switch-html"
-								data-wp-editor-id="description">Text</button>
-						</div>
-					</div>
-					<div id="wp-description-editor-container" class="wp-editor-container">
-						<div id="qt_description_toolbar" class="quicktags-toolbar hide-if-no-js">
-						</div>
-						<textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40"
-							name="description" id="description"></textarea>
-					</div>
-				</div>
-
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>50</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-</div>
-<div class="rtcl-post-gallery rtcl-post-section">
-	<div class="classified-listing-form-title">
-		<i class="fa fa-image" aria-hidden="true"></i>
-		<h3>Images</h3>
-	</div>
-
-	<div class="form-group">
-		<div id="rtcl-gallery-upload-ui-wrapper" class="rtcl-browser-frontend">
-			<input type="file" name="images[]" class="form-control" multiple id="">
-
-			<div class="rtcl-gallery-uploads">
-			</div>
-			<div class="description alert alert-danger">
-				<p>Recommended image
-					size to
-					(870x493)px</p>
-				<p>Image maximum
-					size 3 MB.</p>
-				<p>Allowed image
-					type (png, jpg,
-					jpeg).</p>
-				<p>You can upload up
-					to 5 images.</p>
-			</div>
-
-		</div>
-	</div>
-
-</div>
-<div class="rtcl-post-contact-details rtcl-post-section">
-	<div class="classified-listing-form-title">
-		<i class="fa fa-user" aria-hidden="true"></i>
-		<h3>Contact Details</h3>
-	</div>
-
-
-
-	<div class="row  rtcl-hide" id="sub-sub-location-row">
-		<div class="col-12 col-sm-3">
-			<label class="control-label">Block<span>
-					*</span></label>
-		</div>
-			</div>
-
-</div>
-<div class="rtcl-listing-terms-conditions">
-	<div class="row">
-		<div class="col-sm-3 col-12">
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<div class="form-check">
-					<input type="checkbox" class="form-check-input" name="rtcl_agree" id="rtcl-terms-conditions"
-						required>
-					<label class="form-check-label" for="rtcl-terms-conditions">
-						I have read
-						and agree to
-						the website
-						<a href="https://codedhosting.com/alfuraij/my-account/" class="rtcl-terms-and-conditions-link"
-							target="_blank">terms
-							and
-							conditions</a>.
-					</label>
-					<div class="with-errors help-block" data-error="This field is required">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-  		<button type="submit" class="btn btn-primary rtcl-submit-btn">
-			Submit		</button>
-</div>
-            `;
-        }else if(category == 'residential' || category == 'chalet' )
-        {
-          content.replaceChildren();
-          content.innerHTML = `
-          <div class="rtcl-post-details rtcl-post-section rtcl-post-section-info">
-	<div class="classified-listing-form-title">
-		<i class="fa fa-folder-open" aria-hidden="true"></i>
-		<h3>Product Information</h3>
-	</div>
-	<div class="row classima-form-title-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Title<span>
-					*</span></label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<input type="text" data-max-length="3" maxlength="30" class="form-control" value="" id="rtcl-title"
-					name="title" required />
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>30</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="rtcl-pricing-wrap">
-		<div class="row" id="rtcl-form-pricing-type-wrap">
-			<div class="col-sm-3 col-12">
-				<label class="control-label">Pricing</label>
-			</div>
-
-		</div>
-		<div id="rtcl-pricing-items" class="rtcl-pricing-price">
-			<div id="rtcl-price-items" class="rtcl-pricing-item">
-				<div class="rtcl-price-item" id="rtcl-price-wrap">
-					<div class="price-wrap">
-						<div class="row">
-							<div class="col-md-3 col-12">
-								<label class="control-label">
-									<span class="price-label">Price
-										[<span class="rtcl-currency-symbol">&#x62f;.&#x643;</span>]</span>
-									<span>
-										*</span>
-								</label>
-							</div>
-							<div class="col-md-9 col-12">
-								<div class="form-group">
-									<input type="text" class="form-control" value="" name="price" id="rtcl-price"
-										required>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<div class="row" id="rtcl-price-unit-wrap">
-					<div class="col-12 col-sm-3">
-						<label class="control-label">Price
-							Unit</label>
-					</div>
-					<div class="col-12 col-sm-9">
-						<div class="form-group">
-							<select class="form-control rtcl-select2" id="rtcl-price-unit" name="_rtcl_price_unit">
-								<option value="">
-									No
-									unit
-								</option>
-								<option value="total">
-									Total
-									Price
-									(total
-									price)</label>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="rtcl-custom-fields-list" data-post_id="0">
-		<div class="row rtcl-cf-wrap" data-id="_field_2820" data-type="number">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_number_2820" class="control-label rtcl-cf-label">Land
-					Area<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<input type="number" class="rtcl-number form-control rtcl-cf-field" id="rtcl_number_2820"
-						name="space" placeholder="" value="" step="any" min="0" required />
-					<div class='help-block with-errors'>
-					</div>
-					<small class='help-block'>Land
-						Area</small>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2821" data-type="radio">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_radio_2821" class="control-label rtcl-cf-label">Features<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<div class="rtcl-check-list">
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-1"
-								type="radio" name="advantages[]" value=">One
-								Street" checked="checked"
-								required><label class="form-check-label" for="rtcl_radio_2821option-title-1">One
-								Street</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-2"
-								type="radio" name="advantages[]" value="Two Street" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-2">Two
-								Street</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-3"
-								type="radio" name="advantages[]" value="Two Street Corner" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-3">Two
-								Street
-								Corner</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_radio_2821option-title-4"
-								type="radio" name="advantages[]" value="Three Street" required><label
-								class="form-check-label" for="rtcl_radio_2821option-title-4">Three
-								Street</label>
-						</div>
-					</div>
-					<div class='help-block with-errors'>
-					</div>
-					<small class='help-block'>Features</small>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2822" data-type="checkbox">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_checkbox_2822" class="control-label rtcl-cf-label">feat</label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<div class="rtcl-check-list">
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-1"
-								type="checkbox" name="advantages[]" value="Near Services"
-								data-foo='yes'><label class="form-check-label"
-								for="rtcl_checkbox_2822option-title-1">Near
-								Services</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-2"
-								type="checkbox" name="advantages[]" value="Near School"
-								data-foo='yes'><label class="form-check-label"
-								for="rtcl_checkbox_2822option-title-2">Near
-								School</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-3"
-								type="checkbox" name="advantages[]" value="Near Exit"
-								data-foo='yes'><label class="form-check-label"
-								for="rtcl_checkbox_2822option-title-3">Near
-								Exit</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2822option-title-4"
-								type="checkbox" name="advantages[]" value="Near Mosque"
-								data-foo='yes'><label class="form-check-label"
-								for="rtcl_checkbox_2822option-title-4">Near
-								Mosque</label>
-						</div>
-					</div>
-					<div class='help-block with-errors'>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2824" data-type="number">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_number_2824" class="control-label rtcl-cf-label">Room
-					#<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<input type="number" class="rtcl-number form-control rtcl-cf-field" id="rtcl_number_2824"
-						name="num_of_rooms" placeholder="" value="" step="any" min="0" required />
-					<div class='help-block with-errors'>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2825" data-type="number">
-			<div class="col-12 col-sm-3">
-				<label for="num_of_bath" class="control-label rtcl-cf-label">Bathrooms
-					#<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<input type="number" class="rtcl-number form-control rtcl-cf-field" id="num_of_bath"
-						name="num_of_bath" placeholder="" value="" step="any" min="0" required />
-					<div class='help-block with-errors'>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row rtcl-cf-wrap" data-id="_field_2826" data-type="checkbox">
-			<div class="col-12 col-sm-3">
-				<label for="rtcl_checkbox_2826" class="control-label rtcl-cf-label">Features<span>
-						*</span></label>
-			</div>
-			<div class="col-12 rtcl-cf-field-wrap col-sm-9">
-				<div class="form-group">
-					<div class="rtcl-check-list">
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-1"
-								type="checkbox" name="advantages[]" value=">Maids Room" data-foo='yes'
-								required><label class="form-check-label" for="rtcl_checkbox_2826option-title-1">Maids
-								Room</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-2"
-								type="checkbox" name="advantages[]" value="Gym" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-2">Gym</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-3"
-								type="checkbox" name="advantages[]" value="Pool" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-3">Pool</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-4"
-								type="checkbox" name="advantages[]" value="Balcony" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-4">Balcony</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-5"
-								type="checkbox" name="advantages[]" value="Parking" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-5">Parking</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-6"
-								type="checkbox" name="advantages[]" value="Elevator" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-6">Elevator</label>
-						</div>
-						<div class="form-check">
-							<input class="form-check-input rtcl-cf-field" id="rtcl_checkbox_2826option-title-7"
-								type="checkbox" name="advantages[]" value="Store" data-foo='yes'
-								required><label class="form-check-label"
-								for="rtcl_checkbox_2826option-title-7">Store</label>
-						</div>
-					</div>
-					<div class='help-block with-errors'>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row classima-form-des-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Description</label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<div id="wp-description-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
-					<link rel='stylesheet' id='editor-buttons-css'
-						href='https://codedhosting.com/alfuraij/wp-includes/css/editor.min.css?ver=6.4.2'
-						type='text/css' media='all' />
-					<div id="wp-description-editor-tools" class="wp-editor-tools hide-if-no-js">
-						<div class="wp-editor-tabs">
-							<button type="button" id="description-tmce" class="wp-switch-editor switch-tmce"
-								data-wp-editor-id="description">Visual</button>
-							<button type="button" id="description-html" class="wp-switch-editor switch-html"
-								data-wp-editor-id="description">Text</button>
-						</div>
-					</div>
-					<div id="wp-description-editor-container" class="wp-editor-container">
-						<div id="qt_description_toolbar" class="quicktags-toolbar hide-if-no-js">
-						</div>
-						<textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40"
-							name="description" id="description"></textarea>
-					</div>
-				</div>
-
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>50</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="rtcl-post-gallery rtcl-post-section">
-		<div class="classified-listing-form-title">
-			<i class="fa fa-image" aria-hidden="true"></i>
-			<h3>Images</h3>
-		</div>
-
-		<div class="form-group">
-			<div id="rtcl-gallery-upload-ui-wrapper" class="rtcl-browser-frontend">
-				<input type="file" name="images[]" class="form-control" multiple id="">
-
-				<div class="rtcl-gallery-uploads">
-				</div>
-				<div class="description alert alert-danger">
-					<p>Recommended image
-						size to
-						(870x493)px</p>
-					<p>Image maximum
-						size 3 MB.</p>
-					<p>Allowed image
-						type (png, jpg,
-						jpeg).</p>
-					<p>You can upload up
-						to 5 images.</p>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-  		<button type="submit" class="btn btn-primary rtcl-submit-btn">
-			Submit		</button>
-</div>
-
-          `
-        }else if(category == 'commercial_units' || category == 'commercial')
-        {
-          content.replaceChildren();
-          content.innerHTML = `
-          <div class="rtcl-post-details rtcl-post-section rtcl-post-section-info">
-	<div class="classified-listing-form-title">
-		<i class="fa fa-folder-open" aria-hidden="true"></i>
-		<h3>Product Information</h3>
-	</div>
-	<div class="row classima-form-title-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Title<span>
-					*</span></label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<input type="text" data-max-length="3" maxlength="30" class="form-control" value="" id="rtcl-title"
-					name="title" required />
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>30</span>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="rtcl-pricing-wrap">
-		<div class="row" id="rtcl-form-pricing-type-wrap">
-			<div class="col-sm-3 col-12">
-				<label class="control-label">Pricing</label>
-			</div>
-
-		</div>
-		<div id="rtcl-pricing-items" class="rtcl-pricing-price">
-			<div id="rtcl-price-items" class="rtcl-pricing-item">
-				<div class="rtcl-price-item" id="rtcl-price-wrap">
-					<div class="price-wrap">
-						<div class="row">
-							<div class="col-md-3 col-12">
-								<label class="control-label">
-									<span class="price-label">Price
-										[<span class="rtcl-currency-symbol">&#x62f;.&#x643;</span>]</span>
-									<span>
-										*</span>
-								</label>
-							</div>
-							<div class="col-md-9 col-12">
-								<div class="form-group">
-									<input type="text" class="form-control" value="" name="price" id="rtcl-price"
-										required>
-								</div>
-							</div>
-						</div>
-
-
-
-					</div>
-
-				</div>
-				<div class="row" id="rtcl-price-unit-wrap">
-					<div class="col-12 col-sm-3">
-						<label class="control-label">Price
-							Unit</label>
-					</div>
-					<div class="col-12 col-sm-9">
-						<div class="form-group">
-							<select class="form-control rtcl-select2" id="rtcl-price-unit" name="_rtcl_price_unit">
-								<option value="">
-									No
-									unit
-								</option>
-								<option value="month">
-									Month
-									(per
-									month)</label>
-								<option value="total">
-									Total
-									Price
-									(total
-									price)</label>
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-							<div class="col-md-3 col-12">
-								<label class="control-label">
-									<span class="price-label"> Link Number
-										</span>
-									<span>
-										*</span>
-								</label>
-							</div>
-							<div class="col-md-9 col-12">
-								<div class="form-group">
-									<input type="number" class="form-control" value="" name="number" id="rtcl-price"
-										required>
-								</div>
-							</div>
-						</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="rtcl-custom-fields-list" data-post_id="0">
-	</div>
-
-	<div class="rtcl-post-gallery rtcl-post-section">
-		<div class="classified-listing-form-title">
-			<i class="fa fa-image" aria-hidden="true"></i>
-			<h3>Images</h3>
-		</div>
-
-		<div class="form-group">
-			<div id="rtcl-gallery-upload-ui-wrapper" class="rtcl-browser-frontend">
-				<input type="file" name="images[]" class="form-control" multiple id="">
-
-				<div class="rtcl-gallery-uploads">
-				</div>
-				<div class="description alert alert-danger">
-					<p>Recommended image
-						size to
-						(870x493)px</p>
-					<p>Image maximum
-						size 3 MB.</p>
-					<p>Allowed image
-						type (png, jpg,
-						jpeg).</p>
-					<p>You can upload up
-						to 5 images.</p>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-
-	<div class="row classima-form-des-row">
-		<div class="col-sm-3 col-12">
-			<label class="control-label">Description</label>
-		</div>
-		<div class="col-sm-9 col-12">
-			<div class="form-group">
-				<div id="wp-description-wrap" class="wp-core-ui wp-editor-wrap tmce-active">
-					<link rel='stylesheet' id='editor-buttons-css'
-						href='https://codedhosting.com/alfuraij/wp-includes/css/editor.min.css?ver=6.4.2'
-						type='text/css' media='all' />
-					<div id="wp-description-editor-tools" class="wp-editor-tools hide-if-no-js">
-						<div class="wp-editor-tabs">
-							<button type="button" id="description-tmce" class="wp-switch-editor switch-tmce"
-								data-wp-editor-id="description">Visual</button>
-							<button type="button" id="description-html" class="wp-switch-editor switch-html"
-								data-wp-editor-id="description">Text</button>
-						</div>
-					</div>
-					<div id="wp-description-editor-container" class="wp-editor-container">
-						<div id="qt_description_toolbar" class="quicktags-toolbar hide-if-no-js">
-						</div>
-						<textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40"
-							name="description" id="description"></textarea>
-					</div>
-				</div>
-
-				<div class="rtcl-hints">
-					Character limit
-					<span class='target-limit'>50</span>
-				</div>
-			</div>
-		</div>
-	</div>
-
-  		<button type="submit" class="btn btn-primary rtcl-submit-btn">
-			Submit		</button>
-</div>
-          `
-        }
-    }
-</script>
+    const typeSelect            = document.getElementById("rtcl-ad-type");
+    const categorySelection     = document.getElementById("rtcl-ad-category");
+    const ageSelection          = document.getElementById("rtcl-ad-age");
+    const nameSelection         = document.getElementById("rtcl-ad-name");
+    const servicename           = document.getElementById("service-name");
+    const horsename             = document.getElementById("horse-name");
+    const countrySelection      = document.getElementById("rtcl-ad-country");
+    const descriptionSelection  = document.getElementById("rtcl-ad-description");
+    const descriptionsSelection = document.getElementById("rtcl-ad-description-s");
+    const phoneSelection        = document.getElementById("rtcl-ad-phone");
+    const priceSelection        = document.getElementById("rtcl-ad-price");
+    const imageSelection        = document.getElementById("rtcl-ad-image");
+    const videoSelection        = document.getElementById("rtcl-ad-video");
+    const radioSelection        = document.getElementById("rtcl-ad-radio");
+    const radiosSelection       = document.getElementById("rtcl-ad-radio-s");
+    const submitSelection       = document.getElementById("rtcl-ad-submit");
+    const submitsSelection      = document.getElementById("rtcl-ad-submit-s");
+    typeSelect.addEventListener("change", function() {
+      if (this.value === "horse") {
+        categorySelection.style.display     = "block";
+        ageSelection.style.display          = "block";
+        nameSelection.style.display         = "block";
+        servicename.style.display           = "none";
+        horsename.style.display             = "block";
+        countrySelection.style.display      = "block";
+        descriptionSelection.style.display  = "block";
+        descriptionsSelection.style.display = "none";
+        phoneSelection.style.display        = "block";
+        priceSelection.style.display        = "block";
+        imageSelection.style.display        = "block";
+        videoSelection.style.display        = "block";
+        submitSelection.style.display       = "none";
+        submitsSelection.style.display      = "block";
+        radioSelection.style.display        = "none";
+        radiosSelection.style.display       = "block";
+      } else if (this.value === "service"){
+        categorySelection.style.display     = "none";
+        ageSelection.style.display          = "none";
+        nameSelection.style.display         = "block";
+        servicename.style.display           = "block";
+        horsename.style.display             = "none";
+        countrySelection.style.display      = "block";
+        descriptionSelection.style.display  = "block";
+        descriptionsSelection.style.display = "none";
+        phoneSelection.style.display        = "block";
+        priceSelection.style.display        = "block";
+        imageSelection.style.display        = "block";
+        videoSelection.style.display        = "block";
+        submitSelection.style.display       = "block";
+        submitsSelection.style.display      = "none";
+        radioSelection.style.display        = "block";
+        radiosSelection.style.display       = "none";
+      }
+    });
+  </script>
 @endsection
