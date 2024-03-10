@@ -63,7 +63,7 @@
                                                 <select class="rtcl-select2 form-control" name="category_id" >
                                                     <option value="">Select a Category</option>
                                                     @foreach ($categories as $category)
-                                                        @if ($category->parent_id === 2)
+                                                        @if ($category->parent_id == 2)
                                                             <option value="{{ $category->id }}">
                                                                 {{ $category->name }}
                                                             </option>

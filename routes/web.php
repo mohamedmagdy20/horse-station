@@ -60,6 +60,7 @@ use App\Http\Controllers\website\Auth\ForgetPasswordController;
     Route::group(['middleware'=>'auth'],function(){
         Route::get('create', [MainController::class, 'create'])->name('addads');
         Route::post('create-advertisment', [MainController::class, 'storeadd'])->name('storeadd');
+        Route::get('/product/{id}', [MainController::class , 'show'])->name('product.show');
         Route::get('get-category',[AdvertismentController::class,'getCategory'])->name('get-categories');
         Route::post('advertisment/store',[AdvertismentController::class,'store'])->name('ads.store');
         Route::get('favourite/create',[AdvertismentController::class,'addFav'])->name('ads.fav.create');

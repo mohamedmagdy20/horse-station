@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\website\ads;
 use App\Models\Country;
+use App\Models\Product;
 
 class MainController extends Controller
 {
@@ -20,7 +21,10 @@ class MainController extends Controller
     }
     public function main()
     {
-        return view('welcome');
+        $categroy = category::all();
+        $ads      = Advertisment::all();
+        $products = Product::all();
+        return view('welcome',compact( 'categroy','ads','products'));
     }
     public function contact()
     {
@@ -44,11 +48,8 @@ class MainController extends Controller
     }
     public function show($id)
     {
-        $data = Advertisment::with('adsImage')->with('user')->with('Area')->with('Category')->findOrFail($id);
-        // return $data->adsImage;
-        $relatedData =  Advertisment::where('type',$data->type)->get();
-        $currentLocale = app()->getLocale();
-        return view('advertisment.show',['data'=>$data,'relatedData'=>$relatedData,'currentLocale'=>$currentLocale]);
+        $product = Product::findOrFail($id);
+        return view('advertisment.show',compact( 'product' ) );
     }
     public function create()
     {
