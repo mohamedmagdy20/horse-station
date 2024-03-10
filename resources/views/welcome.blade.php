@@ -44,15 +44,27 @@
             </div>
         </div>
 
-
+        {{-- {{$ads}} --}}
         <div class="container">
         <h2>Featured Ads</h2>
         <div class="row">
             @foreach ($ads as $ad)
             <div class="col-sm-3">
               <div class="card">
-                <img src="{{ asset('uploads/advertisments/' . ($ad->images[0] ?? 'default-image.jpg')) }}" class="card-img-top" alt="image">
-                <div class="card-body">
+                @if ($ad->images)
+                @php
+                    $decodedImages = json_decode($ad->images);
+                @endphp
+
+                @if ($decodedImages && is_array($decodedImages) && count($decodedImages) > 0)
+                    <img src="{{ asset('uploads/advertisments/' . $decodedImages[0]) }}" class="card-img-top" alt="image">
+                @else
+                    <img src="{{ asset('path/to/default-image.jpg') }}" class="card-img-top" alt="default image">
+                @endif
+            @else
+                <img src="{{ asset('path/to/default-image.jpg') }}" class="card-img-top" alt="default image">
+            @endif
+                            <div class="card-body">
                     <h5 class="card-title">{{$ad->name}}</h5>
                     @if ($ad->category)
                     <h5 class="card-title">{{$ad->category['name']}}</h5>
