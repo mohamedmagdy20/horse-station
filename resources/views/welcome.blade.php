@@ -85,6 +85,17 @@
 @endsection
 @section('script')
 <script>
-
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+    var currentLocation = window.location.href;
+    var mobileRedirect = 'https://play.google.com/';
+    var desktopRedirect = '/';
+    var redirectKey = isMobileDevice() ? 'mobileRedirected' : 'desktopRedirected';
+    var redirected = sessionStorage.getItem(redirectKey);
+    if (!redirected && ((isMobileDevice() && currentLocation !== mobileRedirect) || (!isMobileDevice() && currentLocation !== desktopRedirect))) {
+        sessionStorage.setItem(redirectKey, 'true');
+        window.location.href = isMobileDevice() ? mobileRedirect : desktopRedirect;
+    }
 </script>
 @endsection
