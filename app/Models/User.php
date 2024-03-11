@@ -32,7 +32,10 @@ class User extends Authenticatable
         'is_verified',
         'remember_token'
     ];
-
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
     public function address()
     {
         return $this->hasMany(Address::class);

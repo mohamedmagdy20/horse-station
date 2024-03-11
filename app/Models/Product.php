@@ -27,12 +27,16 @@ class Product extends Model implements TranslatableContract
         'stock',
         'security_stock'
     ];
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 
     protected $casts = [
         'images'=>'array',
         'videos'=>'array',
         'colors'=>'array',
-        
+
     ];
 
 
@@ -62,5 +66,5 @@ class Product extends Model implements TranslatableContract
         return number_format($convertedPrice, 2);
     }
 
-   
+
 }

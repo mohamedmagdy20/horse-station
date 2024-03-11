@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\CartController as ControllersCartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\CampController;
 use App\Http\Controllers\Dashboard\HomeController;
@@ -63,6 +65,15 @@ use App\Http\Controllers\website\Auth\ForgetPasswordController;
         Route::get('/product/{id}', [MainController::class , 'show'])->name('product.show');
         Route::get('get-category',[AdvertismentController::class,'getCategory'])->name('get-categories');
         Route::post('advertisment/store',[AdvertismentController::class,'store'])->name('ads.store');
+
+        Route::post('/add-to-cart/{id}',   [ControllersCartController::class, 'addToCart'])->name('addToCart');
+        Route::get('/cart',                [ControllersCartController::class, 'showCart'])->name('cart');
+        Route::delete('/cart/{id}',        [ControllersCartController::class, 'removeItem'])->name('removeItem');
+        // Route::post('/checkout',           [FatoorahController::class, 'checkout'])->name('checkout');
+        // Route::get('/callback',            [FatoorahController::class, 'callback'])->name('callback');
+        // Route::get('/errorurl',            [FatoorahController::class, 'errorurl'])->name('errorurl');
+
+
         Route::get('favourite/create',[AdvertismentController::class,'addFav'])->name('ads.fav.create');
         Route::group(['prefix'=>'profile','controller'=>ProfileController::class],function(){
             Route::get('main','index')->name('profile.main');

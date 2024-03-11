@@ -32,10 +32,10 @@
                     <div class="col-lg-3">
                         <div class="card">
                             <img src="{{ asset('uploads/products/' . $prd->images[0]) }}" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body m-auto">
                                 <h5 class="card-title">{{$prd->name}}</h5>
-                                <p class="card-text">{{$prd->description}}</p>
-                                <a href="#" class="btn btn-primary">Select Options</a>
+                                <h6 class="card-title">{{$prd->price}} د . ك</h6>
+                                <a href="#" class="btn btn-dark">Select Options</a>
                             </div>
                         </div><br>
                     </div>
