@@ -65,29 +65,41 @@ class AdvertismentController extends Controller
             'message'=>'Success'
         ]);
     }
-    public function show(Request $request ,$id)
+    public function show(Request $request, $id)
     {
-
-        if($request->header('locale'))
-        {
+        if ($request->header('locale')) {
             App::setLocale($request->header('locale'));
-        }else{
+        } else {
             App::setLocale('ar');
         }
+
         $data = $this->model->find($id);
+
         if ($data) {
-            $data['price'] = $data->getPriceInCurrency($request->sign , $data->price);
+            $data['price'] = $data->getPriceInCurrency($request->sign, $data->price);
+
+            // Convert the JSON-encoded string to an array of URLs
+            $dataImages = [];
+            if ($data['images'] !== null) {
+                $decodedImages = json_decode($data['images']);
+                if (is_array($decodedImages) || is_object($decodedImages)) {
+                    foreach ($decodedImages as $image) {
+                        $dataImages[] = asset('uploads/advertisments/' . $image);
+                    }
+                }
+                $data['images'] = $dataImages;
+            }
+
             return response()->json([
-                'data'=> new AdvertismentDetailsResource($data),
-                'status'=>200,
-                'message'=>'Success'
+                'data' => $data,
+                'status' => 200,
+                'message' => 'Success'
             ]);
-        }
-        else
-        {
-         return response()->json(['data'=>null , 'status'=>404,'message'=>"Not Found"], 404);
+        } else {
+            return response()->json(['data' => null, 'status' => 404, 'message' => "Not Found"], 404);
         }
     }
+
     public function store(AdvertismentRequest $request){
         $data = $request->validated();
         try{

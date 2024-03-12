@@ -31,20 +31,20 @@ class AdvertismentDetailsResource extends JsonResource
         }
         $images = $this->images;
         $dataImages = [];
-        if($images != null)
-        {
-            foreach($images as $image)
-            {
-                $dataImages [] = asset('uploads/advertisments/'.$image);
+        if ($images !== null) {
+            if (is_array($images) || is_object($images)) {
+                foreach ($images as $image) {
+                    $dataImages[] = asset('uploads/advertisments/' . $image);
+                }
             }
         }
         $videos = $this->videos;
         $dataVideos = [];
-        if($videos != null)
-        {
-            foreach($videos as $item)
-            {
-                $dataVideos [] = asset('uploads/videos/'.$item);
+        if ($videos !== null) {
+            if (is_array($videos) || is_object($videos)) {
+                foreach ($videos as $item) {
+                    $dataVideos[] = asset('uploads/videos/' . $item);
+                }
             }
         }
         return [
@@ -68,13 +68,4 @@ class AdvertismentDetailsResource extends JsonResource
         ];
     }
 }
-        // if (!empty($this->images)) {
-        //     $dataImages = is_array($this->images)
-        //         ? array_map(fn($image) => asset('uploads/advertisments/' . $image), $this->images)
-        //         : [asset('uploads/advertisments/' . $this->images)];
-        // }
-        // $videos = $this->videos;
-        // $dataVideos = [];
-        // $dataVideos = is_array($this->videos)
-        //     ? implode(',', array_map(fn($video) => asset('uploads/advertisments/' . $video), $this->videos))
-        //     : $this->videos;
+
