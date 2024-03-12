@@ -35,9 +35,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('banners',[BannerController::class,'getAll']);
     Route::get('main-category',[CategoryController::class,'getMainCategory']);
     Route::get('featured-product',[ProductController::class,'featuredProduct']);
-    Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
+     Route::get('featured-advertisment',[AdvertismentController::class,'featuredAds']);
     Route::get('advertisments',[AdvertismentController::class,'index']);
-    Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
+     Route::get('get-subcategory/{id}',[ApiCategoryController::class,'getSubCategory']);
     Route::get('categories',[ApiCategoryController::class,'getCategoryByType']);
     Route::get('product/{id}',[ProductController::class,'show']);
     Route::get('advertisment/{id}',[AdvertismentController::class,'show']);
@@ -55,7 +55,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('advertisment/setunsold',[AdvertismentController::class,'setAsUnSold']);
 
     Route::group(['prefix'=>'favourite','controller'=>ProductController::class],function(){
-        Route::get('/','favourite');
+         Route::get('/','favourite');
         Route::post('/create','addFav');
         Route::delete('/delete/{id}','deleteFav');
     });

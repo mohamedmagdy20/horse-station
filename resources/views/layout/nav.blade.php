@@ -263,9 +263,15 @@
                                     <a href="{{route('addads')}}"
                                         class="elementor-icon elementor-animation-" tabindex="-1">
                                         <i aria-hidden="true" class="fas fa-plus"></i> </a>
-
-
                                 </div>
+
+                                <div class="elementor-icon-box-icon">
+                                    <a href="{{route('cart')}}"
+                                        class="elementor-icon elementor-animation-" tabindex="-1">
+                                        <i aria-hidden="true" class="fas fa-shopping-bag"></i></a>
+                                    </div>
+
+
                                 <div class="elementor-icon-box-icon">
                                     <a href="{{route('logout')}}"
                                         class="elementor-icon elementor-animation-" tabindex="-1">

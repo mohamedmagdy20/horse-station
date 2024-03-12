@@ -110,13 +110,13 @@ class ProductController extends Controller
         if($request->type == 'product')
         {
             $dd =  $this->favModel->firstOrCreate([
-                'product_id'=>$request->item_id,
+                'product_id'=>$request->product_id,
                 'user_id'=>auth()->user()->id
             ]);
         }else if($request->type == 'advertisment')
         {
           $dd = $this->fav->firstOrCreate([
-                'advertisment_id'=>$request->item_id,
+                'advertisment_id'=>$request->advertisment_id,
                 'user_id'=>auth()->user()->id
             ]);
         }

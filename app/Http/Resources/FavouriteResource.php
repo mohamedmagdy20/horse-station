@@ -22,6 +22,7 @@ class FavouriteResource extends JsonResource
                 'category' => $this->advertisment->category->name,
                 'price' => $this->price,
                 'type' => $this->type,
+                'is_sold' => $this->is_sold !== null ? $this->is_sold : 0,
                 'image' => $this->advertisment->images != null ? asset('uploads/advertisments/'.$this->advertisment->images[0]) : asset('default.png'),
             ];
         } elseif ($this->type == 'product' && $this->product) {
@@ -37,7 +38,7 @@ class FavouriteResource extends JsonResource
         } else {
             // Handle the case where $this->advertisment or $this->product is null.
             return [
-                'id' => null,
+                'id' => 1,
                 'item_id' => $this->id,
                 'name' => 'Unknown',
                 'category' => 'Unknown',
